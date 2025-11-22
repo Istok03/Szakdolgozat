@@ -1,13 +1,103 @@
-.btn-purple{
-    background-color: #a855f7;
-    color: #fff;
+/* Alapstílusok */
+@import url('https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
+
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family:  sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+    background-color:#6A5ACD;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.register-container {
+    max-width: 500px;
+    width: 100%;
+    padding: 25px;
+    background-color: rgba(255, 255, 255, 0.75);
+    
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+
+.logo-container {
+    margin-bottom: 20px;
+}
+
+#logo {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+}
+
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+label {
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-top: 12px;
+    text-align: left;
+}
+
+
+.x-primary-button {
+    background-color: rgba(255, 255, 255, 0.75) ;
     border: none;
+    padding: 15px 30px;
+    margin-top: 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    width: 100%;
 }
 
-.btn-purple:hover{
-    background-color: #9333ea;
+.x-primary-button:hover {
+    background-color: #ff6b6b;
+    transform: scale(1.05);
 }
 
-border-purple{
-    border: 1px solid #a855f7
+/* Linkek */
+a {
+    color: #ff4b4b;
+    text-decoration: underline;
+    display: block;
+    margin-top: 12px;
+}
+
+a:hover {
+    color: #ff6b6b;
+}
+
+/* Animáció */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

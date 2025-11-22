@@ -5,18 +5,19 @@
 @section('content')
 <div class="container py-5">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-5">
             <div class="card shadow-sm">
-                <div class="card-header text-center bg-success text-white">
-                    <h4>Regisztráció</h4>
+                <div class="card border-0 shadow-sm bg-dark text-light">
+                      <div class="card-body">    
+                <h4 class="mb-4 text-center text-purple">Regisztráció</h4>
                 </div>
-                <div class="card-body">
+              
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
                         <div class="mb-3">
-                            <label for="name" class="form-label">Név</label>
-                            <input type="text" name="name" class="form-control" required>
+                            <label for="name" class="form-label text-light">Név</label>
+                            <input type="text" name="name" class="form-control bg-dark text-light border-purple" required>
                             @error('name')
                                 <div class="text-danger small">{{ $message }}</div>
                             @enderror
