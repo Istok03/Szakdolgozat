@@ -3,7 +3,7 @@
 @section('title', 'Bejelentkezés')
 
 @section('content')
-<link rel="stylesheet" href="login.css">
+<link rel="stylesheet" href="{{ asset('css/login.css') }}">
 <div class="register-container">
     <div class="logo-container">
         <img id="logo" src="{{ asset('images/logo.png') }}" alt="Logo">
