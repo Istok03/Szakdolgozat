@@ -1,95 +1,84 @@
-@import url('https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sour+Gummy:wght@400;700&display=swap');
 
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family:  sans-serif;
+    background-color: #6A5ACD;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-    body, html {
-        margin: 0;
-        padding: 0;
-        font-family: sans-serif;
-        font-optical-sizing: auto;
-        font-style: normal;
-        font-variation-settings: "wdth" 100;
-        background-color: #6A5ACD !important;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-    
+.register-container {
+  width: 80vw;
+    max-width: 900px;
+    height: 400px;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: 40px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+.logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
 
-    
-    .register-container {
-        max-width: 500px;
-        width: 100%;
-        padding: 25px;
-        background-color: rgba(255, 255, 255, 0.75)!important;
-        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-        text-align: center;
-        animation: fadeIn 0.5s ease-in-out;
-    }
-    
+.logo-container img {
+    max-width: 120px;
+    height: auto;
+}
 
-   
-    .logo-container {
-        margin-bottom: 20px; 
-    }
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+}
 
-    #logo{
-        width: 100%;
-        max-width: 200px;
-        height: auto;
-    }
-    
-    
-    
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 16px;
+    color: #333;
+}
 
-    input[type="text"],
-    input[type="email"],
-    input[type="password"] {
-        width: 100%;
-        padding: 10px;
-        margin-top: 8px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        box-sizing: border-box;
-        font-size: 16px;
-    }
+.x-primary-button {
+    background-color: #fff !important;
+    border: none;
+    padding: 12px 24px;
+    margin-top: 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    width: 100%;
+}
 
-    label {
-        font-weight: bold;
-        color: white;
-        display: block;
-        margin-top: 12px;
-        text-align: left;
-    }
+.x-primary-button:hover {
+    background-color: #ff6b6b !important;
+    transform: scale(1.05);
+}
 
-    
-    .register-button {
-        background-color: #ff4b4b; 
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        margin-top: 15px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 16px;
-        width: 100%; 
-    }
+.login-link {
+    display: block;
+    text-align: center;
+    margin-top: 12px;
+    color: #ff4b4b;
+    text-decoration: underline;
+}
 
-    
-    .register-link {
-        display: block;
-        margin-top: 12px;
-        color: #ff4b4b; 
-        text-decoration: underline;
-        text-align: center; 
-    }
-
-    .register-link:hover {
-        color: #ff6b6b;
-    }
-
-    .watermark{
+.watermark{
     position: fixed; 
     bottom: 0; 
     left: 50%; 
@@ -101,41 +90,8 @@
     z-index: 1000; 
     }
 
-    .x-primary-button {
-        background-color: #ff4b4b;
-        color: white;
-        border: none;
-        padding: 15px 30px;
-        margin-top: 20px;
-        border-radius: 25px;
-        cursor: pointer;
-        font-size: 18px;
-        transition: all 0.3s ease;
-        width: 100%;
-    }
-    
-    .x-primary-button:hover {
-        background-color: #ff6b6b;
-        transform: scale(1.05);
-    }
-    a {
-        color: #ff4b4b;
-        text-decoration: underline;
-        display: block;
-        margin-top: 12px;
-    }
-    
-    a:hover {
-        color: #ff6b6b;
-    }
 
-    @keyframes fadeIn {
-        0% {
-            opacity: 0;
-            transform: translateY(-50px);
-        }
-        100% {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}

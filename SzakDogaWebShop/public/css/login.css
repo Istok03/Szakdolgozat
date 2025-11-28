@@ -3,7 +3,7 @@
 body, html {
     margin: 0;
     padding: 0;
-    font-family: 'Sour Gummy', sans-serif;
+    font-family:  sans-serif;
     background-color: #6A5ACD;
     min-height: 100vh;
     display: flex;
@@ -74,6 +74,19 @@ button:hover {
     background-color: #ff6b6b;
     transform: scale(1.05);
 }
+
+.watermark{
+    position: fixed; 
+    bottom: 0; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    padding: 10px;
+    color: black;
+    font-size: 14px; 
+    text-align: center; 
+    z-index: 1000; 
+    }
+
 
 a {
     color: #ff4b4b;
