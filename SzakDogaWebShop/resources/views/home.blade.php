@@ -1,8 +1,17 @@
 @extends('layouts.app')
 
-@section('title', 'Főoldal')
-
 @section('content')
-    <h1>Üdvözöllek a webshopban</h1>
-    <p>Itt találod a termékeket</p>
-@endsection    
+    <div class="hero">
+            <h1>Üdvözöljük Istók informatikai webboltjában</h1>
+            <p>Fedezd fel a legjobb ajánlatokat</p>
+            <a href="/offers" class="cta-button">Akciók megtekintése</a>
+    </div>
+
+    <div class="featured-products">
+            <h2>Kiemelt termékek</h2>
+            <div class="product-grid">
+                    <!-- Fontosabb termékek majd ideteszem oket -->
+            </div>
+    </div>
+
+@endsection
