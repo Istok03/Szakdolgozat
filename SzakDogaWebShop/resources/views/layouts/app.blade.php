@@ -18,7 +18,9 @@
             @yield('content')
         </main>
 
-        @include('layouts.footer')
+        <div class="watermark">
+            <p>&copy; 2025 Istok's IT store. Minden jog fenntartva.</p>
+        </div>
     </div>
 </body>
 </html>

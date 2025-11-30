@@ -71,7 +71,7 @@ button {
 }
 
 button:hover {
-    background-color: #ff6b6b;
+    background-color: #6A5ACD;
     transform: scale(1.05);
 }
 
@@ -89,7 +89,7 @@ button:hover {
 
 
 a {
-    color: #ff4b4b;
+    color: #6A5ACD;
     text-decoration: underline;
     display: block;
     margin-top: 12px;
