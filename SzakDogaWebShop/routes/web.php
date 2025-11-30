@@ -7,6 +7,23 @@ Route::get('/', function () {
     return view('home');
 });
 
+Route::get('/products', function () {
+    return view('products');
+})->name('products');
+
+Route::get('/offers', function () {
+    return view('sales');
+})->name('offers');
+
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
+
+Route::get('/cart', function () {
+    return view('cart');
+})->name('cart');
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
