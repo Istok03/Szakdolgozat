@@ -300,3 +300,68 @@ body,html{
 .sale-card button:hover {
     background-color: #5a4ac0;
 }
+
+.contact-page{
+    max-width: 800px;
+    margin: 40px auto;
+    color:white;
+    text-align: center;
+}
+
+.contact-page h1{
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.contact-page p{
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.contact-info{
+    background: rgba(255,255,255,0.1);
+    padding:20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.contact-form{
+    background: white;
+    color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.contact-form .form-group{
+    margin-bottom: 15px;
+    text-align: left;
+}
+.contact-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.contact-form button {
+    background-color: #6A5ACD;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+    background-color: #5a4ac0;
+}
