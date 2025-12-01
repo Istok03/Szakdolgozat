@@ -152,3 +152,151 @@ body,html{
 .cart-icon:hover{
     transform: scale(1.1);
 }
+
+.products-page{
+    max-width: 1000px;
+    margin: 40px auto;
+    text-align: center;
+    color:white
+}
+
+.products-page h1{
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.products-page p{
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.product-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.product-card{
+    background: white;
+    color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.product-card:hover{
+    transform: scale(1.03);
+}
+
+.product-card img{
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.product-card h3{
+    font-size: 18px;
+    margin-bottom:5px;
+}
+
+.product-card button{
+    background-color: #6A5ACD;
+    color:white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.product-card button:hover{
+    background-color: #5a4ac0;
+}
+
+
+.sales-page{
+    max-width: 1000px;
+    margin: 40px auto;
+    text-align: center;
+    color:white;
+}
+
+.sales-page h1{
+   font-size: 32px; 
+    margin-bottom: 10px;
+}
+.sales-page p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.sales-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.sale-card {
+    background: white;
+    color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: relative;
+    transition: transform 0.2s ease-in-out;
+}
+
+.sale-card:hover {
+    transform: scale(1.03);
+}
+
+.sale-card img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.sale-card h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.sale-card .old-price {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 14px;
+}
+
+.sale-card .sale-price {
+    color: #e63946; /* piros ár */
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.sale-card .badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #e63946;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.sale-card button {
+    background-color: #6A5ACD;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.sale-card button:hover {
+    background-color: #5a4ac0;
+}

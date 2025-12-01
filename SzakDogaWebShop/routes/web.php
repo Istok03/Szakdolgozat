@@ -34,4 +34,34 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/offers', function(){
+    $sales = [
+        [
+            'name' => 'Gaming Laptop',
+            'image' =>'images/products/laptop.png',
+            'old_price' => 399000,
+            'sale_price' => 299000,
+            'discount' => 25
+        ],
+        [
+            'name' => 'RGB Egér',
+            'image' => 'images/product/mouse.png',
+            'old_price'=>12990,
+            'sale_price' => 9990,
+            'discount' => 20
+        ],
+        [
+            'name' => 'Gaming Headset',
+            'image' => 'images/product/headset.png',
+            'old_price'=>24990,
+            'sale_price' => 19990,
+            'discount' => 20
+        ],
+    ];
+
+    return view('sales', compact('sales'));
+})->name('offers');
+
+
+
 require __DIR__.'/auth.php';
