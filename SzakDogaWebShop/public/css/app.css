@@ -365,3 +365,157 @@ body,html{
 .contact-form button:hover {
     background-color: #5a4ac0;
 }
+
+.cart-page{
+    max-width: 900px;
+    margin: 40px auto;
+    color: white;
+    text-align: center;
+}
+
+.cart-page h1{
+    font-size: 32px;
+    margin-bottom:10px;
+}
+
+.cart-items{
+    margin: 30px 0;
+}
+
+.cart-item{
+    display: flex;
+    align-items: center;
+    background: white;
+    color:#333;
+    padding:15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.cart-item img{
+    width: 80px;
+    height: auto;
+    margin-right: 20px;
+}
+
+.item-details{
+    flex:1;
+    text-align: left;
+}
+
+.remove-btn{
+    background: #e63946;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: backgroud-color 0.3s ease;
+}
+
+.remove-btn:hover{
+    background: #c53030;
+}
+
+.cart-summary{
+    margin-top: 30px;
+    background: rgba(255,255,255,0.1);
+    padding:20px;
+    border-radius: 10px;
+}
+
+cart-actions{
+    margin-top:20px;
+    display:flex;
+    justify-content: center;
+    gap:20px;
+}
+
+.continue-btn, .checkout-btn{
+    background-color: #6A5ACD;
+    color:white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius:20px;
+    transition: background-color 0.3s ease;
+}
+
+.continue-btn:hover, .checkout-btn:hover{
+    background-color: #5a4ac0;
+}
+
+.payment-page{
+    max-width: 1000px;
+    margin: 40px auto;
+    color: white;
+    text-align: center;
+}
+
+.payment-page h1{
+    font-size: 32;
+    margin-bottom: 10px;
+}
+
+.payment-container{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.billing-info, .payment-method, .order-summary{
+    background: white;
+    color:#333;
+    padding: 20px;    
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: left;
+}
+
+.billing-info h2, .payment-method h2, .order-summary h2{
+    margin-bottom: 15px;
+}
+
+.form-group{
+    margin-bottom: 15px;
+}
+
+.form-group label{
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input[type = "text"],
+.form-group input[type = "email"]{
+    width: 100%;
+    padding:10px;
+    border:1px solod #ccc;
+    border-radius: 5px;
+    
+}
+
+.order-summary ul{
+    list-style: none;
+    padding: 0;
+    margin-bottom: 15px;
+}
+
+.order-summary li{
+    margin-bottom: 5px;
+}
+
+.pay-btn{
+    background-color: #6A5ACD;
+    color:white;
+    border:none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor:pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pay-btn:hover{
+    background-color: #5a4ac0;
+}
