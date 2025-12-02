@@ -7,7 +7,7 @@
 
         <div class="contact-info">
             <p><strong>Email:</strong> info@istokstore.hu</p>
-            <p><strong>Telefon:</strong> +36 30 123 4567</p>
+            <p><strong>Telefon:</strong> +36 50 123 4567</p>
             <p><strong>Cím:</strong> 3300 Eger, Példa utca 12.</p>
         </div>
 

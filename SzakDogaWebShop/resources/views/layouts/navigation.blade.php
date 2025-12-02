@@ -1,6 +1,6 @@
 <nav class="navbar">
         <div class="logo">
-            <a><link href="/">Istok's IT store</a>
+            <a href="/">Istok's IT store</a>
         </div>
 <ul class="nav-links">
     <li><a href="/">Főoldal</a></li>

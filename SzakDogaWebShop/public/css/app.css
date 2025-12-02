@@ -75,7 +75,7 @@ body,html{
     width: 100%;
 }
 
-.hero{
+.home-page{
     text-align: center;
     padding: 60px 20px;
     background: #dee2ff;
@@ -84,14 +84,18 @@ body,html{
     max-width: 900px;
 }
 
-.hero h1{
+.home-page h1{
     font-size: 36px;
     margin-bottom: 10px;
 }
 
-.hero p{
+.home-page p{
     font-size: 18px;
     margin-bottom: 20px;
+}
+
+.featured-products h2{
+    color:white;
 }
 
 .cta-button{

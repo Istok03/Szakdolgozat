@@ -13,9 +13,14 @@ class ProductController extends Controller
         return view('products', compact('products'));
     }
 
-    public function sales()
-{
+    public function sales(){
     $products = Product::where('discount', '>', 0)->get();
     return view('sales', compact('products'));
 }
+
+public function home(){
+    $products = Product::orderBy('created_at','desc')->take(4)->get();
+    return view('home', compact('products'));
+}
+
 }
