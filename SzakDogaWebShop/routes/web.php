@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +26,8 @@ Route::get('/cart', function () {
 Route::get('/payment', function () {
     return view('payment');
 })->name('payment');
+
+Route::get('/products', [ProductController::class, 'index'])->name('products');
 
 
 Route::get('/dashboard', function () {

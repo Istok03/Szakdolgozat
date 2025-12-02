@@ -6,33 +6,23 @@
         <p>Válogass az informatikai eszközök széles kínálatából</p>
 
         <div class="product-grid">
-            <div class="product-card">
-                <img src="{{ asset('images/products/laptop.png') }}" alt="Laptop">
-                <h3>Gaming Laptop</h3>
-                <p>Ár: 349 000 Ft</p>
-                <button>Kosárba</button>
-            </div>
-
-            <div class="product-card">
-                <img src="{{ asset('images/products/mouse.png') }}" alt="Egér">
-                <h3>RGB Egér</h3>
-                <p>Ár: 12 990 Ft</p>
-                <button>Kosárba</button>
-            </div>
-
-            <div class="product-card">
-                <img src="{{ asset('images/products/keyboard.png') }}" alt="Billentyűzet">
-                <h3>Mechanikus Billentyűzet</h3>
-                <p>Ár: 24 990 Ft</p>
-                <button>Kosárba</button>
-            </div>
-
-            <div class="product-card">
-                <img src="{{ asset('images/products/headset.png') }}" alt="Fejhallgató">
-                <h3>Gaming Headset</h3>
-                <p>Ár: 19 990 Ft</p>
-                <button>Kosárba</button>
-            </div>
+            @foreach($products as $product)
+                <div class="product-card">
+                    <img src="{{ asset($product->image) }}" alt="{{ $product->name }}">
+                    <h3>{{ $product->name }}</h3>
+                    <p>{{ $product->description }}</p>
+                    @if($product->discount)
+                        <p class="old-price">{{ number_format($product->price, 0, ',', ' ') }} Ft</p>
+                        <p class="sale-price">
+                            {{ number_format($product->price * (1 - $product->discount/100), 0, ',', ' ') }} Ft
+                        </p>
+                        <span class="badge">-{{ $product->discount }}%</span>
+                    @else
+                        <p>Ár: {{ number_format($product->price, 0, ',', ' ') }} Ft</p>
+                    @endif
+                    <button>Kosárba</button>
+                </div>
+            @endforeach
         </div>
     </div>
 @endsection
