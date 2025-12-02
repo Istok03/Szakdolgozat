@@ -7,14 +7,6 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/products', function () {
-    return view('products');
-})->name('products');
-
-Route::get('/offers', function () {
-    return view('sales');
-})->name('offers');
-
 Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
@@ -27,8 +19,11 @@ Route::get('/payment', function () {
     return view('payment');
 })->name('payment');
 
-Route::get('/products', [ProductController::class, 'index'])->name('products');
+Route::get('/products', [ProductController::class, 'index'
+])->name('products');
 
+Route::get('/offers', [ProductController::class, 'sales'])
+->name('offers');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -40,33 +35,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/offers', function(){
-    $sales = [
-        [
-            'name' => 'Gaming Laptop',
-            'image' =>'images/products/laptop.png',
-            'old_price' => 399000,
-            'sale_price' => 299000,
-            'discount' => 25
-        ],
-        [
-            'name' => 'RGB Egér',
-            'image' => 'images/product/mouse.png',
-            'old_price'=>12990,
-            'sale_price' => 9990,
-            'discount' => 20
-        ],
-        [
-            'name' => 'Gaming Headset',
-            'image' => 'images/product/headset.png',
-            'old_price'=>24990,
-            'sale_price' => 19990,
-            'discount' => 20
-        ],
-    ];
-
-    return view('sales', compact('sales'));
-})->name('offers');
 
 
 

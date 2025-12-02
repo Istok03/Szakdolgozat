@@ -13,26 +13,27 @@ class ProductSeeder extends Seeder
     {
         Product::create([
             'name' => 'Asus Gaming Laptop',
-            'description' => 'Érős gamer laptop RTX 3050-el',
+            'image'=> 'images/products/laptop.png',
             'price'=>'399000',
             'discount' => 25,
-            'image'=> 'images/products/laptop.png',
+            'description' => 'Érős gamer laptop RTX 3050-el',
         ]);
 
         Product::create([
             'name' => 'Wireless SteelSeries egér',
-            'description' => 'Wireless steel series egér',
+            'image'=> 'images/products/SSegér.png',
             'price'=>'20000',
             'discount' => 20,
-            'image'=> 'images/products/SSegér.png',
+            'description' => 'Wireless steel series egér',
         ]);
 
           Product::create([
             'name' => 'JBL wireless headset',
-            'description' => 'Wireless JBL headset',
+            'image'=> 'images/products/JBLHS.png',
             'price'=>'25000',
             'discount' => 15,
-            'image'=> 'images/products/JBLHS.png',
+            'description' => 'Wireless JBL headset',
+          
         ]);
 
     }

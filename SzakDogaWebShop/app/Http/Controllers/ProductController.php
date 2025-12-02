@@ -12,4 +12,10 @@ class ProductController extends Controller
         $products = Product::all();
         return view('products', compact('products'));
     }
+
+    public function sales()
+{
+    $products = Product::where('discount', '>', 0)->get();
+    return view('sales', compact('products'));
+}
 }

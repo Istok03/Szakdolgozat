@@ -2,20 +2,30 @@
 
 @section('content')
     <div class="sales-page">
-        <h1>Akciós ajánlatok</h1>
-        <p>Ne hagyd ki a legjobb kedvezményeket!</p>
+        <h1>Akciós termékeink</h1>
+        <p>Csak a kedvezményes ajánlatok, ne maradj le!</p>
 
-        <div class="sales-grid">
-            @foreach($sales as $item)
-                <div class="sale-card">
-                    <img src="{{ asset($item['image']) }}" alt="{{ $item['name'] }}">
-                    <h3>{{ $item['name'] }}</h3>
-                    <p class="old-price">{{ number_format($item['old_price'], 0, ',', ' ') }} Ft</p>
-                    <p class="sale-price">{{ number_format($item['sale_price'], 0, ',', ' ') }} Ft</p>
-                    <span class="badge">-{{ $item['discount'] }}%</span>
-                    <button>Kosárba</button>
+        <div class="product-grid">
+            @forelse($products as $product)
+                <div class="product-card">
+                    <img src="{{ asset($product->image) }}" alt="{{ $product->name }}">
+                    <h3>{{ $product->name }}</h3>
+
+                    @if($product->description)
+                        <p class="description">{{ Str::limit($product->description, 60) }}</p>
+                    @endif
+
+                    <p class="old-price">{{ number_format($product->price, 0, ',', ' ') }} Ft</p>
+                    <p class="sale-price">
+                        {{ number_format($product->price * (1 - $product->discount/100), 0, ',', ' ') }} Ft
+                    </p>
+                    <span class="badge">-{{ $product->discount }}%</span>
+
+                    <button class="cart-btn">Kosárba</button>
                 </div>
-            @endforeach
+            @empty
+                <p>Nincs jelenleg akciós termék.</p>
+            @endforelse
         </div>
     </div>
 @endsection

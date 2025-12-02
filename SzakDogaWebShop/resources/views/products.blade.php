@@ -3,14 +3,18 @@
 @section('content')
     <div class="products-page">
         <h1>Termékeink</h1>
-        <p>Válogass az informatikai eszközök széles kínálatából</p>
+        <p class="subtitle">Modern informatikai eszközök, akciós ajánlatokkal</p>
 
         <div class="product-grid">
             @foreach($products as $product)
                 <div class="product-card">
                     <img src="{{ asset($product->image) }}" alt="{{ $product->name }}">
                     <h3>{{ $product->name }}</h3>
-                    <p>{{ $product->description }}</p>
+
+                    @if($product->description)
+                        <p class="description">{{ Str::limit($product->description, 60) }}</p>
+                    @endif
+
                     @if($product->discount)
                         <p class="old-price">{{ number_format($product->price, 0, ',', ' ') }} Ft</p>
                         <p class="sale-price">
@@ -18,9 +22,10 @@
                         </p>
                         <span class="badge">-{{ $product->discount }}%</span>
                     @else
-                        <p>Ár: {{ number_format($product->price, 0, ',', ' ') }} Ft</p>
+                        <p class="price">{{ number_format($product->price, 0, ',', ' ') }} Ft</p>
                     @endif
-                    <button>Kosárba</button>
+
+                    <button class="cart-btn">Kosárba</button>
                 </div>
             @endforeach
         </div>

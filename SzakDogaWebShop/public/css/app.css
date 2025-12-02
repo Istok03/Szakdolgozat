@@ -119,14 +119,20 @@ body,html{
 
 .product-grid{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
 }
 .product-grid div{
     background: #dee2ff;
     padding: 20px;
     border-radius: 10px;
     box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+
+.subtitle{
+    font-size:18px;
+    margin-bottom: 30px;
+    color: #ccc;
 }
 
 .watermark {
@@ -154,10 +160,10 @@ body,html{
 }
 
 .products-page{
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 40px auto;
     text-align: center;
-    color:white
+    color:white;
 }
 
 .products-page h1{
@@ -172,17 +178,21 @@ body,html{
 
 .product-grid{
     display:grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
 }
 
 .product-card{
     background: white;
     color: #333;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 12px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    transition: transform 0.2s ease-in-out;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 420px;
+    position: relative;
 }
 
 .product-card:hover{
@@ -190,13 +200,13 @@ body,html{
 }
 
 .product-card img{
-    width: 100%;
-    height: auto;
+    max-height: 160px;
+    object-fit: contain;
     margin-bottom: 10px;
 }
 
 .product-card h3{
-    font-size: 18px;
+    font-size: 20px;
     margin-bottom:5px;
 }
 
@@ -212,6 +222,38 @@ body,html{
 
 .product-card button:hover{
     background-color: #5a4ac0;
+}
+
+.description{
+    font-size: 14px;
+    color:#666;
+    margin-bottom: 10px;
+    height: 40px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+}
+
+.old-price{
+    text-decoration: line-through;
+    color:#999;
+    font-size: 14px;
+}
+
+.sale-price, .price{
+    font-size: 18px;
+    font-weight: bold;
+    color:#6A5ACD;
+}
+
+.badge{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #ff4d4d;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
 }
 
 
@@ -399,6 +441,21 @@ body,html{
     margin-right: 20px;
 }
 
+.cart-btn{
+    margin-top:auto;
+    background-color: #6A5ACD;
+    color: white;
+    border: none;
+    padding:10px;
+    border-radius: 20px;
+    cursor:pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cart-btn:hover{
+    background-color: #5a4ac0;
+}
+
 .item-details{
     flex:1;
     text-align: left;
@@ -425,7 +482,7 @@ body,html{
     border-radius: 10px;
 }
 
-cart-actions{
+.cart-actions{
     margin-top:20px;
     display:flex;
     justify-content: center;
