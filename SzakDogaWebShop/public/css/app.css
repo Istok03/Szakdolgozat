@@ -133,6 +133,67 @@ body,html{
     box-shadow:0 2px 5px rgba(0,0,0,0.1);
 }
 
+.filter-toggle {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    z-index: 100;
+    color: black;
+}
+
+.filter-btn {
+    background-color: #6c63ff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.filter-panel {
+    position: fixed;
+    top: 150px;
+    right: 20px;
+    width: 280px;
+    background: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    display: none;
+    z-index: 99;
+    border-radius: 8px;
+      color: black;
+}
+
+.filter-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.checkbox-group {
+    flex-direction: row;
+    align-items: center;
+}
+
+.apply-btn {
+    background-color: #4caf50;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+
+
+
 .subtitle{
     font-size:18px;
     margin-bottom: 30px;

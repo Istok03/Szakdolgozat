@@ -11,28 +11,56 @@ class ProductSeeder extends Seeder
 {
     public function run(): void
     {
-        Product::create([
-            'name' => 'Asus Gaming Laptop',
-            'image'=> 'images/products/laptop.png',
+        Product::updateOrCreate(
+            ['name' => 'Asus Gaming Laptop'],
+           [ 'image'=> 'images/products/laptop.png',
             'price'=>'399000',
             'discount' => 25,
             'description' => 'Érős gamer laptop RTX 3050-el',
         ]);
 
-        Product::create([
-            'name' => 'Wireless SteelSeries egér',
-            'image'=> 'images/products/SSegér.png',
+        Product::updateOrCreate(
+            ['name' => 'Wireless SteelSeries egér'],
+            ['image'=> 'images/products/SSegér.png',
             'price'=>'20000',
             'discount' => 20,
             'description' => 'Wireless steel series egér',
         ]);
 
-          Product::create([
-            'name' => 'JBL wireless headset',
+          Product::updateOrCreate(
+            ['name' => 'JBL wireless headset'],
+            [
             'image'=> 'images/products/JBLHS.png',
             'price'=>'25000',
             'discount' => 15,
             'description' => 'Wireless JBL headset',
+          
+        ]);
+
+            Product::updateOrCreate(
+            ['name' => 'HyperX headset'],
+           [ 'image'=> 'images/products/JBLHS.png',
+            'price'=>'45000',
+            'discount' => 15,
+            'description' => 'Wireless HyperX headset',
+          
+        ]);
+
+             Product::updateOrCreate(
+           [ 'name' => 'Wireless Logitech X '],
+           [ 'image'=> 'images/products/JBLHS.png',
+            'price'=>'55000',
+            'discount' => 0,
+            'description' => 'Wireless Logitech egér headset',
+          
+        ]);
+
+            Product::updateOrCreate(
+           [ 'name' => 'Random'],
+           [ 'image'=> 'images/products/JBLHS.png',
+            'price'=>'25000',
+            'discount' => 0,
+            'description' => 'Wireless xd headset',
           
         ]);
 
