@@ -1,38 +1,39 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="cart-page">
-        <h1>Kosár</h1>
-        <p>Itt láthatod a kosárba tett termékeidet.</p>
+<div class="cart-container">
+    <h1>Kosár</h1>
 
-        <div class="cart-items">
-            <div class="cart-item">
-                <img src="{{ asset('images/products/laptop.png') }}" alt="Laptop">
-                <div class="item-details">
-                    <h3>Gaming Laptop</h3>
-                    <p>Ár: 299 000 Ft</p>
-                    <p>Mennyiség: 1</p>
-                </div>
-                <button class="remove-btn">Eltávolítás</button>
-            </div>
-
-            <div class="cart-item">
-                <img src="{{ asset('images/products/mouse.png') }}" alt="Egér">
-                <div class="item-details">
-                    <h3>RGB Egér</h3>
-                    <p>Ár: 9 990 Ft</p>
-                    <p>Mennyiség: 2</p>
-                </div>
-                <button class="remove-btn">Eltávolítás</button>
-            </div>
-        </div>
-
-        <div class="cart-summary">
-            <h2>Összesen: 319 980 Ft</h2>
-            <div class="cart-actions">
-                <a href="{{ route('products') }}" class="continue-btn">Vásárlás folytatása</a>
-                <a href="{{ route('payment') }}" class="checkout-btn">Tovább a fizetéshez</a>
-            </div>
-        </div>
-    </div>
+    @if(count($cart) > 0)
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Kép</th>
+                    <th>Termék</th>
+                    <th>Mennyiség</th>
+                    <th>Ár</th>
+                    <th>Művelet</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($cart as $id => $item)
+                    <tr>
+                        <td><img src="{{ asset($item['image']) }}" alt="{{ $item['name'] }}" class="cart-img"></td>
+                        <td>{{ $item['name'] }}</td>
+                        <td>{{ $item['quantity'] }}</td>
+                        <td>{{ number_format($item['price'], 0, ',', ' ') }} Ft</td>
+                        <td>
+                            <form action="{{ route('cart.remove', $id) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="remove-btn">❌</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @else
+        <p class="empty-cart">A kosár üres.</p>
+    @endif
+</div>
 @endsection

@@ -41,24 +41,20 @@
         <div class="product-grid">
             @foreach($products as $product)
                 <div class="product-card">
-                    <img src="{{ asset($product->image) }}" alt="{{ $product->name }}">
-                    <h3>{{ $product->name }}</h3>
+                         <a href="{{ route('product.show', $product->id) }}">
+                            <img src="{{ asset($product->image) }}">
+                            <h3>{{ $product->name }}</h3>
+                        </a>
 
-                    @if($product->description)
-                        <p class="description">{{ Str::limit($product->description, 60) }}</p>
-                    @endif
+                        @if($product->discount > 0)
+                            <p class="old-price">{{ number_format($product->price, 0, ',', ' ') }} Ft</p>
+                            <p class="sale-price">{{ number_format($product->price * (1 - $product->discount / 100), 0, ',', ' ') }} Ft</p>
+                            <span class="badge">-{{ $product->discount }}%</span>
+                        @else
+                            <p class="price">{{ number_format($product->price, 0, ',', ' ') }} Ft</p>
+                        @endif
 
-                    @if($product->discount)
-                        <p class="old-price">{{ number_format($product->price, 0, ',', ' ') }} Ft</p>
-                        <p class="sale-price">
-                            {{ number_format($product->price * (1 - $product->discount/100), 0, ',', ' ') }} Ft
-                        </p>
-                        <span class="badge">-{{ $product->discount }}%</span>
-                    @else
-                        <p class="price">{{ number_format($product->price, 0, ',', ' ') }} Ft</p>
-                    @endif
-
-                    <button class="cart-btn">Kosárba</button>
+                        <button class="cart-btn">Kosárba</button>
                 </div>
             @endforeach
         </div>

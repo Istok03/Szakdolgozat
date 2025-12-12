@@ -14,7 +14,7 @@
 <div class="auth-links">
     <a href="{{ route('login') }}">Belépés</a>
     <a href="{{ route(name:'register') }}">Regisztráció</a>
-    <a href="{{ route('cart') }}">
+    <a href="{{ route('cart.index') }}">
     <img src="{{ asset('images/shopping-bag.png' )}}" alt="Kosár" class="cart-icon">
 </a>
 </div>

@@ -12,8 +12,10 @@
         <div class="product-grid">
             @forelse($products as $product)
                 <div class="product-card">
-                    <img src="{{ asset($product->image) }}" alt="{{ $product->name }}">
-                    <h3>{{ $product->name }}</h3>
+                      <a href="{{ route('product.show', $product->id) }}">
+                            <img src="{{ asset($product->image) }}">
+                            <h3>{{ $product->name }}</h3>
+                        </a>
 
                     @if($product->discount > 0)
                         <p class="old-price">{{ number_format($product->price, 0, ',', ' ') }} Ft</p>
