@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
     <script src="{{ asset('js/filter.js') }}"></script>
+    <script src="{{ asset('js/cart.js') }}"></script>
 
 <body>
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">

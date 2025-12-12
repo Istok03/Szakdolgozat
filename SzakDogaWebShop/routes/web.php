@@ -1,7 +1,6 @@
 <?php
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +20,13 @@ Route::get('/cart', [CartController::class, 'index'
 
 Route::post('/cart/remove/{id}', [CartController::class, 'remove'
 ])->name('cart.remove');
+
+Route::post('/cart/increase/{id}', [CartController::class, 'increase'
+])->name('cart.increase');
+
+Route::post('/cart/decrease/{id}', [CartController::class, 'decrease'
+])->name('cart.decrease');
+
 
 Route::get('/payment', function () {
     return view('payment');

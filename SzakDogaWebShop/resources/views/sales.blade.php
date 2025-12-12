@@ -54,7 +54,7 @@
                     </p>
                     <span class="badge">-{{ $product->discount }}%</span>
 
-                    <button class="cart-btn">Kosárba</button>
+                    <button class="cart-btn" data-id="{{ $product->id }}">Kosárba</button>
                 </div>
             @empty
                 <p>Nincs jelenleg akciós termék.</p>

@@ -20,7 +20,20 @@
                     <tr>
                         <td><img src="{{ asset($item['image']) }}" alt="{{ $item['name'] }}" class="cart-img"></td>
                         <td>{{ $item['name'] }}</td>
-                        <td>{{ $item['quantity'] }}</td>
+                        <td>
+                            <form action="{{ route('cart.decrease', $id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                <button type="submit" class="qty-btn">−</button>
+                            </form>
+
+                            {{ $item['quantity'] }}
+
+                            <form action="{{ route('cart.increase', $id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                <button type="submit" class="qty-btn">+</button>
+                            </form>
+                        </td>
+
                         <td>{{ number_format($item['price'], 0, ',', ' ') }} Ft</td>
                         <td>
                             <form action="{{ route('cart.remove', $id) }}" method="POST">
@@ -32,6 +45,12 @@
                 @endforeach
             </tbody>
         </table>
+    @if(count($cart) > 0)
+        <div class="cart-total">
+            <h3>Összesen: {{ number_format($total, 0, ',', ' ') }} Ft</h3>
+        </div>
+    @endif
+
     @else
         <p class="empty-cart">A kosár üres.</p>
     @endif

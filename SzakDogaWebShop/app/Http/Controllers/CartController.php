@@ -25,13 +25,24 @@ class CartController extends Controller{
             ];
         }
         session()->put("cart", $cart );
-        return redirect()->back()->with('success', 'Termék sikeresen hozzáadva a kosárhoz!');
+        return response()->json( [
+            'success' => true,
+            'count' => array_sum(array_column($cart,'quantity')),
+        ]);
     }
 
     public function index()
     {
         $cart = session() -> get('cart',[]);
-        return view('cart', compact('cart'));
+        $total = 0;
+
+        foreach( $cart as $item  ) {
+            $price = $item ['price'];
+            $discount = $item ['discount'] ?? 0;
+            $finalPrice =( $price * (1-$discount/100) );
+            $total += $finalPrice * $item['quantity'];
+        }
+        return view('cart', compact('cart', 'total'));
     }
    
     public function remove ( $id )
@@ -43,5 +54,31 @@ class CartController extends Controller{
         }
         return redirect()->back()->with('success','Termék eltávolítva a kosárból!');
     }
+
+    public function increase($id){
+        $cart = session() -> get('cart',[]);
+        if( isset( $cart[$id] )) {
+            $cart[$id]['quantity'] ++;
+            if( $cart[$id]['quantity'] <= 0) {
+                unset( $cart[$id] );
+        }
+        session()->put('cart', $cart );
+    }
+    return redirect()->back();
+}
+
+   public function decrease($id){
+        $cart = session() -> get('cart',[]);
+        if( isset( $cart[$id] )) {
+            $cart[$id]['quantity'] --;
+            if( $cart[$id]['quantity'] <= 0) {
+                unset( $cart[$id] );
+        }
+        session()->put('cart', $cart );
+    }
+    return redirect()->back();
+}
+
+
 }
 ?>

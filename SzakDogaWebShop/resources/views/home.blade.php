@@ -27,7 +27,7 @@
                         <p class="price">Ár: {{ number_format($product->price, 0, ',', ' ') }} Ft</p>
                     @endif
 
-                    <button>Kosárba</button>
+                  <button class="cart-btn" data-id="{{ $product->id }}">Kosárba</button>
                 </div>
             @empty
                 <p>Nincs kiemelt termék jelenleg.</p>
