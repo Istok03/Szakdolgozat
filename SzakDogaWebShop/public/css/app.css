@@ -22,6 +22,11 @@ body,html{
     color: #333;
 }
 
+.navbar .logo:hover{
+    transform: scale(1.1);
+    transition: transform 0.2s ease-in-out;
+}
+
 .navbar .nav-links{
     list-style: none;
     display:flex;
@@ -134,7 +139,7 @@ body,html{
 }
 
 .filter-toggle {
-    position: fixed;
+    position: absolute;
     top: 100px;
     right: 20px;
     z-index: 100;
@@ -151,7 +156,7 @@ body,html{
 }
 
 .filter-panel {
-    position: fixed;
+    position:absolute;
     top: 150px;
     right: 20px;
     width: 280px;
@@ -162,7 +167,7 @@ body,html{
     display: none;
     z-index: 99;
     border-radius: 8px;
-      color: black;
+    color: black;
 }
 
 .filter-group {
@@ -217,7 +222,7 @@ body,html{
     cursor: pointer;
     transition: transform 0.2s ease-in-out;
     margin-top: -5px;
-    position: fixed;
+    position: absolute;
 }
 
 .cart-icon:hover{

@@ -47,11 +47,11 @@ class ProductSeeder extends Seeder
         ]);
 
              Product::updateOrCreate(
-           [ 'name' => 'Wireless Logitech X '],
-           [ 'image'=> 'images/products/JBLHS.png',
+           [ 'name' => 'PRO X SUPERLIGHT 2 SE '],
+           [ 'image'=> 'images/products/PRO X SUPERLIGHT 2 SE.png',
             'price'=>'55000',
             'discount' => 0,
-            'description' => 'Wireless Logitech egér headset',
+            'description' => 'Wireless Logitech egér',
           
         ]);
 
