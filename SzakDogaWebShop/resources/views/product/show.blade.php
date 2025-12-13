@@ -20,10 +20,8 @@
             <p class="price">{{ number_format($product->price, 0, ',', ' ') }} Ft</p>
         @endif
 
-        <form action="{{ route('cart.add', $product->id) }}" method="POST">
-            @csrf
-            <button type="submit" class="cart-btn">Kosárba</button>
-        </form>
+       <button class="cart-btn" data-id="{{ $product->id }}">Kosárba</button>
+
     </div>
 </div>
 @endsection

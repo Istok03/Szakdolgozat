@@ -8,3 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+document.getElementById('filterButton').addEventListener('click', () => {
+  document.getElementById('filterPanel').classList.toggle('show');
+});

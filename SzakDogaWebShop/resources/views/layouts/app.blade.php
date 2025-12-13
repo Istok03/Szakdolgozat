@@ -4,11 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    
     <title>{{ config('app.name', 'Istok\'s IT store') }}</title>
-    <link rel="stylesheet" href="{{ asset('css/cart.css') }}">
+    @stack('styles')
     <link rel="stylesheet" href="{{ asset('css/product.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
     <script src="{{ asset('js/filter.js') }}"></script>
     <script src="{{ asset('js/cart.js') }}"></script>
@@ -16,7 +17,6 @@
 <body>
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
         @include('layouts.navigation')
-
         <main>
             @yield('content')
         </main>
@@ -25,5 +25,10 @@
             <p>&copy; 2025 Istok's IT store. Minden jog fenntartva.</p>
         </div>
     </div>
+
+<div class="cart-notification" id="cart-notification">
+    Sikeresen hozzáadva a kosárhoz
+</div>
+
 </body>
 </html>
