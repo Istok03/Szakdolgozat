@@ -1,4 +1,6 @@
+@extends('layouts.admin')
 <h1>Termékek kezelése</h1>
+
 
 <table>
     <thead>

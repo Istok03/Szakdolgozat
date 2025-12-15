@@ -1,5 +1,5 @@
 @if(count($cart) > 0)
-    <table class="cart-table">
+    <table class="cart-table" id="cart-container">
         <thead>
             <tr>
                 <th>Kép</th>
@@ -11,12 +11,12 @@
         </thead>
         <tbody>
             @foreach($cart as $id => $item)
-                <tr>
-                    <td><img src="{{ asset($item['image']) }}" width="80"></td>
+                <tr data-id="{{ $id }}">
+                    <td><img src="{{ asset($item['image']) }}" width="80" alt="{{ $item['name'] }}"></td>
                     <td>{{ $item['name'] }}</td>
                     <td>
                         <button class="cart-action" data-id="{{ $id }}" data-action="decrease">−</button>
-                        {{ $item['quantity'] }}
+                        <span id="qty-{{ $id }}">{{ $item['quantity'] }}</span>
                         <button class="cart-action" data-id="{{ $id }}" data-action="increase">+</button>
                     </td>
                     <td>
@@ -31,7 +31,7 @@
     </table>
 
     <div class="cart-total">
-        <h3>Összesen: {{ number_format($total, 0, ',', ' ') }} Ft</h3>
+        <h3>Összesen: <span id="cart-total">{{ number_format($total, 0, ',', ' ') }}</span> Ft</h3>
     </div>
 @else
     <p class="empty-cart">A kosár üres.</p>

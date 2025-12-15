@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class OrderController extends Controller
 {
@@ -12,7 +15,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::with('user')->latest()->paginate(10); 
+        return view('admin.orders.index', compact('orders'));
     }
 
     /**
@@ -36,7 +40,8 @@ class OrderController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $order = Order::with('items.product','user')->findOrFail($id);
+        return view('admin.orders.show', compact('order'));
     }
 
     /**
@@ -44,7 +49,8 @@ class OrderController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $order = Order::findOrFail($id);
+        return view('admin.orders.edit', compact('order'));
     }
 
     /**
@@ -52,7 +58,16 @@ class OrderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $order = Order::findOrFail($id);
+
+        $validated = $request->validate([
+            'status' => 'required|in:pending,paid,shipped,cancelled',
+        ]);
+        
+        $order->update($validated);
+
+        return redirect()->route('admin.orders.index')
+                                 ->with('success','Rendelés státusza frissítve!');
     }
 
     /**

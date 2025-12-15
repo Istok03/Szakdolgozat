@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController; 
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ProductController::class, 'home'])
@@ -57,6 +58,7 @@ Route::middleware('auth')->group(function () {
  Route::middleware(['auth', 'admin'])->group(function () { 
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::resource('/admin/products', AdminProductController::class); 
+    Route::resource('/admin/orders', AdminOrderController::class);
 });
 
 

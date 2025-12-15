@@ -1,4 +1,6 @@
+@extends('layouts.admin')
 <h1>Termék részletei</h1>
+
 
 <p><strong>Név:</strong> {{ $product->name }}</p>
 <p><strong>Ár:</strong> {{ number_format($product->price, 0, ',', ' ') }} Ft</p>
