@@ -1,26 +1,49 @@
 @extends('layouts.admin')
-<h1>Termék részletei</h1>
 
+@section('content')
+<div class="container">
+    <h3>Rendelés adatai</h3>
+    <p><strong>Név:</strong> {{ $order->name }}</p>
+    <p><strong>Email:</strong> {{ $order->email }}</p>
+    <p><strong>Cím:</strong> {{ $order->address }}</p>
+    <p><strong>Státusz:</strong> {{ $order->status }}</p>
 
-<p><strong>Név:</strong> {{ $product->name }}</p>
-<p><strong>Ár:</strong> {{ number_format($product->price, 0, ',', ' ') }} Ft</p>
-<p><strong>Kedvezmény:</strong> 
-    @if($product->discount)
-        {{ $product->discount }} %
-    @else
-        Nincs
-    @endif
-</p>
-<p><strong>Leírás:</strong> {{ $product->description ?? 'Nincs leírás' }}</p>
+    <form method="POST" action="{{ route('admin.orders.updateStatus', $order->id) }}">
+        @csrf
+        @method('PATCH')
+        <label for="status">Státusz módosítása:</label>
+        <select name="status" id="status">
+            <option value="Feldolgozás alatt" {{ $order->status == 'Feldolgozás alatt' ? 'selected' : '' }}>Feldolgozás alatt</option>
+            <option value="Kiszállítva" {{ $order->status == 'Kiszállítva' ? 'selected' : '' }}>Kiszállítva</option>
+            <option value="Teljesítve" {{ $order->status == 'Teljesítve' ? 'selected' : '' }}>Teljesítve</option>
+        </select>
+        <button type="submit">Státusz frissítése</button>
+    </form>
 
-@if($product->image)
-    <p><strong>Kép:</strong></p>
-    <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" width="200">
-@else
-    <p><strong>Kép:</strong> Nincs kép</p>
-@endif
+    <h4>Termékek:</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Termék</th>
+                <th>Mennyiség</th>
+                <th>Egységár</th>
+                <th>Összesen</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($order->items as $item)
+            <tr>
+                <td>{{ $item->name }}</td>
+                <td>{{ $item->quantity }} db</td>
+                <td>{{ number_format($item->price, 0, ',', ' ') }} Ft</td>
+                <td>{{ number_format($item->price * $item->quantity, 0, ',', ' ') }} Ft</td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
 
-<hr>
+    <p><strong>Teljes összeg:</strong> {{ number_format($order->total_price, 0, ',', ' ') }} Ft</p>
 
-<a href="{{ route('admin.products.edit', $product->id) }}">Szerkesztés</a> |
-<a href="{{ route('admin.products.index') }}">Vissza a listához</a>
+    <a href="{{ route('admin.orders.index') }}">← Vissza a rendeléslistához</a>
+</div>
+@endsection

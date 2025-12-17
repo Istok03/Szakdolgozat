@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class OrderController extends Controller
@@ -31,9 +32,45 @@ class OrderController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //
+{
+    $cart = session()->get('cart', []);
+    if (empty($cart)) {
+        return redirect()->route('checkout')->with('error', 'A kosár üres.');
     }
+
+    $request->validate([
+        'name' => 'required|string',
+        'email' => 'required|email',
+        'phone' => 'required|string',
+        'address' => 'required|string',
+    ]);
+
+    DB::transaction(function () use ($request, $cart) {
+        $order = \App\Models\Order::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'total_price' => array_sum(array_map(fn($item) => $item['price'] * (1 - ($item['discount'] ?? 0) / 100) * $item['quantity'], $cart)),
+            'status' => 'Feldolgozás alatt'
+        ]);
+
+        foreach ($cart as $id => $item) {
+            \App\Models\OrderItem::create([
+                'order_id' => $order->id,
+                'product_id' => $id,
+                'name' => $item['name'],
+                'price' => $item['price'],
+                'quantity' => $item['quantity']
+            ]);
+        }
+    });
+
+    session()->forget('cart');
+
+    return redirect()->route('home')->with('success', 'Rendelés sikeresen leadva!');
+}
+
 
     /**
      * Display the specified resource.
@@ -77,4 +114,20 @@ class OrderController extends Controller
     {
         //
     }
+
+    public function checkout()
+{
+    $cart = session()->get('cart', []);
+    $total = array_sum(array_map(fn($item) =>
+        $item['price'] * (1 - ($item['discount'] ?? 0) / 100) * $item['quantity'],
+        $cart
+    ));
+
+    return view('checkout', compact('cart', 'total'));
+}
+
+
+
+
+
 }

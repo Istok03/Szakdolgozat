@@ -1,8 +1,10 @@
 <?php
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController; 
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use Illuminate\Support\Facades\Route;
@@ -57,10 +59,19 @@ Route::middleware('auth')->group(function () {
 
  Route::middleware(['auth', 'admin'])->group(function () { 
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
-    Route::resource('/admin/products', AdminProductController::class); 
-    Route::resource('/admin/orders', AdminOrderController::class);
+    Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])
+    ->group(function () { Route::resource('products', ProductController::class); });
+    Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])
+    ->group(function () { Route::resource('orders', OrderController::class); });
+    Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])
+    ->group(function () { Route::resource('users', UserController::class); });
+
 });
 
+Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout');
+Route::post('/order/store', [OrderController::class,'store'])->name('order.store');
 
+Route::patch('/admin/orders/{id}/status', [AdminOrderController::class, 'updateStatus'])
+ ->name('admin.orders.updateStatus');
 
 require __DIR__.'/auth.php';

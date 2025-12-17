@@ -1,46 +1,31 @@
 @extends('layouts.admin')
-<h1>Termékek kezelése</h1>
 
+<h1>Rendelések kezelése</h1>
 
 <table>
     <thead>
         <tr>
+            <th>Rendelés ID</th>
             <th>Név</th>
-            <th>Ár</th>
-            <th>Akciós ár</th>
-            <th>Műveletek</th>
-            <th>Kép</th>
+            <th>Email</th>
+            <th>Összeg</th>
+            <th>Státusz</th>
+            <th>Dátum</th>
+            <th>Művelet</th>
         </tr>
     </thead>
     <tbody>
-        @foreach($products as $product)
+        @foreach($orders as $order)
         <tr>
-            <td>{{ $product->name }}</td>
-            <td>{{ number_format($product->price, 0, ',', ' ') }} Ft</td>
+            <td>{{ $order->id }}</td>
+            <td>{{ $order->name }}</td>
+            <td>{{ $order->email }}</td>
+            <td>{{ number_format($order->total_price, 0, ',', ' ') }} Ft</td>
+            <td>{{ $order->status }}</td>
+            <td>{{ $order->created_at->format('Y.m.d H:i') }}</td>
             <td>
-                @if($product->discount_price)
-                    {{ number_format($product->discount_price, 0, ',', ' ') }} Ft
-                @else
-                    —
-                @endif
+                <a href="{{ route('admin.orders.show', $order->id) }}">Megtekintés</a>
             </td>
-            <td>
-                <a href="{{ route('admin.products.edit', $product->id) }}">Szerkesztés</a> |
-                <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit">Törlés</button>
-                </form>
-            </td>
-            <td>
-                @if($product->image)
-                    <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" width="100">
-                @else
-                    Nincs kép
-                @endif
-            </td>
-
-
         </tr>
         @endforeach
     </tbody>

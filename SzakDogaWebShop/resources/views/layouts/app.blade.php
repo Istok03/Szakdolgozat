@@ -17,15 +17,31 @@
 <body>
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
         @include('layouts.navigation')
+        
+       <form method="POST" action="{{ route('logout') }}">
+    @csrf
+    <button type="submit" class="btn btn-outline-secondary">
+        <i class="bi bi-box-arrow-right"></i> Kilépés
+    </button>
+</form>
+
+</form>
+
         <main>
             @yield('content')
         </main>
+
+
+
 
         <div class="watermark">
             <p>&copy; 2025 Istok's IT store. Minden jog fenntartva.</p>
         </div>
     </div>
 
+
+
+    
 <div class="cart-notification" id="cart-notification">
     Sikeresen hozzáadva a kosárhoz
 </div>
