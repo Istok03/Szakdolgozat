@@ -1,0 +1,64 @@
+/* Lila háttér + modern betűtípus */
+body {
+    background-color: #6f5acd;
+    font-family: 'Inter', 'SF Pro Display', 'Segoe UI', sans-serif;
+    color: #333;
+}
+
+/* Cím középre, nagyobb térrel */
+h1 {
+    text-align: center;
+    font-weight: 700;
+    font-size: 2.2rem;
+    margin-bottom: 40px;
+}
+
+/* Kártyák */
+.card {
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-bottom: 40px; /* extra tér a kártyák között */
+    text-align: center;
+    padding: 10px;
+}
+
+/* Hover effekt */
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.3);
+}
+
+/* Kártya fejléc */
+.card-header {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Kártya szöveg */
+.card-text {
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+}
+
+/* Gombok */
+.card .btn {
+    border-radius: 8px;
+    font-weight: 500;
+    padding: 10px 20px;
+    margin-top: 10px;
+    z-index: 1;
+    position: relative;
+}
+
+/* Hover fix: ne lógjon át */
+.card .btn:hover {
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.3);
+}
+
+/* Container padding */
+.container {
+    padding-bottom: 60px;
+}
