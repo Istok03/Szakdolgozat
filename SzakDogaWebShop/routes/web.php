@@ -59,14 +59,14 @@ Route::middleware('auth')->group(function () {
 
  Route::middleware(['auth', 'admin'])->group(function () { 
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
-    Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])
-    ->group(function () { Route::resource('products', ProductController::class); });
-    Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])
-    ->group(function () { Route::resource('orders', OrderController::class); });
-    Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])
-    ->group(function () { Route::resource('users', UserController::class); });
 
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::resource('products', AdminProductController::class);
+        Route::resource('orders', AdminOrderController::class);
+        Route::resource('users', UserController::class);
+    });
 });
+
 
 Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout');
 Route::post('/order/store', [OrderController::class,'store'])->name('order.store');

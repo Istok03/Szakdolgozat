@@ -140,7 +140,7 @@ body,html{
 }
 
 .filter-toggle {
-  position: fixed;
+  position: absolute;
   top: 100px;
   right: 20px;
   z-index: 100;
@@ -175,17 +175,18 @@ body,html{
 
 .filter-panel {
   position: absolute;
-  top: 150px;
-  right: 20px; 
+  top: 50px;
+  right: 20px;
   width: 360px;
-  background: #fff;
-  padding: 1.5rem;
-  border-radius: 12px ;
-  box-shadow:  0 8px 24px rgba(0,0,0,0.15);
-  z-index: 1000;
+  background: #ffffff;
+  padding: 1.8rem;
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+  z-index: 999;
   color: #333;
-  font-family: 'Inter', sans-serif;
-   transform: translateY(-30px);
+  font-family: 'Inter', 'SF Pro Display', sans-serif;
+  opacity: 0;
+  transform: translateY(-30px);
   pointer-events: none;
   transition: opacity 0.4s ease, transform 0.4s ease;
 }
@@ -194,41 +195,68 @@ body,html{
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
-  animation: slideDown 0.4s ease forwards;
 }
 
-.filter-panel input,
-.filter-panel button {
-display: block;
+.filter-panel input[type="text"],
+.filter-panel input[type="number"] {
   width: 100%;
-  margin: 0.6rem 0;
-  padding: 0.8rem;
-  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 1rem;
   border: 1px solid #ccc;
-  font-size: 1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: border-color 0.3s ease;
 }
 
+.filter-panel input:focus {
+  border-color: #6f42c1;
+  outline: none;
+}
 
-.checkbox-group {
+.filter-panel label {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
+  font-size: 0.9rem;
+  margin-bottom: 1.2rem;
 }
 
-.apply-btn {
-  background: #4caf50;
-  color: #fff;
-  border: none;
-  padding: 0.8rem;
-  border-radius: 8px;
-  cursor: pointer;
+.filter-panel .btn-primary {
+  width: 100%;
+  padding: 12px;
   font-weight: 600;
+  font-size: 1rem;
+  border-radius: 10px;
+  background-color: #6f42c1;
+  border: none;
+  color: #fff;
   transition: background-color 0.3s ease;
 }
 
-.apply-btn:hover {
-  background: #388e3c;
+.filter-panel .btn-primary:hover {
+  background-color: #5a379f;
 }
+
+
+
+#filterToggle {
+  padding: 10px 18px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  background-color: #6f42c1;
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#filterToggle:hover {
+  background-color: #5a379f;
+  transform: translateY(-2px);
+}
+
+
 
 .subtitle{
     font-size:18px;
@@ -237,14 +265,11 @@ display: block;
 }
 
 .watermark {
-    position:relative;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 14px;
+    position:static;
+    bottom: 5px;
     text-align: center;
-    width: 100%;
-    z-index: 100;
+    opacity: 0.7;
+    z-index: 99;
 }
 
 .cart-icon{

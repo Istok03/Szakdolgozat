@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Product;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 use League\CommonMark\Extension\DescriptionList\Node\Description;
 
 class ProductController extends Controller
@@ -65,7 +66,7 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        $prodcut = Product::findOrFail($id);
+        $product = Product::findOrFail($id);
         return view('admin.products.edit', compact('product'));
     }
 

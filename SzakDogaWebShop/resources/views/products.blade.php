@@ -5,39 +5,22 @@
         <h1>Termékeink</h1>
         <p class="subtitle">Modern informatikai eszközök, akciós ajánlatokkal</p>
 
+        <div class="filter-toggle">
+                    <button id="filterToggle" class="btn btn-success">Szűrő megnyitása</button>
 
-    <div class="filter-toggle">
-    <button id="filterButton" class="filter-btn">🔍 Szűrési lehetőségek</button>
-</div>
-
-<div id="filterPanel" class="filter-panel">
-    <form method="GET" action="{{ route('products') }}">
-        <div class="filter-group">
-            <label>🔎 Név alapján:</label>
-            <input type="text" name="search" value="{{ request('search') }}">
-        </div>
-
-        <div class="filter-group">
-            <label>💰 Minimum ár:</label>
-            <input type="number" name="min_price" value="{{ request('min_price') }}">
-        </div>
-
-        <div class="filter-group">
-            <label>💰 Maximum ár:</label>
-            <input type="number" name="max_price" value="{{ request('max_price') }}">
-        </div>
-
-        <div class="filter-group checkbox-group">
+        <div id="filterPanel" class="filter-panel">
+            <input id="filterName" type="text" placeholder="Név alapján">
+            <input id="filterMin" type="number" placeholder="Minimum ár">
+            <input id="filterMax" type="number" placeholder="Maximum ár">
             <label>
-                <input type="checkbox" name="discount_only" {{ request('discount_only') ? 'checked' : '' }}>
-                Csak akciós termékek
+                <input id="filterSale" type="checkbox"> Csak akciós termékek
             </label>
+            <button id="applyFilter" class="btn btn-primary">Szűrés alkalmazása</button>
         </div>
 
-        <button type="submit" class="apply-btn">✅ Szűrés alkalmazása</button>
-    </form>
-</div>
+        </div>
 
+ 
         <div class="product-grid">
             @foreach($products as $product)
                 <div class="product-card">
