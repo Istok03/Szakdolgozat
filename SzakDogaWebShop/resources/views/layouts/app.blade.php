@@ -17,19 +17,11 @@
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
         @include('layouts.navigation')
         
-             @if(auth()->check() && auth()->user()->is_admin)
-                <button id="sidebarToggle" class="sidebar-toggle">☰</button>
-                @include('components.admin.sidebar')
-        @endif
-        
-
-     @auth
-    <form method="POST" action="{{ route('logout') }}">
-        @csrf
-        <button type="submit" class="btn btn-outline-light logout-btn">Kilépés</button>
-    </form>
-@endauth
-
+       @if(auth()->check() && auth()->user()->is_admin)
+        <button id="sidebarToggle" class="sidebar-toggle">☰</button>
+        @include('components.admin.sidebar')
+       @endif
+       
 </form>
         <main>
             @yield('content')

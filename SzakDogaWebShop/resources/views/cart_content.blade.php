@@ -12,7 +12,7 @@
         <tbody>
             @foreach($cart as $id => $item)
                 <tr data-id="{{ $id }}">
-                    <td><img src="{{ asset($item['image']) }}" width="80" alt="{{ $item['name'] }}"></td>
+                    <td><img src="{{ asset($item['image'] ?? 'images/default.png') }}" width="80" alt="{{ $item['name'] }}"></td>
                     <td>{{ $item['name'] }}</td>
                     <td>
                         <button class="cart-action" data-id="{{ $id }}" data-action="decrease">−</button>

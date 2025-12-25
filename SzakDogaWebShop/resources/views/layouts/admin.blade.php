@@ -5,17 +5,17 @@
         <title>Admin felület</title>
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link  href="{{ asset('css/admin.css') }}" rel="stylesheet">
+        <link  href="{{ asset('css/product.css') }}" rel="stylesheet">
     </head>
     <body>
         @include('partials.navbar')
 
 
-        
-        @if(auth()->check() && auth()->user()->is_admin)
-                <button id="sidebarToggle" class="sidebar-toggle">☰</button>
-                @include('components.admin.sidebar')
-        @endif
-        
+      @if(auth()->check() && auth()->user()->is_admin)
+        <button id="sidebarToggle" class="sidebar-toggle">☰</button>
+         @include('components.admin.sidebar')
+      @endif
+
 
         <div class="container mt-4">
             @if(session('success'))
@@ -25,9 +25,9 @@
                 </div>
             @endif
 
-    <div class="admin-content">
-        @yield('content')
-    </div>
+            <div class="admin-content">
+                @yield('content')
+            </div>
 
         </div>
 

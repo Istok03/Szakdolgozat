@@ -12,11 +12,27 @@
 
 
 <div class="auth-links">
-    <a href="{{ route('login') }}">Belépés</a>
-    <a href="{{ route(name:'register') }}">Regisztráció</a>
-    <a href="{{ route('cart.index') }}">
+    <div class="navbar-right">
+    @auth
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="btn logout-button">Kilépés</button>
+        </form>
+    @else
+        <a href="{{ route('login') }}" class="btn btn-outline-light me-2">Belépés</a>
+        <a href="{{ route('register') }}" class="btn btn-light">Regisztráció</a>
+    @endauth
+
+     <a href="{{ route('cart.index') }}">
     <img src="{{ asset('images/shopping-bag.png' )}}" alt="Kosár" class="cart-icon">
-</a>
+    @if(session('cart') && count(session('cart')) > 0)
+        <span class="cart-badge">{{ count(session('cart')) }}</span>
+    @endif
+    </a>
+
+</div>
+
+   
 </div>
 
  

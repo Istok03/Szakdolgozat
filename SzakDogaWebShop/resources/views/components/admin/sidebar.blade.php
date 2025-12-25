@@ -6,6 +6,6 @@
             <li><a href="/admin/products">Termékek</a></li>
             <li><a href="/admin/orders">Rendelések</a></li>
             <li><a href="/admin/users">Felhasználók</a></li>
-            <li><a href="/admin/categories">Katekóriák</a></li>
+            <li><a href="/admin/categories">Kategóriák</a></li>
     </ul>
 </div>

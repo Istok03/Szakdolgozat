@@ -6,17 +6,21 @@
         <p>Csak a kedvezményes ajánlatok, ne maradj le!</p>
  
         <div class="filter-toggle">
-                <button id="filterToggle" class="btn btn-success">Szűrő megnyitása</button>
+            <button id="filterToggle" class="btn btn-success">Szűrő megnyitása</button>
 
-                <div id="filterPanel" class="filter-panel">
-                <input type="text" placeholder="Név alapján">
-                <input type="number" placeholder="Minimum ár">
-                <input type="number" placeholder="Maximum ár">
-                <label><input type="checkbox"> Csak akciós termékek</label>
-                <button class="btn btn-primary">Szűrés alkalmazása</button>
-                </div>
+            <div id="filterPanel" class="filter-panel">
+                <input id="filterName" type="text" placeholder="Név alapján">
+                <input id="filterMin" type="number" placeholder="Minimum ár">
+                <input id="filterMax" type="number" placeholder="Maximum ár">
 
-     </div>
+                <label>
+                    <input id="filterSale" type="checkbox"> Csak akciós termékek
+                </label>
+
+                <button id="applyFilter" class="btn btn-primary">Szűrés alkalmazása</button>
+            </div>
+        </div>
+
 
 
         <div class="product-grid">
