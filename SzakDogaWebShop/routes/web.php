@@ -67,8 +67,10 @@ Route::middleware('auth')->group(function () {
     });
 });
 
+Route::resource('users', UserController::class);
 
 Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout');
+
 Route::post('/order/store', [OrderController::class,'store'])->name('order.store');
 
 Route::patch('/admin/orders/{id}/status', [AdminOrderController::class, 'updateStatus'])

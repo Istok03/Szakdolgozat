@@ -22,7 +22,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.users.create');
     }
 
     /**
@@ -30,7 +30,22 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6',
+            'is_admin'=>'required|boolean',
+        ]);
+        
+        \App\Models\User::create([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'password'=>bcrypt($request->password),
+            'is_admin' => $request->is_admin,
+        ]);
+
+        return redirect()->route('admin.users.index')
+            ->with('success', 'Új felhasználó sikeresen létrehozva');
     }
 
     /**
@@ -46,7 +61,8 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = \App\Models\User::findOrFail($id);
+        return view('admin.users.edit',compact('user'));
     }
 
     /**
@@ -54,7 +70,22 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $user = \App\Models\User::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email'=> 'required|string|max:255',
+            'is_admin' => 'required|boolean', 
+        ]);
+
+        $user -> name = $request->name;
+        $user -> email = $request->email;
+        $user -> is_admin = $request->is_admin;
+        $user -> save();
+
+        return redirect->route('admin.users.index')
+            ->with('success', 'Felhasználó sikeresen frissítve');
+
     }
 
     /**
@@ -62,6 +93,19 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = \App\Models\Users::findOrFail($id);
+
+        if(auth()->id()==$user->id){
+            return redirect()->route('admin.users.index')
+                ->with('error', 'Nem törölheted saját magad.');
+        }
+        $user->delete();
+
+        return redirect()->route('admin.users.index')
+            ->with('success', 'Felhasználó sikeresen törölve.')
+    
+    
     }
+
+
 }
