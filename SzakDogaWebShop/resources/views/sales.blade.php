@@ -6,7 +6,7 @@
         <p>Csak a kedvezményes ajánlatok, ne maradj le!</p>
  
         <div class="filter-toggle">
-            <button id="filterToggle" class="btn btn-success">Szűrő megnyitása</button>
+            <button id="filterToggle" class="btn btn-success">Szűrő</button>
 
             <div id="filterPanel" class="filter-panel">
                 <input id="filterName" type="text" placeholder="Név alapján">

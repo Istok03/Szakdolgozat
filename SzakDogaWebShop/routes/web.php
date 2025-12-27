@@ -76,4 +76,12 @@ Route::post('/order/store', [OrderController::class,'store'])->name('order.store
 Route::patch('/admin/orders/{id}/status', [AdminOrderController::class, 'updateStatus'])
  ->name('admin.orders.updateStatus');
 
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::resource('categories', \App\Http\Controllers\Admin\CategoryController::class);
+    });
+});
+
+
+
 require __DIR__.'/auth.php';

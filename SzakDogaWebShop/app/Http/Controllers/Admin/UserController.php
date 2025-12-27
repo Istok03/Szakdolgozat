@@ -3,109 +3,92 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // LISTÁZÁS
     public function index()
     {
-        $users = \App\Models\User::orderBy('created_at', 'desc')->paginate(10);
-
-        return view('admin.users.index', compact('users')); 
+        $users = User::orderBy('created_at', 'desc')->paginate(10);
+        return view('admin.users.index', compact('users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // ÚJ FELHASZNÁLÓ ŰRLAP
     public function create()
     {
         return view('admin.users.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // ÚJ FELHASZNÁLÓ MENTÉSE
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:6',
-            'is_admin'=>'required|boolean',
+            'name'      => 'required|string|max:255',
+            'email'     => 'required|email|unique:users,email',
+            'password'  => 'required|string|min:6',
+            'is_admin'  => 'required|boolean',
         ]);
-        
-        \App\Models\User::create([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'password'=>bcrypt($request->password),
-            'is_admin' => $request->is_admin,
+
+        User::create([
+            'name'      => $request->name,
+            'email'     => $request->email,
+            'password'  => bcrypt($request->password),
+            'is_admin'  => $request->is_admin,
         ]);
 
         return redirect()->route('admin.users.index')
-            ->with('success', 'Új felhasználó sikeresen létrehozva');
+            ->with('success', 'Új felhasználó sikeresen létrehozva.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    // SZERKESZTŐ ŰRLAP
+    public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('admin.users.edit', compact('user'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    // FELHASZNÁLÓ FRISSÍTÉSE
+    public function update(Request $request, $id)
     {
-        $user = \App\Models\User::findOrFail($id);
-        return view('admin.users.edit',compact('user'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        $user = \App\Models\User::findOrFail($id);
+        $user = User::findOrFail($id);
 
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email'=> 'required|string|max:255',
-            'is_admin' => 'required|boolean', 
+            'name'      => 'required|string|max:255',
+            'email'     => 'required|email|max:255',
+            'is_admin'  => 'required|boolean',
         ]);
 
-        $user -> name = $request->name;
-        $user -> email = $request->email;
-        $user -> is_admin = $request->is_admin;
-        $user -> save();
+        // Admin ne fokozhassa le saját magát
+        if (Auth::id() == $user->id && $request->is_admin == 0) {
+            return back()->with('error', 'Nem fokozhatod le saját magad.');
+        }
 
-        return redirect->route('admin.users.index')
-            ->with('success', 'Felhasználó sikeresen frissítve');
+        $user->update([
+            'name'      => $request->name,
+            'email'     => $request->email,
+            'is_admin'  => $request->is_admin,
+        ]);
 
+        return redirect()->route('admin.users.index')
+            ->with('success', 'Felhasználó sikeresen frissítve.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    // FELHASZNÁLÓ TÖRLÉSE
+    public function destroy($id)
     {
-        $user = \App\Models\Users::findOrFail($id);
+        $user = User::findOrFail($id);
 
-        if(auth()->id()==$user->id){
-            return redirect()->route('admin.users.index')
-                ->with('error', 'Nem törölheted saját magad.');
+        // Admin ne törölhesse saját magát
+        if (Auth::id() == $user->id) {
+            return back()->with('error', 'Nem törölheted saját magad.');
         }
+
         $user->delete();
 
         return redirect()->route('admin.users.index')
-            ->with('success', 'Felhasználó sikeresen törölve.')
-    
-    
+            ->with('success', 'Felhasználó sikeresen törölve.');
     }
-
-
 }

@@ -1,5 +1,5 @@
 <div  id="adminSidebar" class="admin-sidebar">
-    <div class="sidebar-header">Admin</div>
+    <div class="sidebar-header">Admin menü</div>
 
     <ul class="sidebar-menu">
             <li><a href="/admin">Dashboard</a></li>
