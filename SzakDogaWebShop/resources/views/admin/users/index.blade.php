@@ -1,45 +1,53 @@
-@extends('admin.layout')
+@extends('layouts.admin')
 
 @section('content')
-<div class="admin-container">
-    <h1 class="admin-title">Felhasználók</h1>
+<div class="container py-4">
 
-    <table class="admin-table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Név</th>
-                <th>Email</th>
-                <th>Szerepkör</th>
-                <th>Regisztrált</th>
-                <th>Műveletek</th>
-            </tr>
-        </thead>
+    <h1 class="fw-bold text-white mb-4">Felhasználók</h1>
 
-        <tbody>
-            @foreach($users as $user)
+    <div class="admin-table-card">
+
+        <table class="admin-table">
+            <thead>
                 <tr>
-                    <td>{{ $user->id }}</td>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
-                    <td>{{ $user->is_admin ? 'Admin' : 'Felhasználó' }}</td>
-                    <td>{{ $user->created_at->format('Y-m-d') }}</td>
-                    <td>
-                        <a href="{{ route('admin.users.edit', $user->id) }}" class="btn-edit">Szerkesztés</a>
-
-                        <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="inline-form">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn-delete" onclick="return confirm('Biztos törlöd?')">Törlés</button>
-                        </form>
-                    </td>
+                    <th>ID</th>
+                    <th>Név</th>
+                    <th>Email</th>
+                    <th>Szerepkör</th>
+                    <th>Regisztrált</th>
+                    <th class="text-end">Műveletek</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+            </thead>
 
-    <div class="pagination-wrapper">
-        {{ $users->links() }}
+            <tbody>
+                @foreach($users as $user)
+                    <tr>
+                        <td>{{ $user->id }}</td>
+                        <td class="fw-semibold">{{ $user->name }}</td>
+                        <td>{{ $user->email }}</td>
+                        <td>
+                            @if($user->role === 'admin')
+                                <span class="badge-discount">Admin</span>
+                            @else
+                                <span class="badge-discount">Felhasználó</span>
+                            @endif
+                        </td>
+                        <td>{{ $user->created_at->format('Y-m-d') }}</td>
+                        <td class="text-end">
+                            <a href="{{ route('admin.users.edit', $user->id) }}" class="btn-admin-light">Szerkesztés</a>
+                            <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn-admin-danger">Törlés</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+
+        </table>
+
     </div>
+
 </div>
 @endsection

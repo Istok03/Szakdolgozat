@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
-
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class OrderController extends Controller
 {
@@ -31,45 +34,48 @@ class OrderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+  public function store(Request $request)
 {
-    $cart = session()->get('cart', []);
-    if (empty($cart)) {
-        return redirect()->route('checkout')->with('error', 'A kosár üres.');
-    }
-
     $request->validate([
-        'name' => 'required|string',
+        'name' => 'required|string|max:255',
         'email' => 'required|email',
         'phone' => 'required|string',
         'address' => 'required|string',
     ]);
 
-    DB::transaction(function () use ($request, $cart) {
-        $order = \App\Models\Order::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'address' => $request->address,
-            'total_price' => array_sum(array_map(fn($item) => $item['price'] * (1 - ($item['discount'] ?? 0) / 100) * $item['quantity'], $cart)),
-            'status' => 'Feldolgozás alatt'
+    $cart = Session::get('cart', []);
+    if (empty($cart)) {
+        return back()->with('error', 'A kosár üres.');
+    }
+
+    $total = collect($cart)->sum(fn($item) =>
+        $item['price'] * $item['quantity'] * (1 - ($item['discount'] ?? 0) / 100)
+    );
+
+    $order = Order::create([
+        'user_id' => auth::id(),
+        'status' => 'pending',
+        'total' => $total,
+        'name' => $request->name,
+        'email' => $request->email,
+        'phone' => $request->phone,
+        'address' => $request->address,
+    ]);
+
+    foreach ($cart as $item) {
+        OrderItem::create([
+            'order_id' => $order->id,
+            'product_id' => $item['id'],
+            'quantity' => $item['quantity'],
+            'price' => $item['price'] * (1 - ($item['discount'] ?? 0) / 100),
         ]);
+    }
 
-        foreach ($cart as $id => $item) {
-            \App\Models\OrderItem::create([
-                'order_id' => $order->id,
-                'product_id' => $id,
-                'name' => $item['name'],
-                'price' => $item['price'],
-                'quantity' => $item['quantity']
-            ]);
-        }
-    });
-
-    session()->forget('cart');
+    Session::forget('cart');
 
     return redirect()->route('home')->with('success', 'Rendelés sikeresen leadva!');
 }
+
 
 
     /**
@@ -126,6 +132,18 @@ class OrderController extends Controller
     return view('checkout', compact('cart', 'total'));
 }
 
+public function updateStatus(Request $request, Order $order): RedirectResponse
+{
+    $request->validate([
+        'status' => 'required|string|in:pending,processing,shipped,completed,paid,cancelled',
+    ]);
+
+    $order->update([
+        'status' => $request->status,
+    ]);
+
+    return back()->with('success', 'Státusz frissítve!');
+}
 
 
 

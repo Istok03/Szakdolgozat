@@ -1,48 +1,45 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container">
-    <h1 class="mb-4">Rendelések listája</h1>
+<div class="container py-4">
 
-    <table class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Felhasználó</th>
-                <th>Státusz</th>
-                <th>Összeg</th>
-                <th>Létrehozva</th>
-                <th>Műveletek</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($orders as $order)
+    <h1 class="fw-bold text-white mb-4">Rendelések listája</h1>
+
+    <div class="admin-table-card">
+
+        <table class="admin-table">
+            <thead>
                 <tr>
-                    <td>{{ $order->id }}</td>
-                    <td>{{ $order->user->name ?? 'N/A' }}</td>
-                    <td>
-                        <span class="badge 
-                            @if($order->status === 'pending') bg-warning 
-                            @elseif($order->status === 'paid') bg-success 
-                            @elseif($order->status === 'shipped') bg-info 
-                            @else bg-danger 
-                            @endif">
-                            {{ ucfirst($order->status) }}
-                        </span>
-                    </td>
-                    <td>{{ number_format($order->total_price, 0, ',', ' ') }} Ft</td>
-                    <td>{{ $order->created_at->format('Y-m-d H:i') }}</td>
-                    <td>
-                        <a href="{{ route('admin.orders.show', $order->id) }}" class="btn btn-sm btn-primary">
-                            Részletek
-                        </a>
-                        <a href="{{ route('admin.orders.edit', $order->id) }}" class="btn btn-sm btn-secondary">
-                            Szerkesztés
-                        </a>
-                    </td>
+                    <th>#</th>
+                    <th>Felhasználó</th>
+                    <th>Státusz</th>
+                    <th>Összeg</th>
+                    <th>Létrehozva</th>
+                    <th class="text-end">Műveletek</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+            </thead>
+
+            <tbody>
+                @foreach($orders as $order)
+                    <tr>
+                        <td>{{ $order->id }}</td>
+                        <td>{{ $order->name }}</td>
+                        <td>
+                            <span class="badge-discount">{{ ucfirst($order->status) }}</span>
+                        </td>
+                        <td>{{ number_format($order->total, 0, ',', ' ') }} Ft</td>
+                        <td>{{ $order->created_at->format('Y-m-d H:i') }}</td>
+                        <td class="text-end">
+                            <a href="{{ route('admin.orders.show', $order->id) }}" class="btn-admin-light">Részletek</a>
+                            <a href="{{ route('admin.orders.edit', $order->id) }}" class="btn-admin-light">Szerkesztés</a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+
+        </table>
+
+    </div>
+
 </div>
 @endsection

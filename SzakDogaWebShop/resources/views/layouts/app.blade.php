@@ -22,16 +22,18 @@
         @include('components.admin.sidebar')
        @endif
        
+        @if(request()->routeIs('products') || request()->routeIs('offers'))
+            @include('components.category-icons')
+        @endif
+
 </form>
         <main>
             @yield('content')
         </main>
 
-     
-
-<div class="cart-notification" id="cart-notification">
-    Sikeresen hozzáadva a kosárhoz
-</div>
+        <div class="cart-notification" id="cart-notification">
+            Sikeresen hozzáadva a kosárhoz
+        </div>
 
 <script src="{{ asset('js/filter.js') }}"></script>
 <script src="{{ asset('js/cart.js') }}"></script>

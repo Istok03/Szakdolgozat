@@ -82,6 +82,14 @@ Route::middleware(['auth', 'admin'])->group(function () {
     });
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout');
+    Route::post('/order/store', [OrderController::class,'store'])->name('order.store');
+});
+
+Route::patch('/admin/orders/{order}/status', [OrderController::class, 'updateStatus'])
+    ->name('admin.orders.updateStatus');
+
 
 
 require __DIR__.'/auth.php';

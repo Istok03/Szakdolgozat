@@ -14,6 +14,7 @@ class AdminController extends Controller
         $productCount = Product::count();
         $pendingOrders = Order::where('status', 'pending') -> count();
         $adminCount = User::where ('is_admin',true) -> count();
+        $orders= Order::with('user')->orderBy('created_at', 'desc')->get();
 
         return view('admin.dashboard', compact('productCount','pendingOrders','adminCount'));
      }

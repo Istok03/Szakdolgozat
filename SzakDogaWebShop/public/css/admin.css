@@ -1,11 +1,9 @@
-/* Lila háttér + modern betűtípus */
 body {
     background-color: #6f5acd;
     font-family: 'Inter', 'SF Pro Display', 'Segoe UI', sans-serif;
     color: #333;
 }
 
-/* Cím középre, nagyobb térrel */
 h1 {
     text-align: center;
     font-weight: 700;
@@ -13,7 +11,6 @@ h1 {
     margin-bottom: 40px;
 }
 
-/* Kártyák */
 .card {
     border-radius: 12px;
     box-shadow: 0 6px 16px rgba(0,0,0,0.2);
@@ -23,13 +20,11 @@ h1 {
     padding: 10px;
 }
 
-/* Hover effekt */
 .card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 24px rgba(0,0,0,0.3);
 }
 
-/* Kártya fejléc */
 .card-header {
     font-size: 1.1rem;
     font-weight: 600;
@@ -37,13 +32,11 @@ h1 {
     letter-spacing: 1px;
 }
 
-/* Kártya szöveg */
 .card-text {
     font-size: 0.95rem;
     margin-bottom: 20px;
 }
 
-/* Gombok */
 .card .btn {
     border-radius: 8px;
     font-weight: 500;
@@ -53,12 +46,10 @@ h1 {
     position: relative;
 }
 
-/* Hover fix: ne lógjon át */
 .card .btn:hover {
     box-shadow: 0 0 0 2px rgba(255,255,255,0.3);
 }
 
-/* Container padding */
 .container {
     padding-bottom: 60px;
 }
@@ -78,4 +69,362 @@ h1 {
 .logout-btn:hover{
     background-color: #fff;
     color: #6f42c1;
+}
+
+/* --- ADMIN TABLE REDESIGN --- */
+
+.admin-table-card {
+    background-color: #6f5acd;
+    color: white;
+    border-radius: 12px;
+    padding: 0;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+    overflow: hidden;
+}
+
+/* Táblázat */
+.admin-table {
+    width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+}
+
+/* Fejléc */
+.admin-table thead {
+    background-color: rgba(255,255,255,0.15);
+}
+
+.admin-table th {
+    padding: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Sorok */
+.admin-table td {
+    padding: 14px;
+    vertical-align: middle;
+}
+
+/* Hover sor */
+.admin-table tbody tr:hover {
+    background-color: rgba(255,255,255,0.1);
+    transition: 0.2s;
+}
+
+/* Kép cella */
+.admin-table img {
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+/* Badge */
+.badge-discount {
+    background-color: #fff;
+    color: #333;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+/* Gombok */
+.btn-admin-light {
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+.btn-admin-light:hover {
+    background-color: #fff;
+    color: #7c3aed;
+}
+
+.btn-admin-danger {
+    border: 1px solid #ff4d4d;
+    color: #ff4d4d;
+    padding: 6px 14px;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+.btn-admin-danger:hover {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+
+/* --- RENDELÉSEK ADMIN TÁBLÁZAT --- */
+
+.admin-table-card {
+    background-color: #6f5acd;;
+    color: white;
+    border-radius: 12px;
+    padding: 0;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+    overflow: hidden;
+}
+
+.admin-table {
+    width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+}
+
+.admin-table thead {
+    background-color: rgba(255,255,255,0.15);
+}
+
+.admin-table th {
+    padding: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.admin-table td {
+    padding: 14px;
+    vertical-align: middle;
+}
+
+.admin-table tbody tr:hover {
+    background-color: rgba(255,255,255,0.1);
+    transition: 0.2s;
+}
+
+.badge-discount {
+    background-color: #fff;
+    color: #333;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.btn-admin-light {
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 6px;
+    transition: 0.2s;
+    margin-left: 6px;
+}
+
+.btn-admin-light:hover {
+    background-color: #fff;
+    color: #6f5acd;;
+}
+
+/* --- FELHASZNÁLÓK ADMIN TÁBLÁZAT --- */
+
+.admin-table-card {
+    background-color: #6f5acd;
+    color: white;
+    border-radius: 12px;
+    padding: 0;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+    overflow: hidden;
+}
+
+.admin-table {
+    width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+}
+
+.admin-table thead {
+    background-color: rgba(255,255,255,0.15);
+}
+
+.admin-table th {
+    padding: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.admin-table td {
+    padding: 14px;
+    vertical-align: middle;
+}
+
+.admin-table tbody tr:hover {
+    background-color: rgba(255,255,255,0.1);
+    transition: 0.2s;
+}
+
+.badge-discount {
+    background-color: #fff;
+    color: #333;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.btn-admin-light {
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 6px;
+    transition: 0.2s;
+    margin-left: 6px;
+}
+
+.btn-admin-light:hover {
+    background-color: #fff;
+    color: #6f5acd;
+}
+
+.btn-admin-danger {
+    border: 1px solid #ff4d4d;
+    color: #ff4d4d;
+    padding: 6px 14px;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+.btn-admin-danger:hover {
+    background-color: #ff4d4d;
+    color: white;
+}
+/* --- FELHASZNÁLÓ SZERKESZTÉS FORM --- */
+
+.card-body form label {
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.card-body form input,
+.card-body form select {
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+.card-body form .btn-admin-light {
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1px solid #fff;
+    color: #fff;
+    background-color: transparent;
+    transition: all 0.2s ease;
+}
+
+.card-body form .btn-admin-light:hover {
+    background-color: #fff;
+    color: #7c3aed;
+}
+/* --- TERMÉK SZERKESZTÉS FORM --- */
+
+.card-body form label {
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.card-body form input,
+.card-body form textarea,
+.card-body form select {
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+.card-body form .btn-admin-light {
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1px solid #fff;
+    color: #fff;
+    background-color: transparent;
+    transition: all 0.2s ease;
+}
+
+.card-body form .btn-admin-light:hover {
+    background-color: #fff;
+    color: #6f5acd;
+}
+
+.card-body form .row .form-label {
+    margin-bottom: 6px;
+}
+
+.card-body form .row .form-control {
+    margin-bottom: 0;
+}
+
+.card-body form .img-fluid {
+    margin-top: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+
+/* --- RENDELÉS SZERKESZTÉS FORM --- */
+
+.card-body form label {
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.card-body form input,
+.card-body form select {
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+.card-body form .btn-admin-light {
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1px solid #fff;
+    color: #fff;
+    background-color: transparent;
+    transition: all 0.2s ease;
+}
+
+.card-body form .btn-admin-light:hover {
+    background-color: #fff;
+    color: #6f5acd;
+}
+/* --- RENDELÉS RÉSZLETEI --- */
+
+/* --- RENDELÉS RÉSZLETEI EGYSZERŰSÍTETT --- */
+
+.card-body h5 {
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+}
+
+.card-body p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.badge-discount {
+    background-color: #fff;
+    color: #333;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.btn-admin-light {
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+.btn-admin-light:hover {
+    background-color: #fff;
+    color: #7c3aed;
 }
