@@ -29,6 +29,11 @@ class ProductController extends Controller
         $query->where('discount', '>', 0);
     }
 
+    if ($request->has('category')) {
+        $query->where('category_id', $request->category);
+    }
+
+
     $products = $query->get();
 
     return view('products', compact('products'));
@@ -60,4 +65,13 @@ public function byCategory($id)
 }
 
 
+
+public function edit(string $id)
+{
+    $product = Product::findOrFail($id);
+    return view('admin.products.edit', compact('product'));
 }
+
+
+
+}?>

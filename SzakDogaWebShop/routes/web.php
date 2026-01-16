@@ -66,6 +66,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('users', UserController::class);
     });
 });
+Route::get('/admin/products/create', [AdminProductController::class, 'create'])->name('admin.products.create');
+
 
 Route::resource('users', UserController::class);
 

@@ -16,19 +16,20 @@
 <body>
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
         @include('layouts.navigation')
+
+        @if(Request::is('products') || Request::is('offers'))
+            @php
+                $categories = \App\Models\Category::all();
+            @endphp
+
+            @include('components.category-dropdown', ['categories' => $categories])
+        @endif
+
         
        @if(auth()->check() && auth()->user()->is_admin)
         <button id="sidebarToggle" class="sidebar-toggle">☰</button>
         @include('components.admin.sidebar')
        @endif
-       
-  @if(Request::is('products') || Request::is('offers'))
-    @php
-        $categories = \App\Models\Category::all();
-    @endphp
-    <x-category-list :categories="$categories" />
-@endif
-
 
 </form>
         <main>
@@ -42,6 +43,7 @@
 <script src="{{ asset('js/filter.js') }}"></script>
 <script src="{{ asset('js/cart.js') }}"></script>
 <script src="{{ asset('js/sidebar.js') }}"></script>
+<script src="{{ asset('js/dropdown.js') }}"></script>
 
 
 </body>

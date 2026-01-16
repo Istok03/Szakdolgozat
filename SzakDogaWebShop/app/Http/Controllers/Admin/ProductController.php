@@ -24,7 +24,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.products.create');
+        $categories = \App\Models\Category::all();
+        return view('admin.products.create', compact('categories'));
     }
 
     /**
@@ -38,12 +39,13 @@ class ProductController extends Controller
             'discount_price' => 'nullable|numeric|min:0',
             'description' =>'nullable|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'category_id' => 'required|exists:categories,id',
         ]);
         
         if ($request->hasFile('image')) {
             $filename = time() . '_' . $request->file('image')->getClientOriginalName();
-            $request->file('image')->move(public_path('images/products'),
- $filename); $validated['image'] = 'images/products/' . $filename; }
+            $request->file('image')->move(public_path('images/products'),$filename);
+            $validated['image'] = 'images/products/' . $filename; }
 
 
         Product:: create($validated);
@@ -67,7 +69,9 @@ class ProductController extends Controller
     public function edit(string $id)
     {
         $product = Product::findOrFail($id);
-        return view('admin.products.edit', compact('product'));
+        $categories = \App\Models\Category::all();
+
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
     /**
@@ -80,9 +84,10 @@ class ProductController extends Controller
         $validated = $request->validate([
          'name' => 'required|string|max:255',
          'price' => 'required|numeric|min:0', 
-         'discount' => 'nullable|integer|min:0|max:100', 
+         'discount_price' => 'nullable|integer|min:0|max:100', 
          'description' => 'nullable|string',
          'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', 
+         'category_id' => 'required|exists:categories,id',
         ]);
 
         if ($request->hasFile('image')) {

@@ -432,3 +432,19 @@ h1 {
     background-color: #fff;
     color: #7c3aed;
 }
+
+
+.text-purple {
+    color: black;
+    
+}
+
+.btn-purple {
+    background-color: #d63384;
+    color: white;
+    border: none;
+}
+
+.btn-purple:hover {
+    background-color: #c22575;
+}

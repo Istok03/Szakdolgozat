@@ -40,6 +40,17 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label for="category_id">Kategória:</label>
+                        <select name="category_id" id="category_id" class="form-control">
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}" {{ $product->category_id == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="description" class="form-label text-white">Leírás</label>
