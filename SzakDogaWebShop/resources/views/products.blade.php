@@ -1,7 +1,14 @@
+
+
+
 @extends('layouts.app')
 
 @section('content')
+
     <div class="products-page">
+
+
+
         <h1>Termékeink</h1>
         <p class="subtitle">Modern informatikai eszközök, akciós ajánlatokkal</p>
 

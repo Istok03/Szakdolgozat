@@ -22,9 +22,13 @@
         @include('components.admin.sidebar')
        @endif
        
-        @if(request()->routeIs('products') || request()->routeIs('offers'))
-            @include('components.category-icons')
-        @endif
+  @if(Request::is('products') || Request::is('offers'))
+    @php
+        $categories = \App\Models\Category::all();
+    @endphp
+    <x-category-list :categories="$categories" />
+@endif
+
 
 </form>
         <main>

@@ -91,5 +91,7 @@ Route::patch('/admin/orders/{order}/status', [OrderController::class, 'updateSta
     ->name('admin.orders.updateStatus');
 
 
+    Route::get('/products/category/{id}', [ProductController::class, 'byCategory'])->name('products.byCategory');
+
 
 require __DIR__.'/auth.php';

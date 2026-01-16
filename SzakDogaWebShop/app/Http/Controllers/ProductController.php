@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
 
 class ProductController extends Controller
 {
@@ -49,6 +50,14 @@ public function show($id){
     return view('product.show', compact('product'));    
 }
 
+public function byCategory($id)
+{
+    $category = Category::findOrFail($id);
+
+    $products = Product::where('category_id', $category->id)->get();
+
+    return view('product.index', compact('products', 'category'));
+}
 
 
 }

@@ -4,6 +4,9 @@ body {
     color: #333;
 }
 
+a{
+    color:black;
+}
 h1 {
     text-align: center;
     font-weight: 700;
@@ -231,6 +234,7 @@ h1 {
     width: 100%;
     margin: 0;
     border-collapse: collapse;
+    text-align: center;
 }
 
 .admin-table thead {
