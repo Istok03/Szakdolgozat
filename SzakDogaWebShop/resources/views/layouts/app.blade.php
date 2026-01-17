@@ -31,7 +31,7 @@
         @include('components.admin.sidebar')
        @endif
 
-</form>
+
         <main>
             @yield('content')
         </main>
@@ -45,10 +45,11 @@
 <script src="{{ asset('js/sidebar.js') }}"></script>
 <script src="{{ asset('js/dropdown.js') }}"></script>
 
-
-</body>
-   <div class="watermark">
+<div class="watermark">
             @include('layouts.footer')
-        </div>
     </div>
+     </div>
+</body>
+   
+   
 </html>

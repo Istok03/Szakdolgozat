@@ -17,7 +17,7 @@
       @endif
 
 
-        <div class="container mt-4">
+       
             @if(session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     {{ session('success') }}
@@ -25,12 +25,11 @@
                 </div>
             @endif
 
-            <div class="admin-content">
+            <div class="admin-content d-flex justify-content-center  w-100 mt-4">
                 @yield('content')
             </div>
 
-        </div>
-
+        
         <script src="{{ asset('js/sidebar.js') }}"></script>
     </body>
     </html>

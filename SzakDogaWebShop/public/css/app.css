@@ -11,9 +11,11 @@ body,html{
         color: #333;
         justify-content: space-between;
         align-items: center;
+        flex-wrap: wrap;
         background:#dee2ff;
-        padding:15px 30px;
+        padding:12px 24px;
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        z-index: 1000;
 }
 
 .navbar .logo a{
@@ -57,6 +59,33 @@ body,html{
     width: 100%;
 }
 
+.navbar .nav-links .active{
+    width: 100%;
+    position: absolute;
+    top: 60px;
+    left:0;
+    background-color: #6A5ACD;
+    z-index: 2000;
+}
+
+.menu-toggle{
+    display:none;
+    font-size: 1.8rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+}
+
+.navbar .auth-links{
+    display:flex;
+    gap: 12px;
+    align-items: center;
+}
+
+
+
+
 .navbar .auth-links a{
     position: relative;
     text-decoration: none;
@@ -86,6 +115,38 @@ body,html{
     align-items: center;
     gap: 12px;
 }
+
+@media (max-width: 768px){
+    .menu-toggle{
+        display:block;
+    }
+    .navbar .nav-links{
+        display:none;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+        width: 100%;
+        margin-top: 10px;
+    }
+    .navbar .nav-links.active{
+        display:flex;
+    }
+    .navbar .nav-links a{
+        padding: 8px 0;
+        border-top: none;
+    }
+    .navbar .auth-links{
+        justify-content: center;
+        width: 100%;
+        margin-top: 8px;
+    }
+    .navbar{
+       flex-direction: row;
+         align-items: flex-start;
+    }
+}
+
 
 
 .logout-button {
@@ -168,7 +229,7 @@ body,html{
 
 .filter-toggle {
   position: absolute;
-  top: 100px;
+  top: 140px;
   right: 20px;
   z-index: 100;
 }
@@ -794,7 +855,7 @@ body,html{
     width: 240px;
     height: 100vh;
     background-color: #4b0082;
-    z-index: 1000;
+    z-index: 9000;
 }
 
 .admin-sidebar.visible {

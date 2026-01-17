@@ -36,7 +36,7 @@ class ProductController extends Controller
         $validated = $request->validate([
             'name'=> 'required|string|max:255',
             'price'=>'required|numeric|min:0',
-            'discount_price' => 'nullable|numeric|min:0',
+            'discount' => 'nullable|integer|min:0|max:100',
             'description' =>'nullable|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'category_id' => 'required|exists:categories,id',
@@ -84,17 +84,22 @@ class ProductController extends Controller
         $validated = $request->validate([
          'name' => 'required|string|max:255',
          'price' => 'required|numeric|min:0', 
-         'discount_price' => 'nullable|integer|min:0|max:100', 
+         'discount' => 'nullable|integer|min:0|max:100', 
          'description' => 'nullable|string',
          'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', 
          'category_id' => 'required|exists:categories,id',
         ]);
 
-        if ($request->hasFile('image')) {
-            $filename = time() . '_' . $request->file('image')->getClientOriginalName();
-            $request->file('image')->move(public_path('images/products'),$filename);
-            $validated['image'] = 'images/products/'. $filename;
-        }
+      if ($request->hasFile('image')) {
+      if ($product->image && file_exists(public_path($product->image))) {
+        unlink(public_path($product->image));
+    }
+
+    $filename = time() . '_' . $request->file('image')->getClientOriginalName();
+    $request->file('image')->move(public_path('images/products'), $filename);
+    $validated['image'] = 'images/products/' . $filename;
+}
+
 
         $product->update($validated);
 

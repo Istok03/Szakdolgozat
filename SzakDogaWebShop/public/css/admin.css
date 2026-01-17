@@ -19,7 +19,7 @@ h1 {
     box-shadow: 0 6px 16px rgba(0,0,0,0.2);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     margin-bottom: 40px; /* extra tér a kártyák között */
-    text-align: center;
+   text-align: center;
     padding: 10px;
 }
 
@@ -53,10 +53,19 @@ h1 {
     box-shadow: 0 0 0 2px rgba(255,255,255,0.3);
 }
 
-.container {
+.admin-container {
     padding-bottom: 60px;
 }
 
+.admin-content{
+    padding-left:250px;
+    width: 100%;
+}
+@media (max-width: 1200px) {
+    .admin-content{
+        padding-left:0;
+    }
+}
 
 .logout-btn{
     
@@ -323,48 +332,33 @@ h1 {
 }
 /* --- TERMÉK SZERKESZTÉS FORM --- */
 
+.card-body form .row {
+    margin-bottom: 12px;
+}
+
 .card-body form label {
     font-weight: 600;
-    margin-bottom: 6px;
-}
-
-.card-body form input,
-.card-body form textarea,
-.card-body form select {
-    border-radius: 8px;
-    padding: 10px 14px;
-    font-size: 1rem;
-    margin-bottom: 20px;
-}
-
-.card-body form .btn-admin-light {
-    font-weight: 600;
-    padding: 10px 20px;
-    border-radius: 8px;
-    border: 1px solid #fff;
-    color: #fff;
-    background-color: transparent;
-    transition: all 0.2s ease;
-}
-
-.card-body form .btn-admin-light:hover {
-    background-color: #fff;
-    color: #6f5acd;
-}
-
-.card-body form .row .form-label {
-    margin-bottom: 6px;
-}
-
-.card-body form .row .form-control {
     margin-bottom: 0;
 }
 
-.card-body form .img-fluid {
-    margin-top: 10px;
+.card-body form .form-control,
+.card-body form .form-select {
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    padding: 10px 14px;
+    font-size: 1rem;
 }
+
+.card-body form .btn {
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.card-body form .btn:hover {
+    opacity: 0.9;
+}
+
+
 
 
 /* --- RENDELÉS SZERKESZTÉS FORM --- */
