@@ -1,0 +1,8 @@
+<--BUGFIXEK, MI KELL MÉG-->
+
+--Payment megcsinalasa
+--Responsive felulet megcsinalasa --> nemelyik oldal nehezen csinálódik meg
+--Kepek, termekek feltoltese
+--Oldal logo
+--Vélemények csinálása
+--Par UX fix, plusz értesítés generálás.
