@@ -1,5 +1,4 @@
 <link rel="icon" href="{{ asset('images/logo/logo.png') }}" type="image/png">
-<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 
 <title>Belépés</title>
@@ -13,7 +12,7 @@
     </div>
 
     <x-auth-session-status class="mb-4" :status="session('status')" />
-    
+        <div class="form-container">
     <form method="POST" action="{{ route('login') }}">
         @csrf
         <div>
@@ -49,10 +48,11 @@
             @endif
 
             <x-primary-button class="x-primary-button ms-3">
-    {{ __('Belépés') }}
+     {{ __('Belépés') }}
 </x-primary-button>
         </div>
     </form>
+  </div>
 </div>
 <div class = "watermark">   
     <p>&copy; 2025 Istok's IT store. Minden jog fenntartva.</p>

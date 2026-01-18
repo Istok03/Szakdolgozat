@@ -10,4 +10,17 @@
     <div id="cart-container">
         @include('cart_content', ['cart' => $cart, 'total' => $total])
     </div>
+
+@if(count($cart) > 0)
+    <div class="checkout-button-container">
+        <a href="{{ route('checkout') }}" class="checkout-button">
+            Tovább a fizetéshez
+        </a>
+    </div>
+@endif
+
+
+
 @endsection
+
+

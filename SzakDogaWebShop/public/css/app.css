@@ -771,79 +771,79 @@ body,html{
     background-color: #5a4ac0;
 }
 
-.payment-page{
-    max-width: 1000px;
-    margin: 40px auto;
-    color: white;
-    text-align: center;
+.checkout-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #f9fafb;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
 }
 
-.payment-page h1{
-    font-size: 32;
-    margin-bottom: 10px;
+.checkout-form .form-group {
+    margin-bottom: 1.2rem;
 }
 
-.payment-container{
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    margin-top: 30px;
+.checkout-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
 }
 
-.billing-info, .payment-method, .order-summary{
-    background: white;
-    color:#333;
-    padding: 20px;    
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+.checkout-form input {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.checkout-cart {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+}
+
+.checkout-cart th,
+.checkout-cart td {
+    border-bottom: 1px solid #e5e7eb;
+    padding: 0.8rem;
     text-align: left;
 }
 
-.billing-info h2, .payment-method h2, .order-summary h2{
-    margin-bottom: 15px;
+.checkout-cart th {
+    background-color: #f3f4f6;
+    font-weight: 600;
 }
 
-.form-group{
-    margin-bottom: 15px;
+.checkout-total {
+    margin-top: 1.5rem;
+    font-size: 1.2rem;
+    text-align: right;
+    color: #111827;
 }
 
-.form-group label{
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
+.checkout-submit {
+    margin-top: 2rem;
+    padding: 0.8rem 1.6rem;
+    background-color: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
-.form-group input[type = "text"],
-.form-group input[type = "email"]{
-    width: 100%;
-    padding:10px;
-    border:1px solod #ccc;
-    border-radius: 5px;
-    
+.checkout-submit:hover {
+    background-color: #3730a3;
 }
 
-.order-summary ul{
-    list-style: none;
-    padding: 0;
-    margin-bottom: 15px;
-}
-
-.order-summary li{
-    margin-bottom: 5px;
-}
-
-.pay-btn{
-    background-color: #6A5ACD;
-    color:white;
-    border:none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    cursor:pointer;
-    transition: background-color 0.3s ease;
-}
-
-.pay-btn:hover{
-    background-color: #5a4ac0;
+.empty-cart {
+    margin-top: 1rem;
+    font-style: italic;
+    color: #6b7280;
 }
 
 .admin-sidebar {

@@ -47,7 +47,7 @@
 
 <div class="watermark">
             @include('layouts.footer')
-    </div>
+</div>
      </div>
 </body>
    

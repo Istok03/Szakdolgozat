@@ -1,5 +1,4 @@
 <link rel="icon" href="{{ asset('images/logo/logo.png') }}" type="image/png">
-<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 <link rel="stylesheet" href="{{ asset('css/register.css') }}">
 
 <title>Regisztráció</title>
