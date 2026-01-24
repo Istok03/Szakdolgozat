@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CartController;
@@ -15,6 +16,7 @@ Route::get('/', [ProductController::class, 'home'])
 Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
+Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
 
 
 Route::post('/cart/add/{id}', [CartController::class, 'add'

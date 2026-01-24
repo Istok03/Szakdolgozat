@@ -58,12 +58,12 @@ h1 {
 }
 
 .admin-content{
-    padding-left:250px;
-    width: 100%;
+    padding-left:50px;
+   padding-right: 50px;
 }
 @media (max-width: 1200px) {
     .admin-content{
-        padding-left:0;
+        padding-left:50px;
     }
 }
 

@@ -7,7 +7,6 @@
 
 
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2>Termékek kezelése</h2>
     <a href="{{ route('admin.products.create') }}" class="btn btn-success">+ Új termék</a>
 </div>
 
