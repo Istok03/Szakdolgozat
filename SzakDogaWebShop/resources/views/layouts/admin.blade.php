@@ -2,7 +2,9 @@
     <html lang="hu">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Admin felület</title>
+        
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link  href="{{ asset('css/admin.css') }}" rel="stylesheet">
         <link  href="{{ asset('css/product.css') }}" rel="stylesheet">

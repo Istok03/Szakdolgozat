@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController; 
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
@@ -97,5 +98,15 @@ Route::patch('/admin/orders/{order}/status', [OrderController::class, 'updateSta
 
     Route::get('/products/category/{id}', [ProductController::class, 'byCategory'])->name('products.byCategory');
 
+
+Route::post('/products/{product}/reviews', [ReviewController::class, 'store'])
+    ->name('reviews.store')
+    ->middleware('auth');
+
+Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])
+    ->name('reviews.destroy')
+    ->middleware('auth');
+
+    
 
 require __DIR__.'/auth.php';

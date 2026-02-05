@@ -130,7 +130,7 @@ main{
 .category-button {
     background-color: #4b0082;
     color: white;
-    padding: 10px 18px;
+    padding: 10px 16px;
     border-radius: 8px;
     font-weight: 600;
     font-size: 16px;
@@ -150,7 +150,7 @@ main{
 
 .category-panel {
     position: relative;
-    background-color: rgba(255, 255, 255, 0.05); /* halvány fehéres háttér */
+    background-color: rgba(255, 255, 255, 0.05); 
     padding: 12px 16px;
     margin-top: 8px;
     border-radius: 8px;
@@ -226,20 +226,25 @@ main{
     }
 
     .navbar .nav-links {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        gap: 0;
-        margin-top: 10px;
-        background: #dee2ff;
-        border-radius: 8px;
-        overflow: hidden;
-        padding: 0;
-        position: static;
-        top: 56px;
-        left: 0;
-        z-index: 1;
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background: #dee2ff;
+    border-radius: 8px;
+    padding: 0;
+    margin: 10px 0 0 0;
+    overflow: hidden;   /* fontos, hogy ne lógjon ki semmi */
+    height: auto;
+    z-index: 1;         /* elég, nem kerül a gombok fölé */
+}
 
+
+    .navbar .logo{
+        display: flex;
+        align-items: center;
+        height: 40px;
+        padding: 0;
+        margin:0;
     }
 
     .navbar .nav-links.active {
@@ -415,44 +420,11 @@ main{
   z-index: 100;
 }
 
-@media (max-width: 768px) {
-    .filter-toggle {
-        position: absolute;
-        margin: 10px 16px 0 auto;
-        display: flex;
-        justify-content: flex-end;
-        z-index: 10;
-        top: 150px;
-    }
-
-    .filter-btn {
-        background: #6A5ACD;
-        color: white;
-        font-weight: 600;
-        padding: 10px 18px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        width: auto;
-        max-width: 100%;
-    }
-
-    .filter-btn:hover {
-        background: #5a4ab7;
-    }
-
-    .filter-panel-show{
-        padding-top:150px;
-    }
-}
-
-
-
 .filter-btn {
   background: #4b0082;
   color: #fff;
   font-weight: 600;
+  top: 120px;
   padding: 0.6rem 1rem;
   border: none;
   border-radius: 8px;
@@ -467,7 +439,7 @@ main{
 @keyframes slideDown {
   from { 
     opacity: 0;
-    transform: translate(-30px);
+    transform: translateY(-30px);
 }
   to   {
      opacity: 1;
@@ -478,7 +450,7 @@ main{
 
 .filter-panel {
   position: absolute;
-  top: 50px;
+  top: 200px;
   right: 20px;
   width: 360px;
   background: #ffffff;
@@ -496,8 +468,8 @@ main{
 
 .filter-panel.show {
   opacity: 1;
-  transform: translateY(0);
   pointer-events: auto;
+  animation: slideDown 0.4s ease forwards; 
 }
 
 .filter-panel input[type="text"],
@@ -555,6 +527,40 @@ main{
 #filterToggle:hover {
   background-color: #5a379f;
   transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .filter-toggle {
+        position: absolute;
+        
+        margin: 10px 16px 0 auto;
+        display: flex;
+        justify-content: flex-end;
+        z-index: 10;
+        top: 165px;
+    }
+
+    .filter-btn {
+        background: #6A5ACD;
+        color: white;
+        font-weight: 600;
+        padding: 10px 18px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        width: auto;
+        max-width: 100%;
+    }
+
+    .filter-btn:hover {
+        background: #5a4ab7;
+    }
+
+    .filter-panel{
+        top:250px;
+        left: 7px;
+    }
 }
 
 
@@ -918,9 +924,10 @@ main{
 }
 
 .cart-notification {
-    position: absolute;
-    top: 120px;
-    right: 42.5%;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translate(-50%, -20px); /* X és Y együtt */
     background-color: #6c63ff;
     color: white;
     padding: 12px 20px;
@@ -928,15 +935,16 @@ main{
     font-size: 16px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     opacity: 0;
-    transform: translateY(-20px);
     transition: opacity 0.4s ease, transform 0.4s ease;
+    pointer-events: none;
     z-index: 9999;
 }
 
 .cart-notification.show {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate(-50%, 0); /* animáció közben visszacsúszik */
 }
+
 
 .item-details{
     flex:1;
@@ -1117,3 +1125,51 @@ main{
     margin-bottom: 10px;
 }
 
+
+.home-reviews {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+    font-family: 'Inter', sans-serif;
+}
+
+.home-reviews h2 {
+    margin-bottom: 20px;
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.home-review-card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+}
+
+.home-review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.review-stars {
+    color: #f1c40f;
+    font-size: 18px;
+}
+
+.home-review-text {
+    font-style: italic;
+    margin: 10px 0;
+    color: #444;
+}
+
+.home-review-product {
+    font-weight: 600;
+    color: #6c63ff;
+    text-decoration: none;
+}
+
+.home-review-product:hover {
+    text-decoration: underline;
+}

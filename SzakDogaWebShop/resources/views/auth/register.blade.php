@@ -1,6 +1,6 @@
 <link rel="icon" href="{{ asset('images/logo/logo.png') }}" type="image/png">
 <link rel="stylesheet" href="{{ asset('css/register.css') }}">
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Regisztráció</title>
 
 <div class="register-container">

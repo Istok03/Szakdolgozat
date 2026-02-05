@@ -47,8 +47,18 @@ class ProductController extends Controller
 
 public function home(){
     $products = Product::orderBy('created_at','desc')->take(4)->get();
-    return view('home', compact('products'));
+
+    $randomReviews = \App\Models\Review::with('user', 'product')
+        ->inRandomOrder()
+        ->take(3)
+        ->get();
+
+    return view('home', [
+        'products' => $products,
+        'randomReviews' => $randomReviews
+    ]);
 }
+
 
 public function show($id){
     $product = Product::findOrFail($id);

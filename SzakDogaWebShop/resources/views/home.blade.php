@@ -34,4 +34,33 @@
             @endforelse
         </div>
     </div>
+    @if($randomReviews->count() > 0)
+    <div class="home-reviews">
+        <h2>Vásárlóink véleményei</h2>
+
+        @foreach($randomReviews as $review)
+            <div class="home-review-card">
+                <div class="home-review-header">
+                    <strong>{{ $review->user->name }}</strong>
+
+                    <span class="review-stars">
+                        @for($i = 1; $i <= 5; $i++)
+                            {{ $i <= $review->rating ? '★' : '☆' }}
+                        @endfor
+                    </span>
+                </div>
+
+                <p class="home-review-text">
+                    "{{ Str::limit($review->comment, 120) }}"
+                </p>
+
+                <a href="{{ route('product.show', $review->product) }}" class="home-review-product">
+                    {{ $review->product->name }}
+                </a>
+            </div>
+        @endforeach
+    </div>
+@endif
+
+
 @endsection

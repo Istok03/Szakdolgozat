@@ -83,6 +83,137 @@ body{
 }
 
 
+
+
+.reviews-section {
+    max-width: 1000px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    font-family: 'Inter', sans-serif;
+}
+
+.reviews-section h2,
+.reviews-section h3 {
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+
+
+.review-form {
+    max-width: 500px;
+    margin-bottom: 30px;
+}
+
+.review-form label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.review-form select,
+.review-form textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    transition: border-color 0.2s ease;
+    background-color: #fff;
+}
+
+.review-form select:focus,
+.review-form textarea:focus {
+    border-color: #6c63ff;
+    outline: none;
+}
+
+
+
+.review-submit-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 12px 20px;
+    background-color: #6c63ff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.review-submit-btn:hover {
+    background-color: #574ee0;
+}
+
+.review-form-textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    transition: border-color 0.2s ease;
+    background-color: #fff;
+}
+
+
+.review-card {
+    background: #fafafa;
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #e0e0e0;
+}
+
+.review-card strong {
+    font-size: 16px;
+}
+
+.review-stars {
+    color: #f1c40f;
+    font-size: 18px;
+    margin-left: 5px;
+}
+
+.review-card p {
+    margin: 8px 0;
+}
+
+.review-card small {
+    color: #777;
+}
+
+
+
+.review-delete-btn {
+    margin-top: 5px;
+    background: #e53935;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.review-delete-btn:hover {
+    background: #c62828;
+}
+
+
+
+.reviews-section hr {
+    margin: 25px 0;
+}
+
+
+
 @media (max-width: 768px){
         .product-details{
             flex-direction: column;

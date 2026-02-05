@@ -18,4 +18,14 @@ class Product extends Model
         'image',
         'category_id',
     ];
+
+public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function category()
+    {
+        return $this->reviews()->avg("rating");
+    }
 }
