@@ -3,7 +3,6 @@ window.addEventListener('DOMContentLoaded', () => {
     const panel = document.getElementById('filterPanel');
     const applyBtn = document.getElementById('applyFilter');
 
-    // Nyitó gomb – csak ha léteznek
     if (toggleBtn && panel) {
         toggleBtn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -11,7 +10,6 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Szűrés alkalmazása – csak ha létezik gomb
     if (applyBtn) {
         applyBtn.addEventListener('click', () => {
             const name = document.getElementById('filterName').value;
@@ -30,7 +28,6 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Kikattintásra bezár – csak ha van panel ÉS gomb
     if (panel && toggleBtn) {
         document.addEventListener('click', (e) => {
             if (!panel.contains(e.target) && e.target !== toggleBtn) {
@@ -38,4 +35,23 @@ window.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    const categoryToggle = document.getElementById('categoryToggle');
+    const categoryPanel = document.getElementById('categoryPanel');
+
+    if (categoryToggle && categoryPanel) {
+        categoryToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            categoryPanel.classList.toggle('show');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!categoryPanel.contains(e.target) && e.target !== categoryToggle) {
+                categoryPanel.classList.remove('show');
+            }
+        });
+    }
+
 });
+
+

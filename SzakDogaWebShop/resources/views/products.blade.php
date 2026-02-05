@@ -12,9 +12,7 @@
         <h1>Termékeink</h1>
         <p class="subtitle">Modern informatikai eszközök, akciós ajánlatokkal</p>
 
-        <div class="filter-toggle">
-                    <button id="filterToggle" class="btn btn-success">Szűrő</button>
-
+      
         <div id="filterPanel" class="filter-panel">
             <input id="filterName" type="text" placeholder="Név alapján">
             <input id="filterMin" type="number" placeholder="Minimum ár">
@@ -25,7 +23,7 @@
             <button id="applyFilter" class="btn btn-primary">Szűrés alkalmazása</button>
         </div>
 
-        </div>
+  
 
  
         <div class="product-grid">

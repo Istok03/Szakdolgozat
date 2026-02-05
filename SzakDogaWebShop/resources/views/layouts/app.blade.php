@@ -17,13 +17,31 @@
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
         @include('layouts.navigation')
 
-        @if(Request::is('products') || Request::is('offers'))
-            @php
-                $categories = \App\Models\Category::all();
-            @endphp
+@if(Request::is('products') || Request::is('offers'))
+    @php
+        $categories = \App\Models\Category::all();
+    @endphp
 
-            @include('components.category-dropdown', ['categories' => $categories])
-        @endif
+    <div class="navbar-categories">
+    <button id="categoryToggle" class="category-button">
+        Kategóriák
+    </button>
+
+    <div id="categoryPanel" class="category-panel">
+        @foreach($categories as $category)
+            <a href="{{ url('/products?category=' . $category->id) }}" class="category-list-item">
+                {{ $category->name }}
+            </a>
+        @endforeach
+    </div>
+</div>
+
+<div class="filter-toggle">
+    <button id="filterToggle" class="filter-btn">Szűrő</button>
+</div>
+
+@endif
+
 
         
        @if(auth()->check() && auth()->user()->is_admin)
@@ -43,7 +61,6 @@
 <script src="{{ asset('js/filter.js') }}"></script>
 <script src="{{ asset('js/cart.js') }}"></script>
 <script src="{{ asset('js/sidebar.js') }}"></script>
-<script src="{{ asset('js/dropdown.js') }}"></script>
 
 <div class="watermark">
             @include('layouts.footer')
