@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -57,7 +58,7 @@ class UserController extends Controller
 
         $request->validate([
             'name'      => 'required|string|max:255',
-            'email'     => 'required|email|max:255',
+            'email'     => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'is_admin'  => 'required|boolean',
         ]);
 
@@ -69,8 +70,10 @@ class UserController extends Controller
         $user->update([
             'name'      => $request->name,
             'email'     => $request->email,
-            'is_admin'  => $request->is_admin,
         ]);
+
+        $user->is_admin = $request->boolean('is_admin');
+        $user->save();
 
         return redirect()->route('admin.users.index')
             ->with('success', 'Felhasználó sikeresen frissítve.');
