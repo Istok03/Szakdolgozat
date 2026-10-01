@@ -26,6 +26,11 @@ public function reviews()
 
     public function category()
     {
-        return $this->reviews()->avg("rating");
+        return $this->belongsTo(Category::class);
+    }
+
+    public function salePrice(): float
+    {
+        return round($this->price * (1 - ($this->discount ?? 0) / 100), 2);
     }
 }

@@ -61,8 +61,8 @@ public function home(){
 
 
 public function show($id){
-    $product = Product::findOrFail($id);
-    return view('product.show', compact('product'));    
+    $product = Product::with(['category.options', 'reviews.user'])->findOrFail($id);
+    return view('product.show', compact('product'));
 }
 
 public function byCategory($id)
