@@ -6,6 +6,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
     <title>{{ config('app.name', 'Istok\'s IT store') }}</title>
+    @isset($slot)
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @endisset
     @stack('styles')
     <link rel="stylesheet" href="{{ asset('css/product.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -51,10 +54,12 @@
 
 
         <main>
+            @include('partials.messages')
+            {{ $slot ?? '' }}
             @yield('content')
         </main>
 
-        <div class="cart-notification" id="cart-notification">
+        <div class="cart-notification" id="cart-notification" role="status" aria-live="polite">
             Sikeresen hozzáadva a kosárhoz
         </div>
 

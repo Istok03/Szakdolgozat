@@ -20,12 +20,7 @@
 
 
        
-            @if(session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Bezárás"></button>
-                </div>
-            @endif
+            @include('partials.messages')
 
             <div class="admin-content d-flex justify-content-center  w-100 mt-4">
                 @yield('content')
