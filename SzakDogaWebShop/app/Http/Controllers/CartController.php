@@ -2,183 +2,105 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
-use App\Models\Product;
 use App\Models\CartItem;
+use App\Models\Product;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
     public function index()
     {
-        $cart = Auth::check()
-            ? $this->getUserCart()
-            : session()->get('cart', []);
-
-        $total = $this->calculateTotal($cart);
+        $cart = $this->cart();
+        $total = $this->total($cart);
 
         return view('cart', compact('cart', 'total'));
     }
 
     public function add($id)
     {
-        $product = Product::findOrFail($id);
-
-        if (Auth::check()) {
-            $item = CartItem::where('user_id', Auth::id())
-                ->where('product_id', $id)
-                ->first();
-
-            if ($item) {
-                $item->quantity++;
-                $item->save();
-            } else {
-                CartItem::create([
-                    'user_id' => Auth::id(),
-                    'product_id' => $id,
-                    'quantity' => 1
-                ]);
-            }
-
-            $cart = $this->getUserCart();
-        } else {
-            $cart = session()->get('cart', []);
-            if (isset($cart[$id])) {
-                $cart[$id]['quantity']++;
-            } else {
-                $cart[$id] = [
-                    "id" => $product->id,
-                    "product_id" => $product->id,
-                    "name" => $product->name,
-                    "price" => $product->price,
-                    "quantity" => 1,
-                    "image" => $product->image,
-                    "discount" => $product->discount ?? 0
-                ];
-            }
-            session()->put('cart', $cart);
-        }
-
-        $total = $this->calculateTotal($cart);
-
-        return response()->json([
-            'cart' => $cart,
-            'total' => $total
-        ]);
+        return $this->change($id, 'add');
     }
 
     public function increase($id)
     {
-        if (Auth::check()) {
-            $item = CartItem::where('user_id', Auth::id())
-                ->where('product_id', $id)
-                ->first();
-
-            if ($item) {
-                $item->quantity++;
-                $item->save();
-            }
-
-            $cart = $this->getUserCart();
-        } else {
-            $cart = session()->get('cart', []);
-            if (isset($cart[$id])) {
-                $cart[$id]['quantity']++;
-            }
-            session()->put('cart', $cart);
-        }
-
-        $total = $this->calculateTotal($cart);
-
-        return response()->json([
-            'cart' => $cart,
-            'total' => $total
-        ]);
+        return $this->change($id, 'increase');
     }
 
     public function decrease($id)
     {
-        if (Auth::check()) {
-            $item = CartItem::where('user_id', Auth::id())
-                ->where('product_id', $id)
-                ->first();
-
-            if ($item && $item->quantity > 1) {
-                $item->quantity--;
-                $item->save();
-            }
-
-            $cart = $this->getUserCart();
-        } else {
-            $cart = session()->get('cart', []);
-            if (isset($cart[$id]) && $cart[$id]['quantity'] > 1) {
-                $cart[$id]['quantity']--;
-            }
-            session()->put('cart', $cart);
-        }
-
-        $total = $this->calculateTotal($cart);
-
-        return response()->json([
-            'cart' => $cart,
-            'total' => $total
-        ]);
+        return $this->change($id, 'decrease');
     }
 
     public function remove($id)
     {
-        if (Auth::check()) {
-            CartItem::where('user_id', Auth::id())
-                ->where('product_id', $id)
-                ->delete();
+        return $this->change($id, 'remove');
+    }
 
-            $cart = $this->getUserCart();
+    private function change($id, string $action)
+    {
+        $product = in_array($action, ['add', 'increase']) ? Product::findOrFail($id) : null;
+
+        if (Auth::check()) {
+            DB::transaction(function () use ($id, $action) {
+                User::whereKey(Auth::id())->lockForUpdate()->firstOrFail();
+                $item = CartItem::firstOrNew(['user_id' => Auth::id(), 'product_id' => $id]);
+                if ($action === 'remove') {
+                    if ($item->exists) {
+                        $item->delete();
+                    }
+                } elseif ($item->exists || $action === 'add') {
+                    $quantity = $item->exists ? $item->quantity : 0;
+                    $item->quantity = max(1, $quantity + ($action === 'decrease' ? -1 : 1));
+                    $item->save();
+                }
+            });
         } else {
-            $cart = session()->get('cart', []);
-            if (isset($cart[$id])) {
+            $cart = session('cart', []);
+            if ($action === 'remove') {
                 unset($cart[$id]);
+            } elseif (isset($cart[$id]) || $action === 'add') {
+                $quantity = max(1, ($cart[$id]['quantity'] ?? 0) + ($action === 'decrease' ? -1 : 1));
+                $cart[$id] = $product ? $this->line($product, $quantity) : array_replace($cart[$id], ['quantity' => $quantity]);
             }
             session()->put('cart', $cart);
         }
 
-        $total = $this->calculateTotal($cart);
+        $cart = $this->cart();
 
-        return response()->json([
-            'cart' => $cart,
-            'total' => $total
-        ]);
+        return response()->json(['cart' => $cart, 'total' => $this->total($cart)]);
     }
 
-    private function calculateTotal($cart)
+    private function cart(): array
     {
-        $total = 0;
-        foreach ($cart as $item) {
-            $price = $item['price'] * (1 - ($item['discount'] ?? 0) / 100);
-            $total += $price * $item['quantity'];
+        if (!Auth::check()) {
+            return session('cart', []);
         }
-        return $total;
+
+        return CartItem::with('product')->where('user_id', Auth::id())->get()
+            ->filter(fn ($item) => $item->product !== null)
+            ->mapWithKeys(fn ($item) => [$item->product_id => $this->line($item->product, $item->quantity)])
+            ->all();
     }
 
-    private function getUserCart()
+    private function line(Product $product, int $quantity): array
     {
-        $items = CartItem::with('product')
-            ->where('user_id', Auth::id())
-            ->get();
+        return [
+            'id' => $product->id,
+            'product_id' => $product->id,
+            'name' => $product->name,
+            'price' => $product->price,
+            'discount' => $product->discount ?? 0,
+            'quantity' => $quantity,
+            'image' => $product->image,
+        ];
+    }
 
-        $cart = [];
-        foreach ($items as $item) {
-            $cart[$item->product_id] = [
-                "id" => $item->product_id,
-                "product_id" => $item->product_id,
-                "name" => $item->product->name,
-                "price" => $item->product->price,
-                "quantity" => $item->quantity,
-                "image" => $item->product->image,
-                "discount" => $item->product->discount ?? 0
-            ];
-        }
-
-        return $cart;
+    private function total(array $cart): float
+    {
+        return round(collect($cart)->sum(fn ($item) =>
+            round($item['price'] * (1 - ($item['discount'] ?? 0) / 100), 2) * $item['quantity']
+        ), 2);
     }
 }

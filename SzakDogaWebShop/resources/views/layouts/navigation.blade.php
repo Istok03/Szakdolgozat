@@ -15,6 +15,7 @@
     <div class="auth-links">
         <div class="navbar-right">
             @auth
+                <a href="{{ route('profile.edit') }}">Profilom</a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" class="btn logout-button">Kilépés</button>
@@ -26,9 +27,12 @@
 
             <a href="{{ route('cart.index') }}">
                 <img src="{{ asset('images/shopping-bag.png') }}" alt="Kosár" class="cart-icon">
-                @if(session('cart') && count(session('cart')) > 0)
-                    <span class="cart-badge">{{ count(session('cart')) }}</span>
-                @endif
+                @php
+                    $cartQuantity = auth()->check()
+                        ? \App\Models\CartItem::where('user_id', auth()->id())->sum('quantity')
+                        : collect(session('cart', []))->sum('quantity');
+                @endphp
+                <span class="cart-badge cart-count" @if(!$cartQuantity) hidden @endif>{{ $cartQuantity }}</span>
             </a>
         </div>
     </div>

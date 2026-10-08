@@ -1,5 +1,5 @@
 @if(count($cart) > 0)
-    <table class="cart-table" id="cart-container">
+    <table class="cart-table">
         <thead>
             <tr>
                 <th>Kép</th>

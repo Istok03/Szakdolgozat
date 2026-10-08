@@ -7,10 +7,8 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use App\Services\CartService;
 use Illuminate\View\View;
-use App\Providers\RouteServiceProvider;
-use App\Models\CartItem;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -34,12 +32,7 @@ class AuthenticatedSessionController extends Controller
     $sessionCart = session()->get('cart', []);
     $user = Auth::user();
 
-    foreach ($sessionCart as $productId => $item) {
-        CartItem::updateOrCreate(
-            ['user_id' => $user->id, 'product_id' => $productId],
-            ['quantity' => DB::raw('quantity + ' . $item['quantity'])]
-        );
-    }
+    app(CartService::class)->mergeGuestCart($user, $sessionCart);
 
     session()->forget('cart');
 
