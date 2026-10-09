@@ -30,11 +30,9 @@
                 <div class="mb-4">
                     <label for="status" class="form-label text-white">Státusz</label>
                     <select name="status" id="status" class="form-select bg-light text-dark">
-                        <option value="pending" {{ $order->status === 'pending' ? 'selected' : '' }}>Pending</option>
-                        <option value="processing" {{ $order->status === 'processing' ? 'selected' : '' }}>Feldolgozás alatt</option>
-                        <option value="shipped" {{ $order->status === 'shipped' ? 'selected' : '' }}>Kiszállítva</option>
-                        <option value="completed" {{ $order->status === 'completed' ? 'selected' : '' }}>Teljesítve</option>
-                        <option value="cancelled" {{ $order->status === 'cancelled' ? 'selected' : '' }}>Törölve</option>
+                        @foreach(\App\Models\Order::STATUSES as $status => $label)
+                            <option value="{{ $status }}" @selected(old('status', $order->status) === $status)>{{ $label }}</option>
+                        @endforeach
                     </select>
                 </div>
 

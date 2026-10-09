@@ -8,19 +8,19 @@
         @csrf
         <div class="form-group">
             <label for="name">Név:</label>
-            <input type="text" name="name" id="name" required>
+            <input type="text" name="name" id="name" value="{{ old('name', auth()->user()->name) }}" maxlength="255" required>
         </div>
         <div class="form-group">
             <label for="email">Email:</label>
-            <input type="email" name="email" id="email" required>
+            <input type="email" name="email" id="email" value="{{ old('email', auth()->user()->email) }}" maxlength="255" required>
         </div>
         <div class="form-group">
             <label for="phone">Telefonszám:</label>
-            <input type="text" name="phone" id="phone" required>
+            <input type="tel" name="phone" id="phone" value="{{ old('phone') }}" maxlength="30" required>
         </div>
         <div class="form-group">
             <label for="address">Cím:</label>
-            <input type="text" name="address" id="address" required>
+            <input type="text" name="address" id="address" value="{{ old('address') }}" maxlength="255" required>
         </div>
 
         <h3>Kosár tartalma</h3>
@@ -58,34 +58,12 @@
 
 <div class="payment-methods">
     <label>
-        <input type="radio" name="payment_method" value="card" checked>
-        Bankkártya
-    </label>
-
-    <label>
-        <input type="radio" name="payment_method" value="paypal">
-        PayPal
-    </label>
-
-    <label>
-        <input type="radio" name="payment_method" value="cod">
+        <input type="radio" name="payment_method" value="cod" checked>
         Utánvét
     </label>
 </div>
 
-<div id="card-form" class="card-form">
-    <label>Kártyaszám</label>
-    <input type="text" name="card_number" placeholder="1234 5678 9012 3456">
-
-    <label>Lejárat</label>
-    <input type="text" name="card_exp" placeholder="MM/YY">
-
-    <label>CVC</label>
-    <input type="text" name="card_cvc" placeholder="123">
-</div>
-
-
-        <button type="submit" class="checkout-submit">Rendelés leadása</button>
+        <button type="submit" class="checkout-submit" @disabled(count($cart) === 0)>Rendelés leadása</button>
     </form>
 </div>
 @endsection

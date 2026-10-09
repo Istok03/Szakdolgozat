@@ -2,128 +2,74 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CartItem;
 use App\Models\Order;
-use App\Models\OrderItem;
-use Illuminate\Support\Facades\Session;
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class OrderController extends Controller
 {
+    public function checkout(Request $request)
+    {
+        $items = CartItem::with('product')->where('user_id', $request->user()->id)->get();
+        $cart = $items->mapWithKeys(fn ($item) => [$item->product_id => [
+            'name' => $item->product->name,
+            'price' => $item->product->price,
+            'discount' => $item->product->discount ?? 0,
+            'quantity' => $item->quantity,
+        ]])->all();
+        $total = $items->sum(fn ($item) => $item->product->salePrice() * $item->quantity);
 
-public function checkout()
-{
-    if (Auth::check()) {
-        // DB kosár
-        $items = \App\Models\CartItem::with('product')
-            ->where('user_id', Auth::id())
-            ->get();
-
-        $cart = [];
-        foreach ($items as $item) {
-            $cart[$item->product_id] = [
-                "id" => $item->product_id,
-                "product_id" => $item->product_id,
-                "name" => $item->product->name,
-                "price" => $item->product->price,
-                "quantity" => $item->quantity,
-                "image" => $item->product->image,
-                "discount" => $item->product->discount ?? 0
-            ];
-        }
-
-    } else {
-        // Vendég kosár
-        $cart = Session::get('cart', []);
+        return view('checkout', compact('cart', 'total'));
     }
 
-    $total = collect($cart)->sum(fn($item) =>
-        $item['price'] * $item['quantity'] * (1 - ($item['discount'] ?? 0) / 100)
-    );
-
-    return view('checkout', compact('cart', 'total'));
-}
-
-
-
-
-public function store(Request $request)
-{
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|email',
-        'phone' => 'required|string',
-        'address' => 'required|string',
-    ]);
-
-    if (Auth::check()) {
-        $items = \App\Models\CartItem::with('product')
-            ->where('user_id', Auth::id())
-            ->get();
-
-        $cart = [];
-        foreach ($items as $item) {
-            $cart[$item->product_id] = [
-                "id" => $item->product_id,
-                "product_id" => $item->product_id,
-                "name" => $item->product->name,
-                "price" => $item->product->price,
-                "quantity" => $item->quantity,
-                "image" => $item->product->image,
-                "discount" => $item->product->discount ?? 0
-            ];
-        }
-
-    } else {
-        $cart = Session::get('cart', []);
-    }
-
-    if (empty($cart)) {
-        return back()->with('error', 'A kosár üres.');
-    }
-
-    $total = 0;
-    foreach ($cart as $item) {
-        $price = $item['price'] * (1 - ($item['discount'] ?? 0) / 100);
-        $total += $price * $item['quantity'];
-    }
-
-    $order = Order::create([
-        'user_id' => Auth::id(),
-        'status' => 'pending',
-        'total' => $total,
-        'name' => $request->name,
-        'email' => $request->email,
-        'phone' => $request->phone,
-        'address' => $request->address,
-    ]);
-
-    foreach ($cart as $productId => $item) {
-        OrderItem::create([
-            'order_id' => $order->id,
-            'product_id' => $productId,
-            'quantity' => $item['quantity'],
-            'price' => $item['price'] * (1 - ($item['discount'] ?? 0) / 100),
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:30',
+            'address' => 'required|string|max:255',
+            'payment_method' => 'required|in:cod',
         ]);
+
+        $order = DB::transaction(function () use ($request, $validated) {
+            // Serialize submissions for this customer before reading the cart.
+            User::whereKey($request->user()->id)->lockForUpdate()->firstOrFail();
+            $items = CartItem::with('product')
+                ->where('user_id', $request->user()->id)->lockForUpdate()->get();
+
+            if ($items->isEmpty()) {
+                throw ValidationException::withMessages(['cart' => 'A kosár üres.']);
+            }
+
+            foreach ($items as $item) {
+                if (!$item->product || $item->quantity < 1) {
+                    throw ValidationException::withMessages(['cart' => 'A kosár tartalma megváltozott. Ellenőrizd újra.']);
+                }
+            }
+
+            $order = Order::create($validated + [
+                'user_id' => $request->user()->id,
+                'status' => 'pending',
+                'total' => $items->sum(fn ($item) => $item->product->salePrice() * $item->quantity),
+            ]);
+
+            foreach ($items as $item) {
+                $order->items()->create([
+                    'product_id' => $item->product_id,
+                    'quantity' => $item->quantity,
+                    'price' => $item->product->salePrice(),
+                ]);
+            }
+
+            CartItem::whereIn('id', $items->modelKeys())->delete();
+
+            return $order;
+        });
+
+        return redirect()->route('home')->with('success', "A(z) #{$order->id} rendelést sikeresen rögzítettük. Fizetés utánvéttel.");
     }
-
-    if (Auth::check()) {
-        \App\Models\CartItem::where('user_id', Auth::id())->delete();
-    } else {
-        Session::forget('cart');
-    }
-
-    if ($request->payment_method === 'card') {
-    $request->validate([
-        'card_number' => 'required',
-        'card_exp' => 'required',
-        'card_cvc' => 'required',
-    ]);
 }
-    return redirect()->route('home')->with('success', 'Rendelés sikeresen leadva!');
-   
-
-}
-}
-?>

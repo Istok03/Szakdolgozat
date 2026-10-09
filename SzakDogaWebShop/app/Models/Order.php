@@ -10,6 +10,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Order extends Model
 {
     use HasFactory;
+    public const STATUSES = [
+        'pending' => 'Függőben',
+        'processing' => 'Feldolgozás alatt',
+        'paid' => 'Kifizetve',
+        'shipped' => 'Feladva',
+        'completed' => 'Teljesítve',
+        'cancelled' => 'Törölve',
+    ];
     protected $fillable =[
         'user_id',
         'status',
@@ -18,6 +26,7 @@ class Order extends Model
         'email',
         'phone',
         'address',
+        'payment_method',
     ];
 
 
