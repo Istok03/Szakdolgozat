@@ -248,7 +248,7 @@ class ShopTest extends TestCase
     public function test_profile_and_dashboard_render_component_content(): void
     {
         $this->actingAs(User::factory()->create());
-        $this->get('/profile')->assertOk()->assertSee('Update Password');
+        $this->get('/profile')->assertOk()->assertSee('Jelszó módosítása');
         $this->get('/dashboard')->assertOk()->assertSee("You're logged in!");
     }
 }

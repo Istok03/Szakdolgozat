@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container py-5 d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+<div class="container py-5 d-flex justify-content-center align-items-center">
     <div class="card shadow w-100" style="background-color: #dee2ff; max-width: 960px;">
         <div class="card-body">
             <h2 class="fw-bold text-center mb-4">🛠️ Termék szerkesztése</h2>

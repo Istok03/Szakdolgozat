@@ -18,7 +18,12 @@ class ProfileTest extends TestCase
             ->actingAs($user)
             ->get('/profile');
 
-        $response->assertOk();
+        $response->assertOk()
+            ->assertSee('Személyes adatok')
+            ->assertSee('Jelszó módosítása')
+            ->assertSee('Fiók törlése')
+            ->assertSee('css/profile.css')
+            ->assertDontSee('Profile Information');
     }
 
     public function test_profile_information_can_be_updated(): void
@@ -91,7 +96,9 @@ class ProfileTest extends TestCase
             ]);
 
         $response
-            ->assertSessionHasErrorsIn('userDeletion', 'password')
+            ->assertSessionHasErrorsIn('userDeletion', [
+                'password' => 'A megadott jelszó nem megfelelő. A fiókodat nem töröltük.',
+            ])
             ->assertRedirect('/profile');
 
         $this->assertNotNull($user->fresh());
