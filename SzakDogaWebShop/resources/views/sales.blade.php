@@ -7,9 +7,6 @@
         <h1>Akciós termékeink</h1>
         <p>Csak a kedvezményes ajánlatok, ne maradj le!</p>
  
-        <div class="filter-toggle">
-            <button id="filterToggle" class="btn btn-success">Szűrő</button>
-
             <div id="filterPanel" class="filter-panel">
                 <input id="filterName" type="text" placeholder="Név alapján">
                 <input id="filterMin" type="number" placeholder="Minimum ár">
@@ -21,10 +18,6 @@
 
                 <button id="applyFilter" class="btn btn-primary">Szűrés alkalmazása</button>
             </div>
-        </div>
-
-
-
         <div class="product-grid">
             @forelse($products as $product)
                 <div class="product-card">

@@ -1,8 +1,15 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
 <link rel="icon" href="{{ asset('images/logo/logo.png') }}" type="image/png">
 <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Belépés</title>
+<link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+</head>
+<body class="auth-page">
 
 
 <div class="login-container">
@@ -58,3 +65,6 @@
 <div class = "watermark">   
     <p>&copy; 2025 Istok's IT store. Minden jog fenntartva.</p>
     </div>
+
+</body>
+</html>

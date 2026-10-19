@@ -13,10 +13,11 @@
     <link rel="stylesheet" href="{{ asset('css/product.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
     
-<body>
+<body class="storefront">
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
         @include('layouts.navigation')
 
@@ -25,6 +26,7 @@
         $categories = \App\Models\Category::all();
     @endphp
 
+    <div class="catalog-tools">
     <div class="navbar-categories">
     <button id="categoryToggle" class="category-button">
         Kategóriák
@@ -43,6 +45,7 @@
     <button id="filterToggle" class="filter-btn">Szűrő</button>
 </div>
 
+    </div>
 @endif
 
 

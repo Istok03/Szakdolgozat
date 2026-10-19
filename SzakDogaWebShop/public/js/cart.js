@@ -26,15 +26,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     const id = Number(item.product_id);
                     const price = Math.round(Number(item.price) * (1 - Number(item.discount ?? 0) / 100) * 100) / 100;
                     return `<tr>
-                        <td><img src="/${escapeHtml(item.image || 'images/products/default.png')}" width="80" alt="${escapeHtml(item.name)}"></td>
-                        <td>${escapeHtml(item.name)}</td>
-                        <td>
+                        <td class="cart-image"><img src="/${escapeHtml(item.image || 'images/products/default.png')}" width="80" alt="${escapeHtml(item.name)}"></td>
+                        <td class="cart-name">${escapeHtml(item.name)}</td>
+                        <td data-label="Mennyiség"><div class="cart-quantity">
                             <button class="cart-action" data-id="${id}" data-action="decrease" aria-label="Mennyiség csökkentése" ${item.quantity <= 1 ? 'disabled' : ''}>−</button>
                             <span>${Number(item.quantity)}</span>
                             <button class="cart-action" data-id="${id}" data-action="increase" aria-label="Mennyiség növelése">+</button>
-                        </td>
-                        <td>${money(price * item.quantity)} Ft</td>
-                        <td><button class="cart-action" data-id="${id}" data-action="remove">Törlés</button></td>
+                        </div></td>
+                        <td data-label="Összeg">${money(price * item.quantity)} Ft</td>
+                        <td class="cart-remove"><button class="cart-action" data-id="${id}" data-action="remove">Törlés</button></td>
                     </tr>`;
                 }).join('');
                 container.innerHTML = `<table class="cart-table">

@@ -6,6 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Admin felület – Istók IT</title>
     <link href="{{ asset('css/admin-panel.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
     @stack('styles')
 </head>
 <body class="admin-panel">

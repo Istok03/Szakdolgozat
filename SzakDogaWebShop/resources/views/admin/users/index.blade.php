@@ -5,7 +5,7 @@
 
     <h1 class="fw-bold text-white mb-4">Felhasználók</h1>
 
-    <div class="admin-table-card">
+    <div class="admin-table-card" role="region" aria-label="Oldalra görgethető adattáblázat" tabindex="0">
 
         <table class="admin-table">
             <thead>

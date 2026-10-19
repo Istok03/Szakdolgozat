@@ -3,7 +3,7 @@
         <a href="/">Istok's IT store</a>
     </div>
 
-    <button class="menu-toggle" id="menuToggle">☰</button>
+    <button type="button" class="menu-toggle" id="menuToggle" aria-label="Menü megnyitása" aria-controls="navLinks" aria-expanded="false">☰</button>
 
     <ul class="nav-links" id="navLinks">
         <li><a href="/">Főoldal</a></li>

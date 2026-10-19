@@ -39,9 +39,9 @@
                     @foreach($cart as $item)
                         <tr>
                             <td>{{ $item['name'] }}</td>
-                            <td>{{ $item['quantity'] }} db</td>
-                            <td>{{ number_format($item['price'] * (1 - ($item['discount'] ?? 0) / 100), 0, ',', ' ') }} Ft</td>
-                            <td>{{ number_format($item['price'] * (1 - ($item['discount'] ?? 0) / 100) * $item['quantity'], 0, ',', ' ') }} Ft</td>
+                            <td data-label="Mennyiség">{{ $item['quantity'] }} db</td>
+                            <td data-label="Egységár">{{ number_format($item['price'] * (1 - ($item['discount'] ?? 0) / 100), 0, ',', ' ') }} Ft</td>
+                            <td data-label="Összesen">{{ number_format($item['price'] * (1 - ($item['discount'] ?? 0) / 100) * $item['quantity'], 0, ',', ' ') }} Ft</td>
                         </tr>
                     @endforeach
                 </tbody>

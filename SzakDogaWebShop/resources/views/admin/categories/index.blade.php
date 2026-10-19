@@ -4,7 +4,7 @@
 <h1 class="mb-4">Kategóriák</h1>
 <a href="{{ route('admin.categories.create') }}" class="btn btn-purple mb-4">+ Új kategória</a>
 
-<div class="admin-table-card">
+<div class="admin-table-card" role="region" aria-label="Oldalra görgethető adattáblázat" tabindex="0">
     <table class="admin-table">
         <thead>
             <tr>
