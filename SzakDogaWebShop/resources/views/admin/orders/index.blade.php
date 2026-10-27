@@ -20,12 +20,12 @@
             </thead>
 
             <tbody>
-                @foreach($orders as $order)
+                @forelse($orders as $order)
                     <tr>
                         <td>{{ $order->id }}</td>
                         <td>{{ $order->name }}</td>
                         <td>
-                            <span class="badge-discount">{{ ucfirst($order->status) }}</span>
+                            <span class="badge-discount">{{ \App\Models\Order::STATUSES[$order->status] ?? $order->status }}</span>
                         </td>
                         <td>{{ number_format($order->total, 0, ',', ' ') }} Ft</td>
                         <td>{{ $order->created_at->format('Y-m-d H:i') }}</td>
@@ -34,12 +34,15 @@
                             <a href="{{ route('admin.orders.edit', $order->id) }}" class="btn-admin-light">Szerkesztés</a>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr><td colspan="6">Még nincs rendelés.</td></tr>
+                @endforelse
             </tbody>
 
         </table>
 
     </div>
 
+    {{ $orders->links('partials.pagination') }}
 </div>
 @endsection

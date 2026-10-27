@@ -110,3 +110,27 @@ body.auth-page { display: flex; flex-direction: column; min-height: 100vh; min-h
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+/* Shared pagination remains usable on narrow screens without framework CSS. */
+.shop-pagination {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 24px 0;
+}
+.shop-pagination a, .shop-pagination span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    background: #f1edff;
+    color: #45208a;
+}
+.shop-pagination a:hover, .shop-pagination a:focus-visible {
+    background: #ddd1fc;
+}
+.shop-pagination [aria-disabled="true"] { color: #655b77; }
+.profile-page .profile-card { overflow-wrap: anywhere; }

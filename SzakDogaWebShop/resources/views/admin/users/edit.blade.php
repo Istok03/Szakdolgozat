@@ -23,10 +23,10 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="role" class="form-label text-white">Szerepkör</label>
-                    <select name="role" id="role" class="form-select bg-light text-dark">
-                        <option value="user" {{ $user->role === 'user' ? 'selected' : '' }}>Felhasználó</option>
-                        <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Admin</option>
+                    <label for="is_admin" class="form-label text-white">Szerepkör</label>
+                    <select name="is_admin" id="is_admin" class="form-select bg-light text-dark">
+                        <option value="0" @selected((int) old('is_admin', $user->is_admin) === 0)>Felhasználó</option>
+                        <option value="1" @selected((int) old('is_admin', $user->is_admin) === 1)>Admin</option>
                     </select>
                 </div>
 
