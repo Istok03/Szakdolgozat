@@ -30,7 +30,7 @@
 
                     @foreach($order->items as $item)
                         <hr class="my-3 border-white">
-                        <p><strong>Termék:</strong> {{ $item->product->name ?? 'Törölt termék' }}</p>
+                        <p><strong>Termék:</strong> {{ $item->product_name ?? $item->product->name ?? 'Törölt termék' }}</p>
                         <p><strong>Mennyiség:</strong> {{ $item->quantity }}</p>
                         <p><strong>Egységár:</strong> {{ number_format($item->price, 0, ',', ' ') }} Ft</p>
                         <p><strong>Részösszeg:</strong> {{ number_format($item->price * $item->quantity, 0, ',', ' ') }} Ft</p>

@@ -15,7 +15,7 @@ class OrderFactory extends Factory
         return [
             'user_id' => User::factory(), // minden rendeléshez létrehoz egy usert
             'status' => $this->faker->randomElement(['pending', 'paid', 'shipped', 'cancelled']),
-            'total_price' => $this->faker->randomFloat(2, 1000, 50000),
+            'total' => $this->faker->randomFloat(2, 1000, 50000),
         ];
     }
 }

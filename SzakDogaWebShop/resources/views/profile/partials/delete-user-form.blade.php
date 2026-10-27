@@ -1,6 +1,6 @@
 <section class="profile-card profile-delete" aria-labelledby="profile-delete-title">
     <h2 id="profile-delete-title">Fiók törlése</h2>
-    <p class="profile-description">A fiókod törlése végleges. A hozzá tartozó kosár, vélemények és rendelési adatok is törlődnek.</p>
+    <p class="profile-description">A fiókod törlése végleges. A kosarad és a véleményeid törlődnek. A korábbi rendelések és a hozzájuk megadott vásárlói adatok megmaradnak, de már nem kapcsolódnak fiókhoz.</p>
     <details class="profile-delete-confirmation" @if($errors->userDeletion->isNotEmpty()) open @endif>
         <summary>Fióktörlés megerősítése</summary>
         <form method="post" action="{{ route('profile.destroy') }}" class="profile-form">
