@@ -1,6 +1,6 @@
 <nav class="navbar">
     <div class="logo">
-        <a href="/">Istok's IT store</a>
+        @include('partials.brand', ['caption' => 'Informatikai webáruház'])
     </div>
 
     <button type="button" class="menu-toggle" id="menuToggle" aria-label="Menü megnyitása" aria-controls="navLinks" aria-expanded="false">☰</button>
@@ -15,6 +15,7 @@
     <div class="auth-links">
         <div class="navbar-right">
             @auth
+                <a href="{{ route('dashboard') }}">Fiókom</a>
                 <a href="{{ route('profile.edit') }}">Profilom</a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf

@@ -12,21 +12,21 @@
         </div>
 
         <div class="contact-form">
-            <form action="#" method="POST">
+            <form action="{{ route('contact.submit') }}" method="POST">
                 @csrf
                 <div class="form-group">
                     <label for="name">Név</label>
-                    <input type="text" id="name" name="name" required>
+                    <input type="text" id="name" name="name" value="{{ old('name') }}" maxlength="255" required>
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email cím</label>
-                    <input type="email" id="email" name="email" required>
+                    <input type="email" id="email" name="email" value="{{ old('email') }}" maxlength="255" required>
                 </div>
 
                 <div class="form-group">
                     <label for="message">Üzenet</label>
-                    <textarea id="message" name="message" rows="5" required></textarea>
+                    <textarea id="message" name="message" rows="5" maxlength="5000" required>{{ old('message') }}</textarea>
                 </div>
 
                 <button type="submit">Küldés</button>

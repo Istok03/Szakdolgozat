@@ -7,16 +7,14 @@
     <title>Admin felület – Istók IT</title>
     <link href="{{ asset('css/admin-panel.css') }}" rel="stylesheet">
     <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/ui.css') }}" rel="stylesheet">
     @stack('styles')
 </head>
 <body class="admin-panel">
     <a class="admin-skip-link" href="#admin-content">Ugrás a tartalomhoz</a>
     <header class="admin-header">
         <div class="admin-header-top">
-            <a class="admin-brand" href="{{ route('admin.dashboard') }}">
-                <span class="admin-brand-mark" aria-hidden="true">IT</span>
-                <span>Istók IT<span class="admin-brand-caption">Adminisztráció</span></span>
-            </a>
+            @include('partials.brand', ['caption' => 'Adminisztráció'])
             <div class="admin-account">
                 <span class="admin-account-name">{{ auth()->user()->name }}</span>
                 <a class="admin-shop-link" href="{{ route('home') }}">Webshop megnyitása <span aria-hidden="true">↗</span></a>
@@ -33,6 +31,7 @@
                 'orders' => 'Rendelések',
                 'users' => 'Felhasználók',
                 'categories' => 'Kategóriák',
+                'messages' => 'Üzenetek',
             ] as $section => $label)
                 @php
                     $active = $section === 'dashboard'

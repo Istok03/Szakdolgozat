@@ -7,5 +7,6 @@
             <li><a href="/admin/orders">Rendelések</a></li>
             <li><a href="/admin/users">Felhasználók</a></li>
             <li><a href="/admin/categories">Kategóriák</a></li>
+            <li><a href="{{ route('admin.messages.index') }}">Üzenetek</a></li>
     </ul>
 </div>

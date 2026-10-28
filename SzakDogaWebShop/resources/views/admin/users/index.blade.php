@@ -20,13 +20,13 @@
             </thead>
 
             <tbody>
-                @foreach($users as $user)
+                @forelse($users as $user)
                     <tr>
                         <td>{{ $user->id }}</td>
                         <td class="fw-semibold">{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>
-                            @if($user->role === 'admin')
+                            @if($user->is_admin)
                                 <span class="badge-discount">Admin</span>
                             @else
                                 <span class="badge-discount">Felhasználó</span>
@@ -42,12 +42,15 @@
                             </form>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr><td colspan="6">Nincs megjeleníthető felhasználó.</td></tr>
+                @endforelse
             </tbody>
 
         </table>
 
     </div>
 
+    {{ $users->links('partials.pagination') }}
 </div>
 @endsection
