@@ -249,6 +249,6 @@ class ShopTest extends TestCase
     {
         $this->actingAs(User::factory()->create());
         $this->get('/profile')->assertOk()->assertSee('Jelszó módosítása');
-        $this->get('/dashboard')->assertOk()->assertSee("You're logged in!");
+        $this->get('/dashboard')->assertOk()->assertSee('Fiókom áttekintése');
     }
 }
