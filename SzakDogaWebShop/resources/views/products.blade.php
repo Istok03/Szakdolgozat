@@ -13,21 +13,12 @@
         <p class="subtitle">Modern informatikai eszközök, akciós ajánlatokkal</p>
 
       
-        <div id="filterPanel" class="filter-panel">
-            <input id="filterName" type="text" placeholder="Név alapján">
-            <input id="filterMin" type="number" placeholder="Minimum ár">
-            <input id="filterMax" type="number" placeholder="Maximum ár">
-            <label>
-                <input id="filterSale" type="checkbox"> Csak akciós termékek
-            </label>
-            <button id="applyFilter" class="btn btn-primary">Szűrés alkalmazása</button>
-        </div>
 
   
 
  
         <div class="product-grid">
-            @foreach($products as $product)
+            @forelse($products as $product)
                 <div class="product-card">
                          <a href="{{ route('product.show', $product->id) }}">
                             <img src="{{ asset($product->image) }}">
@@ -44,7 +35,10 @@
 
                    <button class="cart-btn" data-id="{{ $product->id }}">Kosárba</button>
                 </div>
-            @endforeach
+            @empty
+                <p>Nincs a szűrésnek megfelelő termék.</p>
+            @endforelse
         </div>
+        {{ $products->links('partials.pagination') }}
     </div>
 @endsection

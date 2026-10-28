@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
     <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/ui.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
     
@@ -34,7 +35,7 @@
 
     <div id="categoryPanel" class="category-panel">
         @foreach($categories as $category)
-            <a href="{{ url('/products?category=' . $category->id) }}" class="category-list-item">
+            <a href="{{ route(request()->routeIs('offers') ? 'offers' : 'products', array_merge(request()->only(['name', 'min', 'max', 'sale']), ['category' => $category->id])) }}" class="category-list-item" @if((string) request('category') === (string) $category->id) aria-current="true" @endif>
                 {{ $category->name }}
             </a>
         @endforeach
@@ -45,6 +46,7 @@
     <button id="filterToggle" class="filter-btn">Szűrő</button>
 </div>
 
+    @include('partials.catalog-filters')
     </div>
 @endif
 
