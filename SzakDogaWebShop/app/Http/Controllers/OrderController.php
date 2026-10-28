@@ -11,6 +11,37 @@ use Illuminate\Validation\ValidationException;
 
 class OrderController extends Controller
 {
+    public function index(Request $request)
+    {
+        $orders = Order::where('user_id', $request->user()->id)
+            ->withSum('items', 'quantity')->latest('id')->paginate(10);
+
+        return view('orders.index', compact('orders'));
+    }
+
+    public function show(Request $request, string $id)
+    {
+        $order = $this->customerOrder($request, $id);
+
+        return view('orders.show', ['order' => $order, 'confirmed' => false]);
+    }
+
+    public function confirmation(Request $request, string $id)
+    {
+        $order = $this->customerOrder($request, $id);
+        if ((string) $request->session()->get('completed_order_id') !== (string) $order->id) {
+            return redirect()->route('orders.show', $order);
+        }
+
+        return view('orders.show', ['order' => $order, 'confirmed' => true]);
+    }
+
+    private function customerOrder(Request $request, string $id): Order
+    {
+        return Order::where('user_id', $request->user()->id)
+            ->with('items.product')->findOrFail($id);
+    }
+
     public function checkout(Request $request)
     {
         $items = CartItem::with('product')->where('user_id', $request->user()->id)->get();
@@ -71,6 +102,6 @@ class OrderController extends Controller
             return $order;
         });
 
-        return redirect()->route('home')->with('success', "A(z) #{$order->id} rendelést sikeresen rögzítettük. Fizetés utánvéttel.");
+        return redirect()->route('orders.confirmation', $order)->with('completed_order_id', $order->id);
     }
 }

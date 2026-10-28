@@ -35,6 +35,9 @@ Route::middleware('auth')->group(function () {
     Route::redirect('/payment', '/checkout')->name('payment');
     Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout');
     Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/orders/{id}/confirmation', [OrderController::class, 'confirmation'])->whereNumber('id')->name('orders.confirmation');
+    Route::get('/orders/{id}', [OrderController::class, 'show'])->whereNumber('id')->name('orders.show');
     Route::post('/products/{product}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
     Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
 });

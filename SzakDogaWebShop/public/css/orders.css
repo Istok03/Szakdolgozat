@@ -1,0 +1,24 @@
+.orders-page .order-list { display: grid; gap: 20px; }
+.orders-page .order-card-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+.orders-page .order-card-heading h2 { margin: 0; }
+.orders-page .order-status { display: inline-block; padding: 6px 12px; border-radius: 8px; background: #eee7f7; color: #4c2a8e; font-weight: 600; }
+.orders-page .order-summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 20px 0; }
+.orders-page dt { color: #6d607d; font-size: 14px; }
+.orders-page dd { margin: 6px 0 0; color: #302344; font-weight: 600; }
+.orders-page .order-data { margin: 0; }
+.orders-page .order-data dt:not(:first-child) { margin-top: 16px; }
+.orders-page .order-items { margin-top: 24px; }
+.orders-page .order-item-list { list-style: none; padding: 0; margin: 0; }
+.orders-page .order-item-list > li { padding: 20px 0; border-bottom: 1px solid #e4dced; }
+.orders-page .order-item-name h3 { margin: 0 0 8px; color: #4c2a8e; font-size: 18px; }
+.orders-page .order-item-name a { color: #6740b4; text-underline-offset: 3px; display: inline-block; padding: 10px 0; }
+.orders-page .order-item-name span { color: #6d607d; }
+.orders-page .order-total { text-align: right; font-size: 20px; color: #4c2a8e; }
+.orders-page .order-help { color: #fff; line-height: 1.6; }
+@media (max-width: 600px) {
+    .orders-page .order-summary { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+    .orders-page .order-summary > div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+    .orders-page .order-summary dd { margin: 0; }
+    .orders-page .order-total { text-align: left; }
+    .orders-page .profile-actions > a { width: 100%; text-align: center; }
+}

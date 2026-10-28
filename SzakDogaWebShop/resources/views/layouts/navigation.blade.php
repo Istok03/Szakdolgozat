@@ -16,6 +16,7 @@
         <div class="navbar-right">
             @auth
                 <a href="{{ route('dashboard') }}">Fiókom</a>
+                <a href="{{ route('orders.index') }}">Rendeléseim</a>
                 <a href="{{ route('profile.edit') }}">Profilom</a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf

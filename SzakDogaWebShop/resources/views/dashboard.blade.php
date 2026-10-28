@@ -32,9 +32,11 @@
                 <p>Legutóbbi rendelés: #{{ $latestOrder->id }} · {{ $latestOrder->created_at->format('Y-m-d') }}</p>
                 <p>Állapot: {{ \App\Models\Order::STATUSES[$latestOrder->status] ?? $latestOrder->status }}</p>
                 <p>Összeg: {{ number_format($latestOrder->total, 0, ',', ' ') }} Ft</p>
+                <a href="{{ route('orders.show', $latestOrder) }}" class="profile-button profile-button-secondary">Legutóbbi rendelés részletei</a>
             @else
                 <p>Még nem adtál le rendelést.</p>
             @endif
+            <div class="profile-actions"><a href="{{ route('orders.index') }}" class="profile-button">Összes rendelésem</a></div>
         </section>
         <section class="profile-card">
             <h2>Segítségre van szükséged?</h2>
