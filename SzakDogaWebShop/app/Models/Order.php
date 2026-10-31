@@ -27,8 +27,19 @@ class Order extends Model
         'phone',
         'address',
         'payment_method',
+        'shipping_method',
+        'shipping_label',
+        'pickup_address',
+        'shipping_fee',
+        'manages_stock',
+        'stock_reserved',
     ];
 
+
+    protected function casts(): array
+    {
+        return ['manages_stock' => 'boolean', 'stock_reserved' => 'boolean'];
+    }
 
     public function user(): BelongsTo{
         return $this->belongsTo(User::class);

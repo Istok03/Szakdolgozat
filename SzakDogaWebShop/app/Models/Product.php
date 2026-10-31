@@ -17,7 +17,13 @@ class Product extends Model
         'description',
         'image',
         'category_id',
+        'stock',
     ];
+
+    protected function casts(): array
+    {
+        return ['stock' => 'integer'];
+    }
 
 public function reviews()
     {

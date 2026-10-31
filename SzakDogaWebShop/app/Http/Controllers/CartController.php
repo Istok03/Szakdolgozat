@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class CartController extends Controller
 {
@@ -43,7 +44,7 @@ class CartController extends Controller
         $product = in_array($action, ['add', 'increase']) ? Product::findOrFail($id) : null;
 
         if (Auth::check()) {
-            DB::transaction(function () use ($id, $action) {
+            DB::transaction(function () use ($id, $action, $product) {
                 User::whereKey(Auth::id())->lockForUpdate()->firstOrFail();
                 $item = CartItem::firstOrNew(['user_id' => Auth::id(), 'product_id' => $id]);
                 if ($action === 'remove') {
@@ -52,6 +53,9 @@ class CartController extends Controller
                     }
                 } elseif ($item->exists || $action === 'add') {
                     $quantity = $item->exists ? $item->quantity : 0;
+                    if ($product && $quantity + 1 > $product->stock) {
+                        throw ValidationException::withMessages(['cart' => "A termékből legfeljebb {$product->stock} db érhető el."]);
+                    }
                     $item->quantity = max(1, $quantity + ($action === 'decrease' ? -1 : 1));
                     $item->save();
                 }
@@ -62,6 +66,9 @@ class CartController extends Controller
                 unset($cart[$id]);
             } elseif (isset($cart[$id]) || $action === 'add') {
                 $quantity = max(1, ($cart[$id]['quantity'] ?? 0) + ($action === 'decrease' ? -1 : 1));
+                if ($product && $quantity > $product->stock) {
+                    throw ValidationException::withMessages(['cart' => "A termékből legfeljebb {$product->stock} db érhető el."]);
+                }
                 $cart[$id] = $product ? $this->line($product, $quantity) : array_replace($cart[$id], ['quantity' => $quantity]);
             }
             session()->put('cart', $cart);
@@ -75,7 +82,12 @@ class CartController extends Controller
     private function cart(): array
     {
         if (!Auth::check()) {
-            return session('cart', []);
+            $stored = session('cart', []);
+            $cart = Product::whereIn('id', array_keys($stored))->get()->mapWithKeys(
+                fn ($product) => [$product->id => $this->line($product, (int) $stored[$product->id]['quantity'])]
+            )->all();
+            session()->put('cart', $cart);
+            return $cart;
         }
 
         return CartItem::with('product')->where('user_id', Auth::id())->get()
@@ -94,6 +106,7 @@ class CartController extends Controller
             'discount' => $product->discount ?? 0,
             'quantity' => $quantity,
             'image' => $product->image,
+            'stock' => $product->stock,
         ];
     }
 

@@ -16,7 +16,8 @@ class CartService
 
             foreach ($cart as $productId => $item) {
                 $quantity = filter_var($item['quantity'] ?? null, FILTER_VALIDATE_INT);
-                if (!$quantity || $quantity < 1 || !Product::whereKey($productId)->exists()) {
+                $product = Product::find($productId);
+                if (!$quantity || $quantity < 1 || !$product) {
                     continue;
                 }
 
@@ -24,7 +25,15 @@ class CartService
                     'user_id' => $user->id,
                     'product_id' => $productId,
                 ]);
-                $existing->quantity = ($existing->exists ? $existing->quantity : 0) + $quantity;
+                $requested = ($existing->exists ? $existing->quantity : 0) + $quantity;
+                $existing->quantity = min($requested, $product->stock);
+                if ($existing->quantity < $requested) {
+                    session()->flash('error', 'A kosár mennyiségeit az elérhető készlethez igazítottuk. Ellenőrizd a kosaradat.');
+                }
+                if ($existing->quantity === 0) {
+                    if ($existing->exists) $existing->delete();
+                    continue;
+                }
                 $existing->save();
             }
         });

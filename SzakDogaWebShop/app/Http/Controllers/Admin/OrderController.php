@@ -36,14 +36,14 @@ class OrderController extends Controller
             'address' => 'required|string|max:255',
             'status' => ['required', Rule::in(array_keys(Order::STATUSES))],
         ]);
-        $order->update($validated);
+        app(\App\Services\OrderStatusService::class)->update($order, $validated);
 
         return redirect()->route('admin.orders.index')->with('success', 'Rendelés frissítve!');
     }
 
     public function updateStatus(Request $request, Order $order)
     {
-        $order->update($request->validate([
+        app(\App\Services\OrderStatusService::class)->update($order, $request->validate([
             'status' => ['required', Rule::in(array_keys(Order::STATUSES))],
         ]));
 
