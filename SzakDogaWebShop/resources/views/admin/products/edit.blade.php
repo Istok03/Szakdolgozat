@@ -42,6 +42,10 @@
                         @endforeach
 
                         <div class="d-flex justify-content-between mt-4">
+                            <div>
+                                <label for="stock">Elérhető mennyiség</label>
+                                <input type="number" id="stock" name="stock" min="0" max="1000000" step="1" value="{{ old('stock', $product->stock) }}" required>
+                            </div>
                             <a href="{{ route('admin.products.index') }}" class="btn btn-outline-dark px-4">Vissza</a>
                             <button type="submit" class="btn btn-dark px-4">Frissítés</button>
                         </div>

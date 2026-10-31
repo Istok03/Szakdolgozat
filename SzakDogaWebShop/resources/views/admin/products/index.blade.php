@@ -11,7 +11,7 @@
 </div>
 
 
-    
+
     <div class="admin-table-card" role="region" aria-label="Oldalra görgethető adattáblázat" tabindex="0">
 
         <table class="admin-table">
@@ -21,6 +21,7 @@
                     <th>Név</th>
                     <th>Ár</th>
                     <th>Kedvezmény</th>
+                    <th>Készlet</th>
                     <th class="text-end">Művelet</th>
                 </tr>
             </thead>
@@ -45,13 +46,16 @@
                         </td>
 
                         <td class="text-end">
-                            <a href="{{ route('admin.products.edit', $product->id) }}" 
+                            <span class="badge-discount">{{ $product->stock }} db</span>
+                        </td>
+                        <td class="text-end">
+                            <a href="{{ route('admin.products.edit', $product->id) }}"
                                class="btn-admin-light">
                                 Szerkesztés
                             </a>
 
-                            <form action="{{ route('admin.products.destroy', $product->id) }}" 
-                                  method="POST" 
+                            <form action="{{ route('admin.products.destroy', $product->id) }}"
+                                  method="POST"
                                   style="display:inline;">
                                 @csrf
                                 @method('DELETE')

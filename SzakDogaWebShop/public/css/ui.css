@@ -1,4 +1,12 @@
 /* Shared storefront/admin branding and interactive states. */
+.storefront .stock-status { font-size: 14px; color: #365b42; margin: 8px 0; }
+.storefront .stock-warning { color: #992b47; font-size: 14px; }
+.storefront button:disabled { opacity: .55; cursor: not-allowed; box-shadow: none; }
+.storefront .shipping-methods { border: 1px solid #cfc1e0; border-radius: 12px; padding: 16px; margin: 24px 0; min-width: 0; }
+.storefront .shipping-methods legend { color: #4c2a8e; font-weight: 600; }
+.storefront .checkout-form .shipping-option { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; cursor: pointer; }
+.storefront .shipping-option input { flex: 0 0 auto; margin-top: 4px; }
+.storefront .shipping-option small { display: block; margin-top: 6px; }
 .site-brand, .storefront .navbar .logo .site-brand {
     display: inline-flex;
     align-items: center;

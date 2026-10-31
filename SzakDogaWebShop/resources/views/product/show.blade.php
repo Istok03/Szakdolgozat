@@ -20,7 +20,7 @@
             <p class="price">{{ number_format($product->price, 0, ',', ' ') }} Ft</p>
         @endif
 
-       <button class="cart-btn" data-id="{{ $product->id }}">Kosárba</button>
+       @include('partials.stock-button')
 
     </div>
 </div>

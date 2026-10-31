@@ -27,11 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     const price = Math.round(Number(item.price) * (1 - Number(item.discount ?? 0) / 100) * 100) / 100;
                     return `<tr>
                         <td class="cart-image"><img src="/${escapeHtml(item.image || 'images/products/default.png')}" width="80" alt="${escapeHtml(item.name)}"></td>
-                        <td class="cart-name">${escapeHtml(item.name)}</td>
+                        <td class="cart-name">${escapeHtml(item.name)}${item.quantity > item.stock ? '<p class="stock-warning">A kért mennyiség már nem érhető el. Elérhető: '+Number(item.stock)+' db.</p>' : ''}</td>
                         <td data-label="Mennyiség"><div class="cart-quantity">
                             <button class="cart-action" data-id="${id}" data-action="decrease" aria-label="Mennyiség csökkentése" ${item.quantity <= 1 ? 'disabled' : ''}>−</button>
                             <span>${Number(item.quantity)}</span>
-                            <button class="cart-action" data-id="${id}" data-action="increase" aria-label="Mennyiség növelése">+</button>
+                            <button class="cart-action" data-id="${id}" data-action="increase" aria-label="Mennyiség növelése" ${item.quantity >= item.stock ? 'disabled' : ''}>+</button>
                         </div></td>
                         <td data-label="Összeg">${money(price * item.quantity)} Ft</td>
                         <td class="cart-remove"><button class="cart-action" data-id="${id}" data-action="remove">Törlés</button></td>
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.body.addEventListener('click', async event => {
         const button = event.target.closest('.cart-action, .cart-btn');
-        if (!button) return;
+        if (!button || button.disabled) return;
         event.preventDefault();
         if (pending) return;
         const action = button.classList.contains('cart-btn') ? 'add' : button.dataset.action;
@@ -70,7 +70,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
                 }
             });
-            if (!response.ok) throw new Error('A kosár módosítása nem sikerült. Frissítsd az oldalt, és próbáld újra.');
+            if (!response.ok) {
+                const problem = await response.json().catch(() => ({}));
+                throw new Error(problem.errors?.cart?.[0] || 'A kosár módosítása nem sikerült. Frissítsd az oldalt, és próbáld újra.');
+            }
             const data = await response.json();
             renderCart(data.cart, data.total);
             if (action === 'add') notify('Sikeresen hozzáadva a kosárhoz.');

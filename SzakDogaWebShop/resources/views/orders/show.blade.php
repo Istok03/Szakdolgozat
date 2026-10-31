@@ -21,7 +21,11 @@
                 <dt>Azonosító</dt><dd>#{{ $order->id }}</dd>
                 <dt>Leadás időpontja</dt><dd>{{ $order->created_at->format('Y-m-d H:i') }}</dd>
                 <dt>Állapot</dt><dd><span class="order-status">{{ \App\Models\Order::STATUSES[$order->status] ?? 'Ismeretlen állapot' }}</span></dd>
-                <dt>Fizetési mód</dt><dd>{{ $order->payment_method === 'cod' ? 'Utánvét' : 'Nincs rögzítve' }}</dd>
+                <dt>Fizetési mód</dt><dd>{{ $order->payment_method === 'cod' ? ($order->shipping_method === 'pickup' ? 'Helyszíni fizetés' : 'Utánvét') : 'Nincs rögzítve' }}</dd>
+                <dt>Szállítási mód</dt><dd>{{ $order->shipping_label ?? 'Nincs rögzítve' }}</dd>
+                @if($order->pickup_address)
+                    <dt>Átvételi cím</dt><dd>{{ $order->pickup_address }}</dd>
+                @endif
             </dl>
             @if($confirmed && $order->payment_method === 'cod')
                 <p>A fizetés a csomag átvételekor történik.</p>
@@ -33,7 +37,7 @@
                 <dt>Név</dt><dd>{{ $order->name ?: 'Nincs rögzítve' }}</dd>
                 <dt>E-mail-cím</dt><dd>{{ $order->email ?: 'Nincs rögzítve' }}</dd>
                 <dt>Telefonszám</dt><dd>{{ $order->phone ?: 'Nincs rögzítve' }}</dd>
-                <dt>Szállítási cím</dt><dd>{{ $order->address ?: 'Nincs rögzítve' }}</dd>
+                <dt>{{ $order->shipping_method === 'pickup' ? 'Vásárlói cím' : 'Szállítási cím' }}</dt><dd>{{ $order->address ?: 'Nincs rögzítve' }}</dd>
             </dl>
         </section>
     </div>
@@ -60,6 +64,8 @@
                 <li>Ehhez a korábbi rendeléshez nem áll rendelkezésre terméklista.</li>
             @endforelse
         </ul>
+        <p class="order-total">Termékek összege: {{ number_format($order->total - $order->shipping_fee, 0, ',', ' ') }} Ft</p>
+        <p class="order-total">Szállítás: {{ number_format($order->shipping_fee, 0, ',', ' ') }} Ft</p>
         <p class="order-total">Rendelés összege: <strong>{{ number_format($order->total, 0, ',', ' ') }} Ft</strong></p>
     </section>
     <div class="profile-actions">

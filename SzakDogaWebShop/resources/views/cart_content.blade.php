@@ -13,12 +13,16 @@
             @foreach($cart as $id => $item)
                 <tr data-id="{{ $id }}">
                     <td class="cart-image"><img src="{{ asset($item['image'] ?? 'images/products/default.png') }}" width="80" alt="{{ $item['name'] }}"></td>
-                    <td class="cart-name">{{ $item['name'] }}</td>
+                    <td class="cart-name">{{ $item['name'] }}
+                        @if($item['quantity'] > $item['stock'])
+                            <p class="stock-warning">Az adott mennyiség nincs készleten . Jelenleg {{ $item['stock'] }} db van készleten.</p>
+                        @endif
+                    </td>
                     <td data-label="Mennyiség">
                         <div class="cart-quantity">
                         <button class="cart-action" data-id="{{ $id }}" data-action="decrease">−</button>
                         <span id="qty-{{ $id }}">{{ $item['quantity'] }}</span>
-                        <button class="cart-action" data-id="{{ $id }}" data-action="increase">+</button>
+                        <button class="cart-action" data-id="{{ $id }}" data-action="increase" @disabled($item['quantity'] >= $item['stock'])>+</button>
                         </div>
                     </td>
                     <td data-label="Összeg">

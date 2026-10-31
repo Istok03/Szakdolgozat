@@ -29,6 +29,11 @@
         </div>
 
         <div class="mb-3">
+            <label for="stock">Elérhető készlet (db)</label>
+            <input type="number" id="stock" name="stock" min="0" max="1000000" step="1" value="{{ old('stock', 0) }}" required>
+        </div>
+
+        <div class="mb-3">
             <label for="category_id" class="form-label fw-bold text-purple">Kategória</label>
             <select name="category_id" class="form-select" required>
                 @foreach($categories as $category)
