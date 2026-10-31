@@ -188,7 +188,7 @@ class ShopTest extends TestCase
 
         $this->actingAs($user)->get('/checkout')->assertOk()->assertSee('Utánvét')->assertDontSee('card_number');
         $this->post('/order/store', $this->customerData(['total' => 1, 'user_id' => $otherItem->user_id]))
-            ->assertRedirect('/')->assertSessionHasNoErrors();
+            ->assertRedirect(route('orders.confirmation', Order::firstOrFail()))->assertSessionHasNoErrors();
         $order = Order::firstOrFail();
         $this->assertEquals($user->id, $order->user_id);
         $this->assertEquals(4300, $order->total);
