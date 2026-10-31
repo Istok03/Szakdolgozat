@@ -47,7 +47,7 @@ class ReadinessTest extends TestCase
         CartItem::create(['user_id' => $customer->id, 'product_id' => $product->id, 'quantity' => 2]);
         $this->actingAs($customer)->post(route('order.store'), [
             'name' => 'Teszt Vásárló', 'email' => $customer->email, 'phone' => '12345678',
-            'address' => 'Eger, Teszt utca 1.', 'payment_method' => 'cod',
+            'address' => 'Eger, Teszt utca 1.', 'payment_method' => 'cod', 'shipping_method' => 'pickup',
         ])->assertSessionHasNoErrors();
         $order = Order::firstOrFail();
         $item = $order->items()->firstOrFail();

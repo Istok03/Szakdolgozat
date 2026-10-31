@@ -76,11 +76,11 @@ class CustomerOrdersTest extends TestCase
         CartItem::create(['user_id' => $customer->id, 'product_id' => $product->id, 'quantity' => 2]);
         $this->actingAs($customer)->post(route('order.store'), [
             'name' => 'Vásárló', 'email' => $customer->email, 'phone' => '12345678',
-            'address' => 'Eger, Teszt utca 1.', 'payment_method' => 'cod',
+            'address' => 'Eger, Teszt utca 1.', 'payment_method' => 'cod', 'shipping_method' => 'pickup',
         ])->assertSessionHasNoErrors();
         $order = Order::firstOrFail();
         $this->get(route('orders.confirmation', $order))->assertOk()->assertSee('Köszönjük a rendelésed!')
-            ->assertSee('1 800 Ft')->assertSee('Utánvét')->assertSee('Eger, Teszt utca 1.');
+            ->assertSee('1 800 Ft')->assertSee('Helyszíni fizetés')->assertSee('Eger, Teszt utca 1.');
         $this->get(route('orders.confirmation', $order))->assertRedirect(route('orders.show', $order));
         $this->get(route('orders.show', $order))->assertOk()->assertDontSee('Köszönjük a rendelésed!');
         $this->assertDatabaseCount('orders', 1);

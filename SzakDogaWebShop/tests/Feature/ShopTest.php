@@ -24,7 +24,7 @@ class ShopTest extends TestCase
             'email' => 'customer@example.com',
             'phone' => '+36301234567',
             'address' => '3300 Eger, Teszt utca 1.',
-            'payment_method' => 'cod',
+            'payment_method' => 'cod', 'shipping_method' => 'pickup',
         ], $overrides);
     }
 
