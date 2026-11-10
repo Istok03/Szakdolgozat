@@ -7,14 +7,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Regisztráció</title>
 <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+<link rel="stylesheet" href="{{ asset('css/ui.css') }}">
 </head>
 <body class="auth-page">
 
 <div class="register-container">
     <div class="logo-container">
-        <a href="/" class="img">
-            <img src="{{ asset('images/logo/logo.png') }}" alt="Istok's IT store" id="logo">
-        </a>
+        @include('partials.brand', ['caption' => 'Informatikai webáruház'])
     </div>
 
     <form method="POST" action="{{ route('register') }}">

@@ -15,7 +15,7 @@
                     <td class="cart-image"><img src="{{ asset($item['image'] ?? 'images/products/default.png') }}" width="80" alt="{{ $item['name'] }}"></td>
                     <td class="cart-name">{{ $item['name'] }}
                         @if($item['quantity'] > $item['stock'])
-                            <p class="stock-warning">Az adott mennyiség nincs készleten . Jelenleg {{ $item['stock'] }} db van készleten.</p>
+                            <p class="stock-warning">Az adott mennyiség nincs készleten. Jelenleg {{ $item['stock'] }} db van készleten.</p>
                         @endif
                     </td>
                     <td data-label="Mennyiség">

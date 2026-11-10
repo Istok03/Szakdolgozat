@@ -8,15 +8,14 @@
 
 <title>Belépés</title>
 <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+<link rel="stylesheet" href="{{ asset('css/ui.css') }}">
 </head>
 <body class="auth-page">
 
 
 <div class="login-container">
     <div class="logo-container">
-        <a href="/" class="img">
-            <img src="{{ asset('images/logo/logo.png') }}" alt="Istok's IT webstore" id="logo">
-        </a>
+        @include('partials.brand', ['caption' => 'Informatikai webáruház'])
     </div>
 
     <x-auth-session-status class="mb-4" :status="session('status')" />

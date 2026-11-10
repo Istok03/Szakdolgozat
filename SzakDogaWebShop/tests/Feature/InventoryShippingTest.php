@@ -39,7 +39,7 @@ class InventoryShippingTest extends TestCase
         $this->postJson('/cart/add/'.$product->id)->assertUnprocessable()->assertJsonValidationErrors('cart');
         $this->assertEquals(1, CartItem::firstOrFail()->quantity);
         $product->update(['stock' => 0]);
-        $this->get('/cart')->assertOk()->assertSee('A kért mennyiség már nem érhető el.');
+        $this->get('/cart')->assertOk()->assertSee('Az adott mennyiség nincs készleten.')->assertSee('Jelenleg 0 db van készleten.');
         $this->postJson('/cart/remove/'.$product->id)->assertOk();
     }
 

@@ -29,6 +29,9 @@
     font-size: 18px;
 }
 .site-brand-text { min-width: 0; }
+.auth-page .site-brand { margin-top: 0; max-width: 100%; text-align: left; }
+.auth-page .site-brand:focus-visible { outline: 3px solid #a584e5; outline-offset: 4px; }
+.auth-page .site-brand-mark { transition: transform .18s ease, box-shadow .18s ease; }
 .site-brand-caption { display: block; margin-top: 3px; color: #6d607d; font-size: 12px; font-weight: 500; letter-spacing: .04em; }
 .storefront .navbar .logo:hover { transform: none; }
 .storefront .catalog-tools { display: grid; grid-template-columns: minmax(0, 1fr) auto; }
@@ -72,5 +75,6 @@
     .storefront .catalog-tools > .filter-panel { flex-basis: 100%; width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) {
+    .auth-page .site-brand-mark { transition: none !important; transform: none !important; }
     :is(.storefront, .admin-panel) :is(button, a, .site-brand-mark) { transition: none !important; transform: none !important; }
 }
