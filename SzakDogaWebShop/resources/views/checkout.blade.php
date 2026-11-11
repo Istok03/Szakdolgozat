@@ -19,8 +19,8 @@
             <input type="tel" name="phone" id="phone" value="{{ old('phone') }}" maxlength="30" required>
         </div>
         <div class="form-group">
-            <label for="address">Vásárlói cím (házhoz szállításnál szállítási cím):</label>
-            <input type="text" name="address" id="address" value="{{ old('address') }}" maxlength="255" required>
+            <label for="address">Szállítási cím:</label>
+            <input type="text" name="address" id="address" value="{{ old('address') }}" maxlength="255">
         </div>
 
         <fieldset class="shipping-methods">
@@ -64,7 +64,7 @@
             </table>
 
             <div class="checkout-total">
-                <p>Termékek összege: {{ number_format($total, 0, ',', ' ') }} Ft</p>
+                <p>Termékek ára: {{ number_format($total, 0, ',', ' ') }} Ft</p>
                 <p>Szállítás: <span id="shipping-fee">{{ number_format($shippingMethods[$selectedShipping]['fee'], 0, ',', ' ') }}</span> Ft</p>
                 <strong aria-live="polite">Fizetendő: <span id="checkout-grand-total" data-subtotal="{{ $total }}">{{ number_format($total + $shippingMethods[$selectedShipping]['fee'], 0, ',', ' ') }}</span> Ft</strong>
             </div>
@@ -76,12 +76,45 @@
 
 <div class="payment-methods">
     <label>
-        <input type="radio" name="payment_method" value="cod" checked>
+        <input type="radio" name="payment_method" value="cod" @checked(old('payment_method', 'cod') !== 'demo_card')>
         Utánvét
+    </label>
+    <label>
+        <input type="radio" name="payment_method" value="demo_card" @checked(old('payment_method') === 'demo_card')>
+        Bankkártya – demófizetés (Visa / Mastercard)
     </label>
 </div>
 
-        <p>A kosárba helyezés még nem foglalja le a készletet. A készletet rendeléskor ellenőrizzük.</p>
+        <fieldset id="demo-card-fields" class="demo-card-panel" aria-describedby="demo-card-help">
+            <legend>Tesztkártya adatai</legend>
+            <p id="demo-card-help"><strong>Demófizetés: pénzlevonás nem történik.</strong> Kizárólag az alábbi tesztadatokat használd, valódi kártyaadatot ne adj meg!</p>
+            <details class="demo-card-guide" data-cy="payment-help">
+                <summary>Tesztkártyák és kitöltési segítség</summary>
+                <ul class="demo-card-examples">
+                    @foreach(\App\Services\DemoPaymentService::CARDS as $number => $testCard)
+                        <li>{{ $testCard['brand'] }} – {{ $testCard['approved'] ? 'sikeres' : 'elutasított' }}: <code>{{ chunk_split((string) $number, 4, ' ') }}</code></li>
+                    @endforeach
+                </ul>
+                <p>Lejárat: aktuális vagy későbbi hónap HH/ÉÉ formátumban.</p>
+                <p>CVC: bármely három számjegy, például 123.</p>
+                <p>Hiba esetén a kártyaadatokat újra meg kell adnod.</p>
+            </details>
+            <div class="form-group">
+                <label for="card_number">Kártyaszám</label>
+                <input id="card_number" name="card_number" type="text" inputmode="numeric" maxlength="23" autocomplete="off" placeholder="pl: 4242 4242 4242 4242" aria-describedby="demo-card-help">
+            </div>
+            <div class="demo-card-row">
+                <div class="form-group">
+                    <label for="card_expiry">Lejárat (HH/ÉÉ)</label>
+                    <input id="card_expiry" name="card_expiry" type="text" inputmode="numeric" maxlength="5" autocomplete="off" placeholder="pl: 12/30">
+                </div>
+                <div class="form-group">
+                    <label for="card_cvc">Teszt CVC</label>
+                    <input id="card_cvc" name="card_cvc" type="password" inputmode="numeric" maxlength="3" autocomplete="off" placeholder="pl: 123">
+                </div>
+            </div>
+        </fieldset>
+
         <p><a href="{{ route('cart.index') }}">Vissza a kosárhoz</a></p>
         <button type="submit" class="checkout-submit" @disabled(count($cart) === 0 || collect($cart)->contains(fn ($item) => $item['quantity'] > $item['stock']))>Rendelés leadása</button>
     </form>

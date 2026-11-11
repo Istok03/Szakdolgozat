@@ -6,6 +6,7 @@ use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
+use App\Services\DemoPaymentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
@@ -65,21 +66,31 @@ class OrderController extends Controller
         return view('checkout', compact('cart', 'total', 'shippingMethods', 'selectedShipping'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request, DemoPaymentService $payments)
     {
+        $card = $request->only(DemoPaymentService::FIELDS);
+        // Remove card input before any validation error can flash it to the session.
+        $request->replace($request->except(DemoPaymentService::FIELDS));
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:30',
-            'address' => 'required|string|max:255',
-            'payment_method' => 'required|in:cod',
+            'address' => 'exclude_if:shipping_method,pickup|required|string|max:255',
+            'payment_method' => 'required|in:cod,demo_card',
             'shipping_method' => ['required', Rule::in(array_keys(config('shipping.methods')))],
         ], [
+            'address.required' => 'Házhoz szállításnál add meg a szállítási címet.',
             'shipping_method.required' => 'Válassz szállítási módot.',
             'shipping_method.in' => 'A választott szállítási mód nem érhető el.',
         ]);
 
-        $order = DB::transaction(function () use ($request, $validated) {
+        $validated['address'] = $validated['address'] ?? null;
+        $payment = $validated['payment_method'] === 'demo_card'
+            ? $payments->simulate($card)
+            : ['payment_status' => 'pending'];
+        unset($card);
+
+        $order = DB::transaction(function () use ($request, $validated, $payment) {
             // Serialize submissions for this customer before reading the cart.
             User::whereKey($request->user()->id)->lockForUpdate()->firstOrFail();
             $items = CartItem::query()
@@ -103,7 +114,7 @@ class OrderController extends Controller
             }
 
             $shipping = config('shipping.methods.'.$validated['shipping_method']);
-            $order = Order::create($validated + [
+            $order = Order::create($validated + $payment + [
                 'user_id' => $request->user()->id,
                 'status' => 'pending',
                 'total' => round($items->sum(fn ($item) => $item->product->salePrice() * $item->quantity) + $shipping['fee'], 2),

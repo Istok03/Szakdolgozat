@@ -29,6 +29,35 @@ class InventoryShippingTest extends TestCase
         CartItem::create(['user_id' => $user->id, 'product_id' => $product->id, 'quantity' => $quantity]);
     }
 
+    public function test_pickup_accepts_missing_address_and_discards_unused_address(): void
+    {
+        $user = User::factory()->create();
+        $product = Product::factory()->create(['stock' => 5]);
+        $this->actingAs($user);
+        foreach ([null, 'Korábban megadott cím'] as $address) {
+            $this->cart($user, $product);
+            $data = $this->data(['shipping_method' => 'pickup']);
+            if ($address === null) unset($data['address']);
+            else $data['address'] = $address;
+            $this->post('/order/store', $data)->assertSessionHasNoErrors();
+            $order = Order::latest('id')->firstOrFail();
+            $this->assertNull($order->address);
+            $this->assertSame(config('shipping.pickup_address'), $order->pickup_address);
+            $this->assertEquals(0, $order->shipping_fee);
+        }
+    }
+
+    public function test_courier_requires_address_without_changing_cart_or_stock(): void
+    {
+        $user = User::factory()->create();
+        $product = Product::factory()->create(['stock' => 5]);
+        $this->cart($user, $product);
+        $this->actingAs($user)->post('/order/store', $this->data(['address' => '']))->assertSessionHasErrors('address');
+        $this->assertDatabaseCount('orders', 0);
+        $this->assertDatabaseCount('cart_items', 1);
+        $this->assertEquals(5, $product->fresh()->stock);
+    }
+
     public function test_guest_and_customer_carts_cannot_exceed_stock(): void
     {
         $product = Product::factory()->create(['stock' => 1]);

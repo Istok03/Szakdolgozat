@@ -14,7 +14,7 @@
                     <p><strong>Név:</strong> {{ $order->name }}</p>
                     <p><strong>Email:</strong> {{ $order->email }}</p>
                     <p><strong>Telefon:</strong> {{ $order->phone }}</p>
-                    <p><strong>Cím:</strong> {{ $order->address }}</p>
+                    @if($order->address)<p><strong>Cím:</strong> {{ $order->address }}</p>@endif
                 </div>
             </div>
         </div>
@@ -24,7 +24,8 @@
                 <div class="card-body">
                     <h5 class="card-title text-uppercase mb-3">Rendelés adatai</h5>
                     <p><strong>Státusz:</strong> <span class="badge-discount">{{ \App\Models\Order::STATUSES[$order->status] ?? $order->status }}</span></p>
-                    <p><strong>Fizetés:</strong> {{ $order->payment_method === 'cod' ? ($order->shipping_method === 'pickup' ? 'Helyszíni fizetés' : 'Utánvét') : 'Nincs rögzítve' }}</p>
+                    <p><strong>Fizetés:</strong> {{ $order->payment_method === 'demo_card' ? 'Bankkártya (demó)' : ($order->payment_method === 'cod' ? ($order->shipping_method === 'pickup' ? 'Helyszíni fizetés' : 'Utánvét') : 'Nincs rögzítve') }}</p>
+                    @include('orders.demo-payment')
                     <p><strong>Összeg:</strong> {{ number_format($order->total, 0, ',', ' ') }} Ft</p>
                     <p><strong>Szállítás:</strong> {{ $order->shipping_label ?? 'Nincs rögzítve' }}</p>
                     <p><strong>Szállítási díj:</strong> {{ number_format($order->shipping_fee, 0, ',', ' ') }} Ft</p>

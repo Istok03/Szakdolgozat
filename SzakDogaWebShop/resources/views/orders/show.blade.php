@@ -21,12 +21,13 @@
                 <dt>Azonosító</dt><dd>#{{ $order->id }}</dd>
                 <dt>Leadás időpontja</dt><dd>{{ $order->created_at->format('Y-m-d H:i') }}</dd>
                 <dt>Állapot</dt><dd><span class="order-status">{{ \App\Models\Order::STATUSES[$order->status] ?? 'Ismeretlen állapot' }}</span></dd>
-                <dt>Fizetési mód</dt><dd>{{ $order->payment_method === 'cod' ? ($order->shipping_method === 'pickup' ? 'Helyszíni fizetés' : 'Utánvét') : 'Nincs rögzítve' }}</dd>
+                <dt>Fizetési mód</dt><dd>{{ $order->payment_method === 'demo_card' ? 'Bankkártya (demó)' : ($order->payment_method === 'cod' ? ($order->shipping_method === 'pickup' ? 'Helyszíni fizetés' : 'Utánvét') : 'Nincs rögzítve') }}</dd>
                 <dt>Szállítási mód</dt><dd>{{ $order->shipping_label ?? 'Nincs rögzítve' }}</dd>
                 @if($order->pickup_address)
                     <dt>Átvételi cím</dt><dd>{{ $order->pickup_address }}</dd>
                 @endif
             </dl>
+            @include('orders.demo-payment')
             @if($confirmed && $order->payment_method === 'cod')
                 <p>A fizetés a csomag átvételekor történik.</p>
             @endif
@@ -37,7 +38,9 @@
                 <dt>Név</dt><dd>{{ $order->name ?: 'Nincs rögzítve' }}</dd>
                 <dt>E-mail-cím</dt><dd>{{ $order->email ?: 'Nincs rögzítve' }}</dd>
                 <dt>Telefonszám</dt><dd>{{ $order->phone ?: 'Nincs rögzítve' }}</dd>
-                <dt>{{ $order->shipping_method === 'pickup' ? 'Vásárlói cím' : 'Szállítási cím' }}</dt><dd>{{ $order->address ?: 'Nincs rögzítve' }}</dd>
+                @if($order->address)
+                    <dt>{{ $order->shipping_method === 'pickup' ? 'Vásárlói cím' : 'Szállítási cím' }}</dt><dd>{{ $order->address }}</dd>
+                @endif
             </dl>
         </section>
     </div>

@@ -80,7 +80,7 @@ class CustomerOrdersTest extends TestCase
         ])->assertSessionHasNoErrors();
         $order = Order::firstOrFail();
         $this->get(route('orders.confirmation', $order))->assertOk()->assertSee('Köszönjük a rendelésed!')
-            ->assertSee('1 800 Ft')->assertSee('Helyszíni fizetés')->assertSee('Eger, Teszt utca 1.');
+            ->assertSee('1800 Ft')->assertSee('Helyszíni fizetés')->assertSee(config('shipping.pickup_address'))->assertDontSee('Eger, Teszt utca 1.');
         $this->get(route('orders.confirmation', $order))->assertRedirect(route('orders.show', $order));
         $this->get(route('orders.show', $order))->assertOk()->assertDontSee('Köszönjük a rendelésed!');
         $this->assertDatabaseCount('orders', 1);

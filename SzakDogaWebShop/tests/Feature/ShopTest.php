@@ -186,7 +186,7 @@ class ShopTest extends TestCase
         $this->cartItem($user, $second);
         $otherItem = $this->cartItem(User::factory()->create(), $first);
 
-        $this->actingAs($user)->get('/checkout')->assertOk()->assertSee('Utánvét')->assertDontSee('card_number');
+        $this->actingAs($user)->get('/checkout')->assertOk()->assertSee('Utánvét')->assertSee('Bankkártya – demófizetés');
         $this->post('/order/store', $this->customerData(['total' => 1, 'user_id' => $otherItem->user_id]))
             ->assertRedirect(route('orders.confirmation', Order::firstOrFail()))->assertSessionHasNoErrors();
         $order = Order::firstOrFail();
