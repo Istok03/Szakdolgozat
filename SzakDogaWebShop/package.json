@@ -4,7 +4,11 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "pretest:ui": "npm run build",
+        "test:ui": "node tests/Browser/run.mjs",
+        "pretest:ui:open": "npm run build",
+        "test:ui:open": "node tests/Browser/run.mjs --open"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",
@@ -13,6 +17,7 @@
         "autoprefixer": "^10.4.2",
         "axios": "^1.11.0",
         "concurrently": "^9.0.1",
+        "cypress": "^16.3.0",
         "laravel-vite-plugin": "^2.0.0",
         "postcss": "^8.4.31",
         "sass": "^1.94.2",

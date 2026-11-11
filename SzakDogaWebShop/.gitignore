@@ -19,6 +19,10 @@
 /storage/*.key
 /storage/pail
 /vendor
+/cypress/screenshots
+/cypress/videos
+/cypress/downloads
+/storage/framework/cypress
 Homestead.json
 Homestead.yaml
 Thumbs.db
