@@ -4,7 +4,7 @@
 <div class="container">
     <h1 class="mb-4">Admin felület</h1>
 
-    <div class="row dashboard-cards">
+    <div class="row">
         <div class="col-md-4">
             <div class="card text-white bg-primary mb-3">
                 <div class="card-header">Termékek</div>
