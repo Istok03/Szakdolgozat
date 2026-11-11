@@ -1,3 +1,3 @@
 <footer class="footer">
-    <p>&copy; 2025 Istok's IT store. Minden jog fenntartva</p>
+    <p>&copy; 2027 Istok's IT garage. Minden jog fenntartva</p>
 </footer>
