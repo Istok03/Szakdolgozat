@@ -15,7 +15,7 @@
 
 <div class="login-container">
     <div class="logo-container">
-        @include('partials.brand', ['caption' => 'Informatikai webáruház'])
+        @include('partials.brand', ['caption' => 'Informatikai Garázsa'])
     </div>
 
     <x-auth-session-status class="mb-4" :status="session('status')" />
@@ -47,23 +47,22 @@
         </div>
 
         <div class="flex items-center justify-end mt-4">
+            <x-primary-button class="x-primary-button ms-3">
+                {{ __('Belépés') }}
+            </x-primary-button>
+
             @if (Route::has('password.request'))
                 <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-
                     {{ __('Elfelejtette jelszavát?') }}
                 </a>
             @endif
-
-            <x-primary-button class="x-primary-button ms-3">
-     {{ __('Belépés') }}
-</x-primary-button>
         </div>
     </form>
   </div>
 </div>
-<div class = "watermark">   
-    <p>&copy; 2025 Istok's IT store. Minden jog fenntartva.</p>
-    </div>
+<div class = "watermark">
+        @include('layouts.footer')
+</div>
 
 </body>
 </html>

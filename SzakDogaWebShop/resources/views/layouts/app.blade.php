@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
-    <title>{{ config('app.name', 'Istok\'s IT store') }}</title>
+
+    <title>{{ config('app.name', 'Istok\'s IT garage') }}</title>
     @isset($slot)
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @endisset
@@ -17,9 +17,9 @@
     <link rel="stylesheet" href="{{ asset('css/ui.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
-    
+
 <body class="storefront">
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+    <div class="storefront-shell min-h-screen bg-gray-100 dark:bg-gray-900">
         @include('layouts.navigation')
 
 @if(Request::is('products') || Request::is('offers'))
@@ -51,7 +51,7 @@
 @endif
 
 
-        
+
        @if(auth()->check() && auth()->user()->is_admin)
         <button id="sidebarToggle" class="sidebar-toggle">☰</button>
         @include('components.admin.sidebar')
@@ -77,6 +77,6 @@
 </div>
      </div>
 </body>
-   
-   
+
+
 </html>

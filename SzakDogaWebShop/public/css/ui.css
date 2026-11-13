@@ -1,4 +1,8 @@
 /* Shared storefront/admin branding and interactive states. */
+.storefront .storefront-shell { display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh; }
+.storefront .storefront-shell > main { flex: 1 0 auto; }
+.storefront .storefront-shell > .catalog-tools { width: 100%; }
+.storefront .storefront-shell > .watermark { flex-shrink: 0; }
 .storefront .stock-status { font-size: 14px; color: #365b42; margin: 8px 0; }
 .storefront .stock-warning { color: #992b47; font-size: 14px; }
 .storefront button:disabled { opacity: .55; cursor: not-allowed; box-shadow: none; }

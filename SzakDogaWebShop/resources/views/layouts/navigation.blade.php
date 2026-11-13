@@ -1,15 +1,15 @@
 <nav class="navbar">
     <div class="logo">
-        @include('partials.brand', ['caption' => 'Informatikai webáruház'])
+        @include('partials.brand', ['caption' => 'Informatikai Garázsa'])
     </div>
 
     <button type="button" class="menu-toggle" id="menuToggle" aria-label="Menü megnyitása" aria-controls="navLinks" aria-expanded="false">☰</button>
 
     <ul class="nav-links" id="navLinks">
         <li><a href="/">Főoldal</a></li>
-        <li><a href="/products">Termékek</a></li> 
+        <li><a href="/products">Termékek</a></li>
         <li><a href="/offers">Akciók</a></li>
-        <li><a href="/contact">Kapcsolat</a></li> 
+        <li><a href="/contact">Kapcsolat</a></li>
     </ul>
 
     <div class="auth-links">
@@ -23,8 +23,8 @@
                     <button type="submit" class="btn logout-button">Kilépés</button>
                 </form>
             @else
-                <a href="{{ route('login') }}" class="btn btn-outline-light me-2">Belépés</a>
-                <a href="{{ route('register') }}" class="btn btn-light">Regisztráció</a>
+                <a href="{{ route('login') }}" >Belépés</a>
+                <a href="{{ route('register') }}" >Regisztráció</a>
             @endauth
 
             <a href="{{ route('cart.index') }}">

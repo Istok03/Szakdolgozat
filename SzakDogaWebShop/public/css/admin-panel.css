@@ -31,9 +31,24 @@
 .admin-logout { border: 1px solid var(--admin-border); background: white; color: var(--admin-text); padding: 8px 16px; border-radius: 9px; cursor: pointer; }
 .admin-logout:hover { background: #f1ebfa; border-color: #b9a3d8; }
 .admin-nav { display: flex; gap: 8px; flex-wrap: wrap; padding-bottom: 14px; }
-.admin-nav-link { text-decoration: none; padding: 9px 18px; border-radius: 9px; font-weight: 600; }
-.admin-nav-link:hover { background: #f5f0fc; }
-.admin-nav-link.is-active { color: white; background: var(--admin-purple); }
+.admin-nav-link { position: relative; text-decoration: none; padding: 9px 18px; font-weight: 600; }
+.admin-nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0%;
+    height: 2px;
+    background-color: #6a5acd;
+    transition: width .3s ease-in-out;
+    pointer-events: none;
+}
+.admin-nav-link:hover::after,
+.admin-nav-link:focus-visible::after,
+.admin-nav-link.is-active::after { width: 100%; }
+@media (prefers-reduced-motion: reduce) {
+    .admin-nav-link::after { transition: none; }
+}
 .admin-content { width: min(1240px, 100%); min-height: calc(100vh - 235px); margin: auto; padding: 36px 32px 56px; }
 .admin-footer { text-align: center; padding: 20px; font-size: 13px; color: #eeeaff; }
 .admin-panel h1 { font-size: clamp(24px, 3vw, 32px); line-height: 1.25; margin: 0 0 28px; letter-spacing: -.025em; }

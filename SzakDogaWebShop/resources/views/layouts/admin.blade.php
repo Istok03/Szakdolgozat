@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Admin felület – Istók IT</title>
+    <title>Admin felület – Istók Informatikai Garázsa</title>
     <link href="{{ asset('css/admin-panel.css') }}" rel="stylesheet">
     <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
     <link href="{{ asset('css/ui.css') }}" rel="stylesheet">
@@ -39,7 +39,7 @@
                         : request()->routeIs('admin.'.$section.'.*');
                     $destination = $section === 'dashboard' ? 'admin.dashboard' : 'admin.'.$section.'.index';
                 @endphp
-                <a href="{{ route($destination) }}" class="admin-nav-link {{ $active ? 'is-active' : '' }}" @if($active) aria-current="page" @endif>{{ $label }}</a>
+                <a href="{{ route($destination) }}" class="admin-nav-link " @if($active) aria-current="page" @endif>{{ $label }}</a>
             @endforeach
         </nav>
     </header>
