@@ -32,6 +32,17 @@ class LoginRequest extends FormRequest
         ];
     }
 
+    public function messages(): array
+    {
+        return [
+            'email.required' => 'Add meg az e-mail-címed.',
+            'email.string' => 'Az e-mail-cím szöveg legyen.',
+            'email.email' => 'Adj meg egy érvényes e-mail-címet.',
+            'password.required' => 'Add meg a jelszavad.',
+            'password.string' => 'A jelszó szöveg legyen.',
+        ];
+    }
+
     /**
      * Attempt to authenticate the request's credentials.
      *
@@ -45,7 +56,7 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'email' => 'Hibás e-mail-cím vagy jelszó.',
             ]);
         }
 
@@ -68,10 +79,7 @@ class LoginRequest extends FormRequest
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'email' => trans('auth.throttle', [
-                'seconds' => $seconds,
-                'minutes' => ceil($seconds / 60),
-            ]),
+            'email' => "Túl sok bejelentkezési kísérlet. Próbáld újra {$seconds} másodperc múlva.",
         ]);
     }
 

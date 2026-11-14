@@ -51,4 +51,33 @@ class AuthenticationTest extends TestCase
         $this->assertGuest();
         $response->assertRedirect('/');
     }
+
+    public function test_login_validation_and_failed_credentials_are_hungarian(): void
+    {
+        $this->post('/login', [])->assertSessionHasErrors([
+            'email' => 'Add meg az e-mail-címed.', 'password' => 'Add meg a jelszavad.',
+        ]);
+        $this->post('/login', ['email' => 'invalid', 'password' => 'password'])->assertSessionHasErrors([
+            'email' => 'Adj meg egy érvényes e-mail-címet.',
+        ]);
+        $this->from('/login')->post('/login', ['email' => 'missing@example.com', 'password' => 'wrong'])->assertSessionHasErrors([
+            'email' => 'Hibás e-mail-cím vagy jelszó.',
+        ]);
+        $this->get('/login')->assertSee('Hibás e-mail-cím vagy jelszó.');
+        $this->assertGuest();
+    }
+
+    public function test_login_rate_limit_message_is_hungarian(): void
+    {
+        $key = 'limited@example.com|127.0.0.1';
+        \Illuminate\Support\Facades\RateLimiter::clear($key);
+        for ($i = 0; $i < 5; $i++) {
+            \Illuminate\Support\Facades\RateLimiter::hit($key, 60);
+        }
+        $this->post('/login', ['email' => 'limited@example.com', 'password' => 'wrong'])->assertSessionHasErrors('email');
+        $message = session('errors')->first('email');
+        $this->assertMatchesRegularExpression('/^Túl sok bejelentkezési kísérlet\. Próbáld újra \d+ másodperc múlva\.$/u', $message);
+        \Illuminate\Support\Facades\RateLimiter::clear($key);
+        $this->assertGuest();
+    }
 }

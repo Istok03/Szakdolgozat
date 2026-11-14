@@ -16,7 +16,7 @@
         @include('partials.brand', ['caption' => 'Informatikai Garázsa'])
     </div>
 
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" action="{{ route('register') }}" novalidate>
         @csrf
 
         <div>
@@ -26,7 +26,7 @@
         </div>
 
         <div class="mt-4">
-            <x-input-label for="email" :value="__('Email cím')" />
+            <x-input-label for="email" :value="__('E-mail-cím')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
