@@ -94,7 +94,7 @@ php artisan config:clear
 
 Hozd létre a `szakdogawebshop` adatbázist például phpMyAdminban, UTF-8 karakterkészlettel, majd válaszd a megfelelő lehetőséget:
 
-- **Új, üres telepítés:** futtasd az alábbi migrációt. A táblák létrejönnek, a katalógust később az adminfelületen töltheted fel.
+- **Új, üres telepítés bemutatóhoz:** futtasd a migrációt, majd a `php artisan db:seed` parancsot. Ez 1 adminfiókot, 1 vásárlói fiókot és 5 kategóriában összesen 25 terméket hoz létre.
 - **Meglévő bemutatóadatok használata:** előbb importáld a külön átadott SQL-mentést, utána futtasd az alábbi migrációt a még hiányzó sémaváltozások alkalmazásához.
 
 ```bash
@@ -103,7 +103,19 @@ php artisan migrate
 
 A GitHubról letöltött forráskód önmagában nem másolja át a helyi MySQL-adatokat. A teljes bemutatókatalógushoz külön adatbázis-export szükséges; a hozzá tartozó képfájloknak is rendelkezésre kell állniuk a `public/images/products` mappában.
 
-**Meglévő vagy importált adatbázison ne futtasd a `php artisan migrate:fresh` parancsot, mert törli a táblákat és az adatokat.** A projekt seederei korábbi mintaadatokat tartalmaznak, nem a teljes, kézzel összeállított bemutatókatalógust, ezért futtatásuk nem része a fenti telepítésnek.
+Új, üres adatbázis bemutatóadatokkal egy lépésben is előkészíthető:
+
+```bash
+php artisan migrate --seed
+```
+
+A seeder 5–5 terméket hoz létre a Laptopok, Egerek, Billentyűzetek, Monitorok és Fejhallgatók kategóriában. Minden termékhez magyar leírás, bemutatóár, pozitív készlet és termékfotó tartozik. A laptopok között MacBook és ASUS modellek is szerepelnek. Kategóriánként egy termék akciós. A seeder a `public/images/products` meglévő PNG-képeiből készít termékenként külön másolatot, internetes letöltés és SVG-helykitöltők nélkül; ennek a mappának írhatónak kell lennie. Öt monitorhoz három különböző monitorfotó szolgál illusztrációként.
+
+A korábbi seeder által létrehozott SVG-s mintatermékeket a `php artisan db:seed --class=ProductSeeder` parancs képes fotós változatra frissíteni. Az érintett laptopok neve is frissül; az árak, készletek és rendelési kapcsolatok megmaradnak. A már saját fotóval ellátott termékek képét nem írja felül. A lecserélt, több termék által nem használt generált SVG-ket eltávolítja.
+
+Az ismételt futtatás nem duplázza a meglévő nevű termékeket és kategóriákat, illetve e-mail-című fiókokat. A már létező adatok, jelszavak, árak és készletek nem íródnak felül. A pontos 2 fiók / 5 kategória / 25 termék üres adatbázisra vonatkozik; meglévő adatbázison a korábbi adatok megmaradnak. A bemutatótermékek neve az újrafuttatáskor azonosítóként szolgál, ezért egy átnevezett mintatermék eredeti változata újra létrejöhet.
+
+**Meglévő vagy importált adatbázison ne futtasd a `php artisan migrate:fresh` parancsot, mert törli a táblákat és az adatokat.** A teljes, kézzel összeállított katalógushoz továbbra is külön SQL-mentés használható; a seeder önállóan kipróbálható, kisebb mintakatalógust biztosít.
 
 ### 4. Indítás
 
@@ -120,7 +132,18 @@ Ha Windows alatt a `php` parancs nem található, add a PHP könyvtárát a PATH
 
 ## Adminisztrátori hozzáférés
 
-Nincs szükség előre megadott, közös adminjelszóra. Regisztrálj saját felhasználót, majd a helyi adatbázisban a hozzá tartozó `users.is_admin` mezőt állítsd `1` értékre.
+A `php artisan db:seed` futtatása után új telepítésen a következő helyi bemutatófiókokkal lehet belépni:
+
+| Jogosultság | E-mail-cím | Jelszó |
+| --- | --- | --- |
+| Adminisztrátor | `admin@example.com` | `admin123` |
+| Vásárló | `vasarlo@example.com` | `vasarlo123` |
+
+Ezek nyilvános tesztadatok, kizárólag helyi bemutatóhoz valók. Meglévő, azonos e-mail-című fiók jelszavát és jogosultságát a seeder nem változtatja meg.
+
+A vásárlói fiókkal válassz terméket, helyezd kosárba, majd adj le rendelést. Kijelentkezés után az adminfiókkal az `/admin/orders` oldalon megtekinthető és kezelhető a rendelés. A rendszer induláskor nem generál véletlenszerű rendeléseket vagy további felhasználókat.
+
+Saját adminfiók létrehozásához regisztrálj egy felhasználót, majd a helyi adatbázisban a hozzá tartozó `users.is_admin` mezőt állítsd `1` értékre.
 
 Ez phpMyAdminban vagy Tinkerben is megtehető:
 
@@ -199,7 +222,7 @@ SzakDogaWebShop/
 ├── app/Services/           Kosár-, rendelési és demófizetési logika
 ├── config/                Alkalmazás- és szállítási beállítások
 ├── database/migrations/   Az adatbázis szerkezetének változásai
-├── database/seeders/      Korábbi mintaadatok
+├── database/seeders/      Bemutatófiókok és 25 termékből álló mintakatalógus
 ├── public/                Képek, CSS- és JavaScript-fájlok
 ├── resources/views/       Blade-nézetek
 ├── routes/                Webes útvonalak
